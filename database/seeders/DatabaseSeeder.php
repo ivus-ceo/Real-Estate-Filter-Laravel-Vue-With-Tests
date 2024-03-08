@@ -12,16 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Option / Feature
-        // Room
-        // Building
-        // Developer
-        // Metro
-        // District
-        // Road / Street
-        // City
-        // Country
-
          \App\Models\User::factory()->create([
              'name' => 'Test User',
              'email' => 'test@example.com',
