@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\{Country, User};
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,10 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'test@example.com',
-             'password' => '1234567890'
-         ]);
+        $this->createUsers();
+        $this->createCountries();
+    }
+
+    private function createUsers(): void
+    {
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => '1234567890'
+        ]);
+    }
+
+    private function createCountries(): void
+    {
+        $countries = config('countries');
+
+        foreach ($countries as $country => $config)
+        {
+            Country::factory()->create([
+                'name' => $country
+            ]);
+        }
     }
 }

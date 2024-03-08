@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Region extends Model
 {
@@ -11,5 +12,11 @@ class Region extends Model
 
     protected $fillable = [
         'name',
+        'country_id'
     ];
+
+    protected function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

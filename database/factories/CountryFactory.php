@@ -10,7 +10,7 @@ class CountryFactory extends Factory
 {
     protected $model = Country::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'created_at' => Carbon::now(),
