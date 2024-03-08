@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Building;
 use App\Http\Requests\BuildingRequest;
 use App\Http\Resources\BuildingResource;
+use App\Models\Building;
 
 class BuildingController extends Controller
 {

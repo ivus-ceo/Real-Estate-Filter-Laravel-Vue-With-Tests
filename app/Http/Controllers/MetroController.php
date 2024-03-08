@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MetroRequest;
 use App\Http\Resources\MetroResource;
-use App\Metro;
+use App\Models\Metro;
 
 class MetroController extends Controller
 {

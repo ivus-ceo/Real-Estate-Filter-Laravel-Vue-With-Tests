@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\District */
+/** @mixin \App\Models\District */
 class DistrictResource extends JsonResource
 {
     public function toArray(Request $request)

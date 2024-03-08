@@ -1,7 +1,7 @@
 <?php
 
-use App\Developer;
-use App\Street;
+use App\Models\Developer;
+use App\Models\Street;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

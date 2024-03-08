@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Street */
+/** @mixin \App\Models\Street */
 class StreetResource extends JsonResource
 {
     public function toArray(Request $request)

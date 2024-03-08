@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\District;
 use App\Http\Requests\DistrictRequest;
 use App\Http\Resources\DistrictResource;
+use App\Models\District;
 
 class DistrictController extends Controller
 {

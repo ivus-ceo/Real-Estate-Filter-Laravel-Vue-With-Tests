@@ -1,15 +1,20 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Street extends Model
+class Floor extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
     ];
+
+    protected function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 }

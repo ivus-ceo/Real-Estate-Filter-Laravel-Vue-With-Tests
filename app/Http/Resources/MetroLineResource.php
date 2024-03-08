@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\MetroLine */
+/** @mixin \App\Models\MetroLine */
 class MetroLineResource extends JsonResource
 {
     public function toArray(Request $request)

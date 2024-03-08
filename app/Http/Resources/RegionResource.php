@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Region */
+/** @mixin \App\Models\Region */
 class RegionResource extends JsonResource
 {
     public function toArray(Request $request)

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Building;
+use App\Models\Building;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

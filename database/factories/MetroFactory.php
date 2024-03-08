@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Metro;
+use App\Models\Metro;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StreetRequest;
 use App\Http\Resources\StreetResource;
-use App\Street;
+use App\Models\Street;
 
 class StreetController extends Controller
 {

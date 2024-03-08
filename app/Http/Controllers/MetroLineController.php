@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MetroLineRequest;
 use App\Http\Resources\MetroLineResource;
-use App\MetroLine;
+use App\Models\MetroLine;
 
 class MetroLineController extends Controller
 {

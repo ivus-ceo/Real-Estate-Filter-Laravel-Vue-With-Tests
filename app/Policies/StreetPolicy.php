@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Street;
 use App\Models\User;
-use App\Street;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StreetPolicy

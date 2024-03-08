@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Floor;
+use App\Models\Floor;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

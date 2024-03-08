@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\MetroStation;
+use App\Models\MetroStation;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

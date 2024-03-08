@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Floor */
+/** @mixin \App\Models\Floor */
 class FloorResource extends JsonResource
 {
     public function toArray(Request $request)

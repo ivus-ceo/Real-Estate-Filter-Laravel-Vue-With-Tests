@@ -1,7 +1,7 @@
 <?php
 
-use App\Building;
-use App\Floor;
+use App\Models\Building;
+use App\Models\Floor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

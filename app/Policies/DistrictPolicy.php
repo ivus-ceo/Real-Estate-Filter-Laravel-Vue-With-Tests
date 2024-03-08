@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\District;
+use App\Models\District;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Street;
+use App\Models\Street;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 

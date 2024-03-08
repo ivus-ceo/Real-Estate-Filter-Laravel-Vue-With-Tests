@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\City;
 use App\Http\Requests\CityRequest;
 use App\Http\Resources\CityResource;
+use App\Models\City;
 
 class CityController extends Controller
 {

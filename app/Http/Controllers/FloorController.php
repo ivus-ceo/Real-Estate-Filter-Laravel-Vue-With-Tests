@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Floor;
 use App\Http\Requests\FloorRequest;
 use App\Http\Resources\FloorResource;
+use App\Models\Floor;
 
 class FloorController extends Controller
 {

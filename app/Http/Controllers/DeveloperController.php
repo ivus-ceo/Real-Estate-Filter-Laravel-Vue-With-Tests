@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Developer;
 use App\Http\Requests\DeveloperRequest;
 use App\Http\Resources\DeveloperResource;
+use App\Models\Developer;
 
 class DeveloperController extends Controller
 {
