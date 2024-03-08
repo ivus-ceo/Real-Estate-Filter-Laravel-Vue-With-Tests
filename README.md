@@ -14,3 +14,10 @@ The application allows users to search for properties based on various criteria 
 It provides a seamless user experience with responsive design and smooth interactions. 
 The backend is powered by Laravel, providing robust API endpoints for data retrieval and manipulation, while the frontend utilizes Vue.js for dynamic and interactive UI components. 
 The inclusion of tests ensures code reliability and maintainability throughout the development lifecycle. This project serves as a valuable resource and learning tool.
+
+### Features
+- Advanced property filtering options
+- Responsive design for seamless user experience across devices
+- Laravel backend for efficient data management and API endpoints
+- Vue.js frontend for dynamic and interactive UI components
+- Comprehensive test coverage for enhanced code reliability and maintainability
