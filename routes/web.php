@@ -17,7 +17,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     $countries = \App\Models\Country::get();
     $regions = \App\Models\Region::get();
-    dd($regions);
+    $cities = \App\Models\City::get();
 
 //    return Inertia::render('Welcome', [
 //        'canLogin' => Route::has('login'),

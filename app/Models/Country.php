@@ -11,6 +11,8 @@ class Country extends Model
         'name',
         'code',
         'continent',
+        'latitude',
+        'longitude',
     ];
 
     public function regions(): HasMany

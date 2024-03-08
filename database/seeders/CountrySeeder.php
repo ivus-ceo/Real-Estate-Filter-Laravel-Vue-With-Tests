@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Helpers\Country\CountryHelper;
+use App\Helpers\Files\FileHelper;
 use App\Models\Country;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,12 +16,14 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (CountryHelper::getCollection() as $country)
+        foreach (FileHelper::getCountries() as $country)
         {
             Country::create([
                 'name' => $country['name'],
                 'code' => $country['code'],
-                'continent' => $country['continent']
+                'continent' => $country['continent'],
+                'latitude' => $country['latitude'],
+                'longitude' => $country['longitude'],
             ]);
         }
     }

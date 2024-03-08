@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Helpers\Country\CountryHelper;
+use App\Helpers\Files\FileHelper;
 use App\Models\Country;
 use App\Models\Region;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,20 +17,15 @@ class RegionSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (CountryHelper::getCollection() as $country)
+        foreach (FileHelper::getRegions() as $region)
         {
-            $json = File::get(public_path('regions/' . Str::kebab($country['name']) . '.json'));
-            $regions = json_decode($json, true);
-
-            foreach ($regions as $region)
-            {
-                Region::create([
-                    'name' => $region['name'],
-                    'code' => $region['code'],
-                    'subdivision' => $region['subdivision'] ?? null,
-                    'country_id' => Country::where(['name' => $country['name']])->get()->random()->id
-                ]);
-            }
+            Region::create([
+                'name' => $region['name'],
+                'code' => $region['state_code'],
+                'latitude' => $region['latitude'],
+                'longitude' => $region['longitude'],
+                'country_id' => Country::where(['name' => $region['country']])->first()->id
+            ]);
         }
     }
 }
