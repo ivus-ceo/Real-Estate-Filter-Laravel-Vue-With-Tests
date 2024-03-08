@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Region extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
-        'country_id'
+        'code',
+        'subdivision',
+        'country_id',
     ];
 
-    protected function country(): BelongsTo
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
     }

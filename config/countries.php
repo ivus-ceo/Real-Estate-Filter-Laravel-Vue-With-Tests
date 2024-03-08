@@ -1,9 +1,12 @@
 <?php
 
 return [
-    'usa' => [],
-    'russia' => [],
-    'oae' => [],
-    'uk' => [],
-    'turkey' => []
+    'australia' => [],
+    'canada' => [],
+    'kazakhstan' => [],
+    'russian-federation' => [],
+    'turkey' => [],
+    'united-arab-emirates' => [],
+    'united-kingdom' => [],
+    'united-states' => [],
 ];

@@ -11,7 +11,9 @@ return new class extends Migration {
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(Country::class);
+            $table->string('code')->unique();
+            $table->string('subdivision')->nullable();
+            $table->foreignIdFor(Country::class)->nullable();
             $table->timestamps();
         });
     }
