@@ -16,7 +16,7 @@ class DistrictSeeder extends Seeder
     {
         City::all()->each(function (City $city) {
             $city->districts()->createMany(
-                District::factory(4)->make()->toArray()
+                District::factory(rand(1, 5))->make()->toArray()
             );
         });
     }

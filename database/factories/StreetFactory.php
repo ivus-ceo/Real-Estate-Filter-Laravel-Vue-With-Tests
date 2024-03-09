@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\{District};
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\District>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Street>
  */
-class DistrictFactory extends Factory
+class StreetFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,8 @@ class DistrictFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->streetName,
+            'district_id' => District::all()->random()->id
         ];
     }
 }
