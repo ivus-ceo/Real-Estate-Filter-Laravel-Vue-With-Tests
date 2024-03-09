@@ -23,7 +23,7 @@ class CitySeeder extends Seeder
                 'name' => $city['name'],
                 'latitude' => $city['latitude'],
                 'longitude' => $city['longitude'],
-                'region_id' => Region::where(['name' => $city['region']])->first()->id,
+                'region_id' => Region::where(['name' => $city['region']])->first()->id ?? null,
             ]);
         }
     }

@@ -47,8 +47,8 @@ class FileHelper
                     $data['cities'][$i]['region'] = $region;
                 }
 
-                // Limit cities by 3 in each region
-                return collect($data['cities'])->random(fn (Collection $items) => min(3, count($items)));
+                // Limit cities by 1 in each region
+                return collect($data['cities'])->random(fn (Collection $items) => min(1, count($items)));
             })
             ->flatten(1);
     }
