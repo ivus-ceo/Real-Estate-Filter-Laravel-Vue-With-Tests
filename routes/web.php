@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\{HomeController};
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +14,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    $regions = \App\Models\City::get();
-    dd($regions[4]->locations);
-//    return Inertia::render('Welcome', [
-//        'canLogin' => Route::has('login'),
-//        'canRegister' => Route::has('register'),
-//    ]);
-});
+Route::get('/', [HomeController::class, 'index'])->name('public.home.index');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/dashboard.php';
