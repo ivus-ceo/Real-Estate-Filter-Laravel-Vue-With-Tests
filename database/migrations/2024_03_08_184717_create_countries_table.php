@@ -11,8 +11,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->string('code')->unique();
-            $table->float('latitude');
-            $table->float('longitude');
             $table->string('continent');
             $table->timestamps();
         });

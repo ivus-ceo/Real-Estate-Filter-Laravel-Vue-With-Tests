@@ -19,12 +19,15 @@ class RegionSeeder extends Seeder
     {
         foreach (FileHelper::getRegions() as $region)
         {
-            Region::create([
+            $model = Region::create([
                 'name' => $region['name'],
                 'code' => $region['state_code'],
+                'country_id' => Country::where(['name' => $region['country']])->first()->id
+            ]);
+
+            $model->location()->create([
                 'latitude' => $region['latitude'],
                 'longitude' => $region['longitude'],
-                'country_id' => Country::where(['name' => $region['country']])->first()->id
             ]);
         }
     }

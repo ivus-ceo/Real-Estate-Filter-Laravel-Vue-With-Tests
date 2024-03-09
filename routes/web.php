@@ -15,10 +15,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    $cities = \App\Models\City::get();
-    $districts = \App\Models\District::get();
-    $buildings = \App\Models\Building::get();
-    $rooms = \App\Models\Room::get();
+    $regions = \App\Models\City::get();
+    dd($regions[4]->locations);
 //    return Inertia::render('Welcome', [
 //        'canLogin' => Route::has('login'),
 //        'canRegister' => Route::has('register'),

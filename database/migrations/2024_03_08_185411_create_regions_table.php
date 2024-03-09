@@ -12,8 +12,6 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
             $table->foreignIdFor(Country::class)->nullable();
             $table->timestamps();
         });

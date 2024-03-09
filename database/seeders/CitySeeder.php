@@ -19,11 +19,16 @@ class CitySeeder extends Seeder
     {
         foreach (FileHelper::getCities() as $city)
         {
-            City::create([
+            $regionId = Region::where(['name' => $city['region']])->first()->id ?? null;
+
+            $model = City::create([
                 'name' => $city['name'],
+                'region_id' => $regionId,
+            ]);
+
+            $model->location()->create([
                 'latitude' => $city['latitude'],
                 'longitude' => $city['longitude'],
-                'region_id' => Region::where(['name' => $city['region']])->first()->id ?? null,
             ]);
         }
     }

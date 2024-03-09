@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\{District};
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Street>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\District>
  */
-class StreetFactory extends Factory
+class DeveloperFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,7 @@ class StreetFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->streetName,
+            'name' => $this->faker->unique()->words(3, true),
         ];
     }
 }

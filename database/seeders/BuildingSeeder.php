@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Building, District};
+use App\Helpers\Coordinates\CoordinateHelper;
+use App\Models\{Building, Developer, District, Street};
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,10 +14,30 @@ class BuildingSeeder extends Seeder
      */
     public function run(): void
     {
-        District::all()->each(function (District $district) {
-            $district->buildings()->createMany(
-                Building::factory(rand(1, 5))->make()->toArray()
-            );
+        Street::all()->each(function (Street $street) {
+            $buildings = Building::factory(rand(1, 5))->make()->toArray();
+            $location = $street->district->city->location;
+
+            foreach ($buildings as $i => $building)
+            {
+                $buildings[$i]['district_id'] = $street->district_id;
+                $buildings[$i]['developer_id'] = Developer::get()->random()->id;
+            }
+
+            $models = $street->buildings()->createMany($buildings);
+
+            foreach ($models as $model)
+            {
+                $points = CoordinateHelper::getRandomPointsWithinRadius([
+                    $location->latitude,
+                    $location->longitude,
+                ], 5);
+
+                $model->locations()->create([
+                    'latitude' => $points[0],
+                    'longitude' => $points[1],
+                ]);
+            }
         });
     }
 }

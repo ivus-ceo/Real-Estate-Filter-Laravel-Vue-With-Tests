@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Helpers\Files\FileHelper;
 use App\Models\Country;
+use App\Models\Location;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
@@ -18,10 +19,13 @@ class CountrySeeder extends Seeder
     {
         foreach (FileHelper::getCountries() as $country)
         {
-            Country::create([
+            $model = Country::create([
                 'name' => $country['name'],
                 'code' => $country['code'],
                 'continent' => $country['continent'],
+            ]);
+
+            $model->location()->create([
                 'latitude' => $country['latitude'],
                 'longitude' => $country['longitude'],
             ]);

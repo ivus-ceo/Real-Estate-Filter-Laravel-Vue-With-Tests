@@ -13,8 +13,6 @@ return new class extends Migration {
         Schema::create('buildings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('latitude');
-            $table->float('longitude');
             $table->foreignIdFor(Street::class);
             $table->foreignIdFor(Developer::class);
             $table->foreignIdFor(District::class);

@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Region extends Model
 {
     protected $fillable = [
         'name',
         'code',
-        'latitude',
-        'longitude',
         'country_id',
     ];
 
@@ -24,5 +23,10 @@ class Region extends Model
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
+    }
+
+    public function location(): MorphOne
+    {
+        return $this->morphOne(Location::class, 'locationable');
     }
 }
