@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Helpers\Files\FileHelper;
+use App\Services\Files\FileService;
 use App\Models\City;
 use App\Models\Region;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +17,7 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (FileHelper::getCities() as $city)
+        foreach (FileService::getCities() as $city)
         {
             $regionId = Region::where(['name' => $city['region']])->first()->id ?? null;
 

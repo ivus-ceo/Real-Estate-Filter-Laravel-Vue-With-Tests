@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Helpers\Files\FileHelper;
+use App\Services\Files\FileService;
 use App\Models\Country;
 use App\Models\Location;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +17,7 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (FileHelper::getCountries() as $country)
+        foreach (FileService::getCountries() as $country)
         {
             $model = Country::create([
                 'name' => $country['name'],

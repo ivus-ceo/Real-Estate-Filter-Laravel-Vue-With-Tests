@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Helpers\Files\FileHelper;
+use App\Services\Files\FileService;
 use App\Models\Country;
 use App\Models\Region;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +17,7 @@ class RegionSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (FileHelper::getRegions() as $region)
+        foreach (FileService::getRegions() as $region)
         {
             $model = Region::create([
                 'name' => $region['name'],

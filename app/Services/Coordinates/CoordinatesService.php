@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Helpers\Coordinates;
+namespace App\Services\Coordinates;
 
-class CoordinateHelper
+class CoordinatesService
 {
     public static function getRandomPointsWithinRadius(array $centre, int $radius): array
     {
@@ -25,7 +25,7 @@ class CoordinateHelper
         $y1 = cos($lat_rads) * cos($lng_rads);
         $z1 = sin($lat_rads);
 
-        //Rotate that sphere so that the north pole is now at $centre.
+        //Rotate that sphere so that the North Pole is now at $centre.
 
         //Rotate in x axis by $rot = (pi()/2) - $centre_rads[0];
         $rot = (pi() / 2) - $centre_rads[0];

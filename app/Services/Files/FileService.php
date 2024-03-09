@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Helpers\Files;
+namespace App\Services\Files;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
-class FileHelper
+class FileService
 {
     public static function getCountries(): Collection
     {

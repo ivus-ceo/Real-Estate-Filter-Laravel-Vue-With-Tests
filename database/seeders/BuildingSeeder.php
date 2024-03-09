@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Helpers\Coordinates\CoordinateHelper;
+use App\Services\Coordinates\CoordinatesService;
 use App\Models\{Building, Developer, District, Street};
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,7 +28,7 @@ class BuildingSeeder extends Seeder
 
             foreach ($models as $model)
             {
-                $points = CoordinateHelper::getRandomPointsWithinRadius([
+                $points = CoordinatesService::getRandomPointsWithinRadius([
                     $location->latitude,
                     $location->longitude,
                 ], 5);
