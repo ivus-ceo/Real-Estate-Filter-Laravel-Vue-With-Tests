@@ -1,9 +1,11 @@
 <template>
-    <div class="container">
+    <div class="relative">
         <Head
             :title="title"
             :description="description"
         />
+
+        <slot/>
     </div>
 </template>
 
