@@ -13,6 +13,8 @@ class Building extends Model
 
     protected $fillable = [
         'name',
+        'latitude',
+        'longitude',
         'street_id',
         'developer_id',
         'district_id',
@@ -30,7 +32,7 @@ class Building extends Model
 
     public function district(): BelongsTo
     {
-        return $this->belongsTo(Developer::class);
+        return $this->belongsTo(District::class);
     }
 
     public function floors(): HasMany

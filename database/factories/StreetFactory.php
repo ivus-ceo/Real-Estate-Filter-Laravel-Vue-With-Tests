@@ -18,7 +18,7 @@ class StreetFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->streetName,
+            'name' => $this->faker->unique()->streetName,
             'district_id' => District::all()->random()->id
         ];
     }

@@ -13,12 +13,12 @@ class FileHelper
             ->transform(function (array $data) {
                 $data['code'] = $data['iso2'];
                 $data['continent'] = $data['region'];
-                unset(
-                    $data['id'], $data['iso3'], $data['iso2'], $data['tld'],
-                    $data['emoji'], $data['emojiU'], $data['nationality'], $data['native'],
-                    $data['translations'], $data['timezones'],
-                );
+                unset($data['iso3'], $data['iso2'], $data['region']);
                 return $data;
+            })
+            ->filter(function (array $data) {
+                // Filter unwanted countries
+                return in_array(\Str::kebab($data['name']), array_keys(config('countries')));
             });
     }
 
@@ -47,8 +47,8 @@ class FileHelper
                     $data['cities'][$i]['region'] = $region;
                 }
 
-                // Limit cities by 1 in each region
-                return collect($data['cities'])->random(fn (Collection $items) => min(1, count($items)));
+                // Limit cities by 3 in each region
+                return collect($data['cities'])->random(fn (Collection $items) => min(3, count($items)));
             })
             ->flatten(1);
     }
