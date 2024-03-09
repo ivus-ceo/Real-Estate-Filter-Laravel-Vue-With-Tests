@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DistrictSeeder::class);
         $this->call(StreetSeeder::class);
         $this->call(BuildingSeeder::class);
+        $this->call(FloorSeeder::class);
+        $this->call(RoomSeeder::class);
     }
 }

@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('floors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->integer('number');
             $table->foreignIdFor(Building::class);
             $table->timestamps();
         });

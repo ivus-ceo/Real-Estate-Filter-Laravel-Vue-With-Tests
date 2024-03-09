@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Room extends Model
 {
@@ -11,14 +12,16 @@ class Room extends Model
 
     protected $fillable = [
         'name',
+        'floor_id',
+        'building_id',
     ];
 
-    protected function floor()
+    public function floor(): BelongsTo
     {
         return $this->belongsTo(Floor::class);
     }
 
-    protected function building()
+    public function building(): BelongsTo
     {
         return $this->belongsTo(Building::class);
     }
