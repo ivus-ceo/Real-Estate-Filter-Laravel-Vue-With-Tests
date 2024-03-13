@@ -1,25 +1,29 @@
 <template>
     <div class="flex">
-<!--        <div-->
-<!--            v-for=""-->
-<!--            :key=""-->
-<!--        >-->
+        <div
+            v-for="(dealType, key) in dealTypes"
+            :key="key"
+        >
             <input
-                id="filter-deal-type"
+                :id="`filter-${dealType}`"
                 type="checkbox"
                 name="deal_type"
             >
             <label
-                for=""
+                :for="`filter-${dealType}`"
             >
-                For Sale
+                {{ useLang(`base.deal_types.${dealType}`) }}
             </label>
-<!--        </div>-->
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const dealTypes = []
+import { usePage } from "@inertiajs/vue3";
+import useLang from "@/Composables/useLang";
+
+const page = usePage()
+const dealTypes = page.props['filter_component']['deal_types']
 </script>
 
 <style scoped>

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
@@ -32,13 +33,44 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'auth' => [
-                'user' => $request->user(),
-            ],
-            'ziggy' => fn () => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
-            ],
+            'auth' => $this->getAuth($request),
+            'ziggy' => fn () => $this->getZiggy($request),
+            'lang' => fn () => $this->getTranslations(),
         ];
+    }
+
+    private function getAuth(Request $request): array
+    {
+        return [
+            'user' => $request->user(),
+        ];
+    }
+
+    private function getZiggy(Request $request): array
+    {
+        return [
+            ...(new Ziggy)->toArray(),
+            'location' => $request->url(),
+        ];
+    }
+
+    private function getTranslations(): array
+    {
+        $storage = Storage::disk('languages');
+        $directories = $storage->directories();
+        foreach ($directories as $directory) {
+            $translations = [];
+            $files = $storage->allFiles($directory);
+
+            foreach ($files as $file) {
+                $fileName = str_replace('.php', '', basename($file));
+                $fileContent = require $storage->path($file);
+                $translations[$fileName] = $fileContent;
+            }
+
+            return $translations;
+        }
+
+        return [];
     }
 }

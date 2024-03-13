@@ -1,7 +1,6 @@
 <template>
     <form
-        @submit.prevent="form.post(route('api.filter.rooms'))"
-        :action="route('api.filter.rooms')"
+        @submit.prevent="form.get(route('api.filter.rooms'))"
     >
         <FilterDealTypes/>
     </form>
