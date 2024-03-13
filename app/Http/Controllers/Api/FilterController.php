@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\FilterRoomsRequest;
+use App\DTOs\{Filters\FilterRoomDTO};
+use App\Http\Controllers\Controller;
 use App\Http\Resources\RoomResource;
 use App\Services\Filters\FilterService;
 use Illuminate\Http\{Request};
-use App\Http\Controllers\Controller;
 
 class FilterController extends Controller
 {
-    public function rooms(FilterRoomsRequest $request): RoomResource
+    public function rooms(Request $request)
     {
-        $data = $request->validated();
-        $filter = new FilterService(
-            dealType: $data['dealType'],
-        );
-        return new RoomResource(null);
+        $filterRoomDTO = FilterRoomDTO::fromRequest($request);
+        $filter = new FilterService($filterRoomDTO);
+        return new RoomResource($filter->getPaginatedData());
     }
 }

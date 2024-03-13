@@ -2,30 +2,22 @@
 
 namespace App\Services\Filters;
 
+use App\DTOs\Filters\FilterDTO;
 use App\Models\Room;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FilterService
 {
-    public const DEAL_TYPES = ['sale','rent'];
-
     private Builder $builder;
 
-    public function __construct(
-        private string $dealType
-    )
+    public function __construct(FilterDTO $filterDTO)
     {
         $this->builder = Room::query();
     }
 
-    public function getDealType(): string
+    public function getPaginatedData(): LengthAwarePaginator
     {
-        return $this->dealType;
-    }
-
-    public function getRooms(): Collection
-    {
-        return collect();
+        return $this->builder->paginate(10);
     }
 }

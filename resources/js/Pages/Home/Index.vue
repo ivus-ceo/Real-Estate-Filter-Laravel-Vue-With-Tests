@@ -3,7 +3,7 @@
         title="Real Estate Filter 🏠"
         description="Search for properties based on various criteria such as location, price range, amenities, and more."
     >
-        Home
+        <Filter/>
     </Page>
 </template>
 
@@ -11,6 +11,7 @@
 import { Link } from '@inertiajs/vue3';
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 import Page from "@/Components/Pages/Page.vue";
+import Filter from "@/Components/Filter/Filter.vue";
 
 defineProps<{
     canLogin?: boolean;

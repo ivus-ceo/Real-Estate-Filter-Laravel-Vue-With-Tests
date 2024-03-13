@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/filter/realties', [FilterController::class, 'realties']);
+Route::get('/filter/rooms', [FilterController::class, 'rooms'])->name('api.filter.rooms');

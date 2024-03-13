@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\Pages\HomePageDTO;
 use Illuminate\Http\Request;
-use App\Services\Pages\HomePageService;
 use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    private HomePageService $pageService;
+    private HomePageDTO $homePageDTO;
 
-    public function __construct(HomePageService $pageService)
+    public function __construct(HomePageDTO $homePageDTO)
     {
-        $this->pageService = $pageService;
+        $this->homePageDTO = $homePageDTO;
     }
 
     public function index()
     {
-        return Inertia::render('Home/Index', $this->pageService->index());
+        return Inertia::render('Home/Index', $this->homePageDTO->toArray());
     }
 }

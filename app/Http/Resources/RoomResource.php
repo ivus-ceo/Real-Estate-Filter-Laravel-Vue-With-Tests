@@ -3,20 +3,14 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\{JsonResource, ResourceCollection};
 
-class RoomResource extends JsonResource
+class RoomResource extends ResourceCollection
 {
     public function toArray(Request $request): array
     {
         return [
-//            'created_at' => $this->created_at,
-//            'updated_at' => $this->updated_at,
-//            'id' => $this->id,
-//            'name' => $this->name,
-//
-//            'floor' => new FloorResource($this->whenLoaded('floor')),
-//            'building' => new BuildingResource($this->whenLoaded('building')),
+            'data' => $this->collection,
         ];
     }
 }
