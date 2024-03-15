@@ -9,7 +9,8 @@ class FilterDTO extends ValidatedDTO
 {
     public string $dealType;
 
-    public const DEAL_TYPES = ['rent', 'sale'];
+    public const DEAL_TYPES = ['sale', 'rent'];
+    public const ROOMS = ['1', '2', '3', '4'];
 
     protected function rules(): array
     {

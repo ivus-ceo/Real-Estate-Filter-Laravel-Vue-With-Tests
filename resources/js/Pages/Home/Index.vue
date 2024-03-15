@@ -3,7 +3,9 @@
         title="Real Estate Filter 🏠"
         description="Search for properties based on various criteria such as location, price range, amenities, and more."
     >
-        <Filter/>
+        <Filter
+            :url="route('api.filter.rooms')"
+        />
     </Page>
 </template>
 

@@ -7,9 +7,19 @@ export interface User {
     email_verified_at: string;
 }
 
+export type Lang = {
+
+}
+
+export type FilterComponent = {
+    deal_types: Array<string>
+    rooms: Array<string>
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
     };
     ziggy: Config & { location: string };
+    lang: Lang
 };

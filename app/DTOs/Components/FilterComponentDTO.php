@@ -11,7 +11,7 @@ class FilterComponentDTO extends SimpleDTO
     {
         return [
             'deal_types' => FilterDTO::DEAL_TYPES,
-            'lang' => trans('filter')
+            'rooms' => FilterDTO::ROOMS,
         ];
     }
 
