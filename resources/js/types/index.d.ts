@@ -16,6 +16,16 @@ export type FilterComponent = {
     rooms: Array<string>
 }
 
+export type FilterDealType = {
+    name: string
+    value: string
+}
+
+export type FilterRoom = {
+    name: string
+    value: string
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
