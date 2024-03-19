@@ -4,8 +4,6 @@
             v-for="(dealType, key) in dealTypes"
             :key="key"
             :deal-type="dealType"
-            :is-selected="dealType.value === currentDealType"
-            @update:modelValue="handleDealTypeChange"
         />
     </div>
 </template>
@@ -15,15 +13,8 @@ import type { FilterDealType } from "@/types";
 import FilterDealTypeItem from "@/Components/Filter/Inputs/DealType/FilterDealTypeItem.vue";
 
 const props = defineProps<{
-    dealTypes: FilterDealType[],
-    currentDealType: string
+    dealTypes: FilterDealType[]
 }>()
-
-const emit = defineEmits(['update:modelValue'])
-
-const handleDealTypeChange = (dealType: string) => {
-    emit('update:modelValue', dealType)
-}
 </script>
 
 <style scoped>

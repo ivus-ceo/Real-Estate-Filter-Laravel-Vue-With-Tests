@@ -89,48 +89,52 @@
     >
         <FilterDealTypeList
             :deal-types="filterComponent.deal_types"
-            :current-deal-type="form.deal_type"
-            v-model="form.deal_type"
         />
 
         <FilterRoomList
             :rooms="filterComponent.rooms"
-            :current-rooms="form.rooms"
-            v-model="form.rooms"
+        />
+
+        <FilterPriceList
+            :prices="filterComponent.prices"
+        />
+
+        <FilterAreaList
+            :areas="filterComponent.areas"
         />
 
         <pre>
-            {{ form }}
+            <span>Deal: {{ filterStore.dealType }}</span>
+            <span>Roominess: {{ filterStore.rooms }}</span>
+            <span>Price: {{ filterStore.price }}</span>
+            <span>Area: {{ filterStore.area }}</span>
         </pre>
     </form>
 </template>
 
 <script setup lang="ts">
+import { watch } from "vue";
 import { useForm, usePage } from "@inertiajs/vue3";
-import { FilterComponent } from "@/types";
+import { useFilterStore } from "@/Stores/useFilterStore";
 import FilterDealTypeList from "@/Components/Filter/Inputs/DealType/FilterDealTypeList.vue";
 import FilterRoomList from "@/Components/Filter/Inputs/Room/FilterRoomList.vue";
-import { watch } from "vue";
-import { Menu, MenuButton, MenuItem, MenuItems, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
+import FilterPriceList from "@/Components/Filter/Inputs/Price/FilterPriceList.vue";
+import FilterAreaList from "@/Components/Filter/Inputs/Area/FilterAreaList.vue";
+import type { FilterComponent } from "@/types";
 
 const props = defineProps<{
     url: string
 }>()
 
-const form = useForm({
-    deal_type: 'sale',
-    rooms: [],
-})
-
 const page = usePage()
+const filterStore = useFilterStore()
 const filterComponent = page.props['filter_component'] as FilterComponent
-
-// watch(
-//     () => form.deal_type,
-//     (value: string) => {
-//         form.get(props.url)
-//     }
-// )
+const form = useForm({
+    deal_type: filterStore.dealType,
+    rooms: filterStore.rooms,
+    price: filterStore.price,
+    area: filterStore.area,
+})
 </script>
 
 <style scoped>

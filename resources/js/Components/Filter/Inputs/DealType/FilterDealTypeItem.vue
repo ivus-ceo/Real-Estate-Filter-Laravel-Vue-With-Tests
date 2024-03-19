@@ -6,12 +6,12 @@
             :value="dealType.value"
             type="radio"
             name="deal_type"
-            @change="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+            @change="filterStore.setDealType(dealType.value)"
         >
 
         <label
             class="cursor-pointer w-full h-full flex items-center justify-center"
-            :class="{ 'bg-gray-100': isSelected }"
+            :class="{ 'bg-gray-100': filterStore.isDealType(dealType.value) }"
             :for="id"
         >
             {{ dealType.name }}
@@ -22,14 +22,14 @@
 <script setup lang="ts">
 import type { FilterDealType } from "@/types";
 import useInputId from "@/Composables/Filter/useInputId";
+import { useFilterStore } from "@/Stores/useFilterStore";
 
 const props = defineProps<{
-    dealType: FilterDealType,
-    isSelected: boolean
+    dealType: FilterDealType
 }>()
 
-const emit = defineEmits(['update:modelValue'])
 const id = useInputId(props.dealType.value)
+const filterStore = useFilterStore()
 </script>
 
 <style scoped>

@@ -13,7 +13,8 @@ class FilterComponentDTO extends SimpleDTO
         return [
             'deal_types' => $this->getDealTypes(),
             'rooms' => $this->getRooms(),
-            'prices' => FilterDTO::ROOM_PRICES,
+            'prices' => $this->getPrices(),
+            'areas' => $this->getAreas(),
         ];
     }
 
@@ -27,7 +28,7 @@ class FilterComponentDTO extends SimpleDTO
         return collect(FilterDTO::DEAL_TYPES)
             ->transform(function (string $dealType) {
                 return [
-                    'name' => trans('base.deal_types.' . $dealType),
+                    'name' => trans('base.filter.deal_types.' . $dealType),
                     'value' => $dealType
                 ];
             });
@@ -37,9 +38,50 @@ class FilterComponentDTO extends SimpleDTO
     {
         return collect(FilterDTO::ROOMS)
             ->transform(function (string $room) {
+                $isFirst = $room === '0';
+                $isLast = $room === '4';
+
+                if ($isFirst) {
+                    $value = $room;
+                } else if ($isLast) {
+                    $value = '4:';
+                } else {
+                    $value = $room;
+                }
+
                 return [
-                    'name' => $room,
-                    'value' => ($room === '4') ? '4:' : $room
+                    'name' => trans('base.filter.rooms.' . $room),
+                    'value' => $value
+                ];
+            });
+    }
+
+    private function getPrices(): Collection
+    {
+        return collect(FilterDTO::PRICES)
+            ->transform(function (string $price) {
+                $prices = explode(':', $price);
+                $from = $prices[0];
+                $to = $prices[1];
+
+                return [
+                    'name' => $price,
+                    'value' => $price
+                ];
+            });
+    }
+
+    private function getAreas(): Collection
+    {
+        return collect(FilterDTO::AREAS)
+            ->transform(function (string $area) {
+                $areas = explode(':', $area);
+                $from = $areas[0];
+                $to = $areas[1];
+
+                return [
+                    'name' => $area,
+                    'value' => $area
                 ];
             });
     }

@@ -12,8 +12,10 @@ export type Lang = {
 }
 
 export type FilterComponent = {
-    deal_types: Array<string>
-    rooms: Array<string>
+    deal_types: FilterDealType[]
+    rooms: FilterRoom[]
+    prices: FilterPrice[]
+    areas: FilterArea[]
 }
 
 export type FilterDealType = {
@@ -22,6 +24,16 @@ export type FilterDealType = {
 }
 
 export type FilterRoom = {
+    name: string
+    value: string
+}
+
+export type FilterPrice = {
+    name: string
+    value: string
+}
+
+export type FilterArea = {
     name: string
     value: string
 }

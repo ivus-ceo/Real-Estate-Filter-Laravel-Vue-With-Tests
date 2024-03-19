@@ -7,12 +7,12 @@
             type="checkbox"
             name="rooms"
             multiple
-            @change="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+            @change="filterStore.setRooms(room.value)"
         >
 
         <label
-            class="cursor-pointer w-full h-full aspect-square flex items-center justify-center"
-            :class="{ 'bg-gray-100': isSelected }"
+            class="cursor-pointer w-14 h-full aspect-square flex items-center justify-center"
+            :class="{ 'bg-gray-100': filterStore.hasRoom(room.value) }"
             :for="id"
         >
             {{ room.name }}
@@ -23,14 +23,14 @@
 <script setup lang="ts">
 import type { FilterRoom } from "@/types";
 import useInputId from "@/Composables/Filter/useInputId";
+import { useFilterStore } from "@/Stores/useFilterStore";
 
 const props = defineProps<{
     room: FilterRoom
-    isSelected: boolean
 }>()
 
-const emit = defineEmits(['update:modelValue'])
 const id = useInputId(props.room.value)
+const filterStore = useFilterStore()
 </script>
 
 <style scoped>

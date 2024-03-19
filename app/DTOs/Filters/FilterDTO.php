@@ -10,13 +10,18 @@ class FilterDTO extends ValidatedDTO
     public string $dealType;
 
     public const DEAL_TYPES = ['sale', 'rent'];
-    public const ROOMS = ['1', '2', '3', '4'];
-    public const ROOM_PRICES = [
+    public const ROOMS = ['0', '1', '2', '3', '4'];
+    public const PRICES = [
         ':50000000',
         '50000000:70000000',
         '70000000:100000000',
         '100000000:120000000',
         '120000000:',
+    ];
+    public const AREAS = [
+        ':10',
+        '10:100',
+        '100:'
     ];
 
     protected function rules(): array
