@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController};
+use App\Http\Controllers\{HomeController, FilterController};
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,13 @@ use App\Http\Controllers\{HomeController};
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('public.home.index');
+Route::name('public.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+    Route::name('filter.')->prefix('{country}/{region}/{city}')->group(function () {
+        Route::get('/properties', [FilterController::class, 'index'])->name('properties.index');
+    });
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/dashboard.php';

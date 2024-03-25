@@ -5,7 +5,7 @@
             class="relative w-56"
         >
             <MenuButton
-                class="w-full h-full text-left px-6 border-x-[1px] border-gray-100"
+                class="w-full h-full text-left px-6"
             >
                 {{ useLang('base.filter.area') }}
             </MenuButton>

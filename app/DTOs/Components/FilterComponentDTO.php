@@ -12,7 +12,7 @@ class FilterComponentDTO extends SimpleDTO
     {
         return [
             'deal_types' => $this->getDealTypes(),
-            'rooms' => $this->getRooms(),
+            'roominess' => $this->getRoominess(),
             'prices' => $this->getPrices(),
             'areas' => $this->getAreas(),
         ];
@@ -25,19 +25,33 @@ class FilterComponentDTO extends SimpleDTO
 
     private function getDealTypes(): Collection
     {
+        $queryDealType = request()->query('deal_type');
+
         return collect(FilterDTO::DEAL_TYPES)
-            ->transform(function (string $dealType) {
+            ->transform(function (string $dealType) use ($queryDealType) {
+                $existsInQuery = $queryDealType === $dealType;
+
                 return [
                     'name' => trans('base.filter.deal_types.' . $dealType),
-                    'value' => $dealType
+                    'value' => $dealType,
+                    'exists_in_query' => $existsInQuery
                 ];
-            });
+            })
+            ->push([
+                'name' => trans('base.filter.deal_types.all'),
+                'value' => '',
+                'exists_in_query' => !in_array($queryDealType, FilterDTO::DEAL_TYPES)
+            ])
+            ->sortBy('value')
+            ->values();
     }
 
-    private function getRooms(): Collection
+    private function getRoominess(): Collection
     {
+        $queryRoominess = request()->query('roominess');
+
         return collect(FilterDTO::ROOMS)
-            ->transform(function (string $room) {
+            ->transform(function (string $room) use ($queryRoominess) {
                 $isFirst = $room === '0';
                 $isLast = $room === '4';
 
@@ -51,9 +65,15 @@ class FilterComponentDTO extends SimpleDTO
 
                 return [
                     'name' => trans('base.filter.rooms.' . $room),
-                    'value' => $value
+                    'value' => $value,
+                    'exists_in_query' => $queryRoominess === $value
                 ];
-            });
+            })
+            ->push([
+                'name' => trans('base.filter.rooms.all'),
+                'value' => '',
+                'exists_in_query' => !in_array($queryRoominess, FilterDTO::ROOMS)
+            ]);
     }
 
     private function getPrices(): Collection

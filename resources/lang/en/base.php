@@ -4,6 +4,7 @@ return [
     'filter' => [
         'deal' => 'Deal',
         'deal_types' => [
+            'all' => 'All',
             'rent' => 'Rent',
             'sale' => 'Buy'
         ],
@@ -12,8 +13,9 @@ return [
             'from' => 'from',
             'to' => 'to',
         ],
-        'room' => 'Roominess',
+        'roominess' => 'Roominess',
         'rooms' => [
+            'all' => 'All',
             '0' => 'S',
             '1' => '1',
             '2' => '2',

@@ -13,7 +13,7 @@
 import { Link } from '@inertiajs/vue3';
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 import Page from "@/Components/Pages/Page.vue";
-import Filter from "@/Components/Filter/Filter.vue";
+import Filter from "@/Components/Filters/Filter.vue";
 
 defineProps<{
     canLogin?: boolean;

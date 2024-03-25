@@ -6,4 +6,16 @@
     body {
         @apply bg-white text-gray-600;
     }
+
+    .filter-list-container {
+        @apply flex flex-col gap-1 py-4 px-6 border-[1px] border-gray-100 rounded-lg cursor-pointer relative;
+    }
+
+    .filter-list-label {
+        @apply uppercase text-xs;
+    }
+
+    .filter-list-value {
+        @apply font-black text-black text-2xl;
+    }
 }
