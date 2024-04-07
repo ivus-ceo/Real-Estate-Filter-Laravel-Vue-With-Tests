@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\MetroLine;
+use App\Models\Metro;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('metro_stations', function (Blueprint $table) {
+        Schema::create('lines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(MetroLine::class);
+            $table->foreignIdFor(Metro::class);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('metro_stations');
+        Schema::dropIfExists('metro_lines');
     }
 };

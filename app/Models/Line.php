@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class MetroLine extends Model
+class Line extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
     ];
@@ -22,6 +20,6 @@ class MetroLine extends Model
 
     protected function stations(): HasMany
     {
-        return $this->hasMany(MetroStation::class);
+        return $this->hasMany(Station::class);
     }
 }

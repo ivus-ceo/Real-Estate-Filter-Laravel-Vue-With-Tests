@@ -33,7 +33,7 @@ class BuildingSeeder extends Seeder
                     $location->longitude,
                 ], 5);
 
-                $model->locations()->create([
+                $model->location()->create([
                     'latitude' => $points[0],
                     'longitude' => $points[1],
                 ]);

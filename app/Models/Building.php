@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Building extends Model
@@ -44,8 +45,13 @@ class Building extends Model
         return $this->hasMany(Room::class);
     }
 
-    public function locations(): MorphOne
+    public function location(): MorphOne
     {
         return $this->morphOne(Location::class, 'locationable');
+    }
+
+    public function features(): MorphMany
+    {
+        return $this->morphMany(Feature::class, 'featureable');
     }
 }
