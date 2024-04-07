@@ -31,6 +31,10 @@ class FilterComponentDTO extends SimpleDTO
             ->transform(function (string $dealType) use ($queryDealType) {
                 $existsInQuery = $queryDealType === $dealType;
 
+                if ($dealType === 'any') {
+                    $existsInQuery = !in_array($queryDealType, FilterDTO::DEAL_TYPES);
+                }
+
                 return [
                     'name' => trans('base.filter.deal_types.' . $dealType),
                     'value' => $dealType,
@@ -38,7 +42,7 @@ class FilterComponentDTO extends SimpleDTO
                 ];
             })
             ->push([
-                'name' => trans('base.filter.deal_types.all'),
+                'name' => trans('base.filter.deal_types.any'),
                 'value' => '',
                 'exists_in_query' => !in_array($queryDealType, FilterDTO::DEAL_TYPES)
             ])
@@ -70,7 +74,7 @@ class FilterComponentDTO extends SimpleDTO
                 ];
             })
             ->push([
-                'name' => trans('base.filter.rooms.all'),
+                'name' => trans('base.filter.rooms.any'),
                 'value' => '',
                 'exists_in_query' => !in_array($queryRoominess, FilterDTO::ROOMS)
             ]);

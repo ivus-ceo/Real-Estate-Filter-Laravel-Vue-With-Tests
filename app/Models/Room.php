@@ -16,6 +16,11 @@ class Room extends Model
         'building_id',
     ];
 
+    public function finishing(): BelongsTo
+    {
+        return $this->belongsTo(Finishing::class);
+    }
+
     public function floor(): BelongsTo
     {
         return $this->belongsTo(Floor::class);

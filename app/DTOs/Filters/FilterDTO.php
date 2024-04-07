@@ -10,6 +10,7 @@ class FilterDTO extends ValidatedDTO
     public string $dealType;
 
     public const DEAL_TYPES = [
+        'any',
         'sale',
         'rent',
     ];

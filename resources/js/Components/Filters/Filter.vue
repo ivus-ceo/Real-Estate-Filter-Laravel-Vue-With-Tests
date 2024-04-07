@@ -8,10 +8,6 @@
             <FilterRoominess/>
             <FilterPrice/>
 
-<!--                <FilterPriceList-->
-<!--                    :prices="filterComponent.prices"-->
-<!--                />-->
-
 <!--                <FilterAreaList-->
 <!--                    :areas="filterComponent.areas"-->
 <!--                />-->
