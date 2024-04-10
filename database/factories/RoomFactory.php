@@ -20,10 +20,10 @@ class RoomFactory extends Factory
         return [
             'name' => $this->faker->words(4, true),
             'roominess' => $this->faker->numberBetween(0, 6),
-            'price_sale' => (rand(0, 1) == 1) ? $this->faker->numberBetween(10_000_000, 200_000_000) : null,
-            'price_rent' => (rand(0, 1) == 1) ? $this->faker->numberBetween(200_000, 1_000_000) : null,
+            'price_sale' => (rand(0, 1) == 1) ? $this->faker->numberBetween(50_000, 10_000_000) : null,
+            'price_rent' => (rand(0, 1) == 1) ? $this->faker->numberBetween(500, 300_000) : null,
             'area' => $this->faker->numberBetween(7, 1000),
-            'finishing' => $this->faker->numberBetween(0, 2),
+            'finishing_id' => $this->faker->numberBetween(0, 2),
         ];
     }
 }

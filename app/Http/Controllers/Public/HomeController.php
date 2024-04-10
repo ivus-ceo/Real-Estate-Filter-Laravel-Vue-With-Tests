@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Public;
 
-use App\DTOs\Pages\HomePageDTO;
-use Illuminate\Http\Request;
+use App\DTOs\Pages\Public\HomePageDTO;
+use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 
 class HomeController extends Controller

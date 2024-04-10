@@ -4,14 +4,16 @@ return [
     'filter' => [
         'deal' => 'Deal',
         'deal_types' => [
-            'any' => 'Any',
             'rent' => 'Rent',
             'sale' => 'Buy'
         ],
         'price' => 'Price',
+        'rent_price' => 'Rent price',
+        'sale_price' => 'Sale price',
         'prices' => [
-            'from' => 'from',
-            'to' => 'to',
+            'up_to' => 'up to :price',
+            'over' => 'over :price',
+            'between' => 'from :from to :to',
         ],
         'roominess' => 'Roominess',
         'rooms' => [

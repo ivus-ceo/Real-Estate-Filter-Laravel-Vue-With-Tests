@@ -1,10 +1,7 @@
 <template>
+<!-- class="!absolute !left-0 !bottom-[-16px] !w-full !h-1 !border-none !bg-gray-100 !shadow-none" -->
     <div class="relative">
-        <div class="filter-list-value">
-            from 10 000 000 to 100 000 000
-        </div>
         <div
-            class="!absolute !left-0 !bottom-[-16px] !w-full !h-1 !border-none !bg-gray-100 !shadow-none"
             ref="price"
         ></div>
     </div>
@@ -30,10 +27,7 @@ onMounted(() => {
 </script>
 
 <style lang="postcss">
-/* .noUi-base {
-
-} */
-
+/*
 .noUi-connect {
     @apply bg-black
 }
@@ -50,11 +44,11 @@ onMounted(() => {
     @apply !right-0
 }
 
-/* !top-[4px] !translate-y-[-50%] */
+/* !top-[4px] !translate-y-[-50%]
 
 .noUi-handle:before,
 .noUi-handle:after,
 .noUi-touch-area {
     @apply !hidden
-}
+}*/
 </style>

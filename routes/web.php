@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Public\{HomeController, SalePropertyController, RentPropertyController};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController, FilterController};
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +17,9 @@ use App\Http\Controllers\{HomeController, FilterController};
 Route::name('public.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-    Route::name('filter.')->prefix('{country}/{region}/{city}')->group(function () {
-        Route::get('/properties', [FilterController::class, 'index'])->name('properties.index');
+    Route::prefix('{country}/{region}/{city}')->group(function () {
+        Route::get('/properties/sale', [SalePropertyController::class, 'index'])->name('sale.property.index');
+        Route::get('/properties/rent', [RentPropertyController::class, 'index'])->name('rent.property.index');
     });
 });
 

@@ -4,14 +4,16 @@ return [
     'filter' => [
         'deal' => 'Сделка',
         'deal_types' => [
-            'any' => 'Любая',
             'rent' => 'Аренда',
             'sale' => 'Продажа'
         ],
         'price' => 'Цена',
+        'rent_price' => 'Цена аренды',
+        'sale_price' => 'Цена продажи',
         'prices' => [
-            'from' => 'от',
-            'to' => 'до',
+            'up_to' => 'до :price',
+            'over' => 'более :price',
+            'between' => 'от :from до :to',
         ],
         'roominess' => 'Комнатность',
         'rooms' => [

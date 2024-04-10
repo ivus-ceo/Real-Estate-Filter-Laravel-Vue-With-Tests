@@ -8,11 +8,12 @@
         </ListboxButton>
         <ListboxOptions
             v-if="isOpen"
-            class="absolute top-[100%] left-0 w-full"
+            class="filter-options-list"
             static
         >
             <ListboxOption
-                v-for="(dealType, key) in filterStore.filterComponent.deal_types"
+                class="filter-options-item"
+                v-for="(dealType, key) in filterStore.filterComponent.dealTypes"
                 :key="key"
                 :value="dealType"
             >

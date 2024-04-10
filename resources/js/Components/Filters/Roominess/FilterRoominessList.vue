@@ -3,20 +3,21 @@
         as="div"
         multiple
         v-model="rooms"
-        @update:modelValue="filterStore.setRooms(rooms)"
     >
         <ListboxButton class="filter-list-value">
             {{ label }}
         </ListboxButton>
         <ListboxOptions
             v-if="isOpen"
-            class="absolute top-[100%] left-0 w-full"
+            class="filter-options-list"
             static
         >
             <ListboxOption
+                class="filter-options-item"
                 v-for="(room, key) in filterStore.filterComponent.roominess"
                 :key="key"
                 :value="room"
+                @click.prevent="handleRoominessClick(room)"
             >
                 {{ room.name }}
             </ListboxOption>
@@ -36,18 +37,29 @@ const props = defineProps<{
     isOpen: boolean
 }>()
 
-// const test = (room: FilterRoom) => {
-//     console.log(rooms)
-//     // (room: FilterRoom) => filterStore.setRooms(room)
-// }
-const rooms = ref<FilterRoom[]>([])
+const rooms = ref<FilterRoom[]>([filterStore.filterComponent.defaultRoominess])
 const label = computed(() => {
-    return filterStore.rooms
-        .map((room: FilterRoom) => (room.value === '' && filterStore.rooms.length > 1) ? '' : room.name)
+    return filterStore.roominess
+        .map((room: FilterRoom) => (room.value === '' && filterStore.roominess.length > 1) ? '' : room.name)
         .filter((name: string) => name !== '')
         .sort()
         .join(', ')
 })
+
+const handleRoominessClick = (room: FilterRoom): void => {
+    const withoutAnyRoom = rooms.value.filter((room: FilterRoom) => room.value !== 'any')
+    const withAnyRoom = rooms.value.filter((room: FilterRoom) => room.value === 'any')
+
+    if (rooms.value.length === 0) { // If it has no roominess, add any roominess
+        rooms.value = Object.values(filterStore.filterComponent.roominess).filter((room: FilterRoom) => room.value === 'any')
+    } else if (room.value !== 'any') { // If it has any and was clicked explicit roominess, remove any roominess
+        rooms.value = withoutAnyRoom
+        filterStore.setRoominess(withoutAnyRoom)
+    } else if (room.value === 'any') { // If it doesn't have any and was clicked any roominess, remove explicit roominess
+        rooms.value = withAnyRoom
+        filterStore.setRoominess(withAnyRoom)
+    }
+}
 </script>
 
 <style scoped>

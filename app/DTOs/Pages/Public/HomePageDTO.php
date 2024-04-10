@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTOs\Pages;
+namespace App\DTOs\Pages\Public;
 
-use App\DTOs\Components\{FilterComponentDTO};
+use App\DTOs\Components\{Filters\FilterComponentDTO};
 use Illuminate\Support\Facades\Route;
 use WendellAdriel\ValidatedDTO\SimpleDTO;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DTOs\Pages;
+namespace App\DTOs\Pages\Public;
 
 use App\DTOs\Components\Filters\{FilterComponentDTO, FilterSaleComponentDTO};
 use WendellAdriel\ValidatedDTO\SimpleDTO;
 
-class FilterPageDTO extends SimpleDTO
+class RentPropertyPageDTO extends SimpleDTO
 {
     protected function defaults(): array
     {

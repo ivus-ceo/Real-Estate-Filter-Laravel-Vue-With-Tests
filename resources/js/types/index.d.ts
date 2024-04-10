@@ -12,22 +12,31 @@ export type Lang = {
 }
 
 export type FilterComponent = {
-    deal_types: FilterDealType[]
-    roominess: FilterRoom[]
-    prices: FilterPrice[]
-    areas: FilterArea[]
+    dealType: keyof FilterDealTypes
+    defaultDealType: FilterDealType
+    dealTypes: FilterDealTypes
+    defaultRoominess: FilterRoom
+    roominess: FilterRoominess
+    defaultPrice: FilterPrice
+    prices: FilterPrices
 }
 
-type FilterInput = {
+export type FilterInput = {
     name: string
     value: string
-    exists_in_query: boolean
 }
 
 export type FilterDealType = FilterInput
+export type FilterDealTypes = {
+    sale: FilterDealType
+    rent: FilterDealType
+}
+
 export type FilterRoom = FilterInput
+export type FilterRoominess = FilterRoom[]
+
 export type FilterPrice = FilterInput
-export type FilterArea = FilterInput
+export type FilterPrices = FilterPrice[]
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
