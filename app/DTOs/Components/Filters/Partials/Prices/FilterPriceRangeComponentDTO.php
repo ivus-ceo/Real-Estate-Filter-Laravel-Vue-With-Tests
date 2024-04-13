@@ -6,9 +6,7 @@ use App\Enums\Filters\DealTypes;
 use App\Models\Room;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Number;
-use App\DTOs\Components\Filters\Partials\{
-    FilterRangeComponentDTO,
-    FilterRangeDTO};
+use App\DTOs\Components\Filters\Partials\{FilterRangeComponentDTO, FilterRangeDTO, FilterRangeGraphDTO};
 use WendellAdriel\ValidatedDTO\Exceptions\{CastTargetException, MissingCastTypeException};
 use Illuminate\Validation\Rules\Enum;
 
@@ -171,7 +169,11 @@ class FilterPriceRangeComponentDTO extends FilterRangeComponentDTO
         return $queryPrice;
     }
 
-    private function getGraph(): array
+    /**
+     * @throws CastTargetException
+     * @throws MissingCastTypeException
+     */
+    private function getGraph(): FilterRangeGraphDTO
     {
         $priceColumn = 'price_' . $this->dealType;
         $minRoomPrice = Room::min($priceColumn);
@@ -197,10 +199,10 @@ class FilterPriceRangeComponentDTO extends FilterRangeComponentDTO
             return Room::whereBetween($priceColumn, [$minPrice, $maxPrice])->count();
         });
 
-        return [
+        return new FilterRangeGraphDTO([
             'min' => $items->min(),
             'max' => $items->max(),
             'items' => $items
-        ];
+        ]);
     }
 }
