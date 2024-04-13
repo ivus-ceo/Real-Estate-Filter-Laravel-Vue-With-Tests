@@ -18,7 +18,7 @@ export const useFilterStore = defineStore('filter', () => {
     // Set filter values
     const dealType = ref<FilterInputDTO>(dealTypeDropdownComponentDTO.default)
     const roominess = ref<FilterInputDTO[]>([roominessDropdownComponent.default])
-    const price = ref<FilterRangeDTO>(priceRangeComponent.default)
+    const price = ref<FilterRangeDTO>(priceRangeComponent.current)
 
     const setDealType = (value: FilterInputDTO): void => {
         dealType.value = value
