@@ -29,7 +29,7 @@ export interface FilterRangeDTO {
 export interface FilterRangeGraphDTO {
     min: number
     max: number
-    items: number[]
+    items: Record<string, number>
 }
 
 export interface FilterDropdownComponentDTO {

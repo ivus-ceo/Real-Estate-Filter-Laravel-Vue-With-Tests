@@ -13,6 +13,7 @@
         >
             <ListboxOption
                 class="filter-options-item"
+                :class="{ 'bg-gray-100': filterStore.dealType.value === item.value }"
                 v-for="(item, key) in filterStore.dealTypeDropdownComponentDTO.items"
                 :key="key"
                 :value="item"

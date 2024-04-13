@@ -1,6 +1,10 @@
 <template>
     <div class="relative" @click.stop>
-        <RangeGraph :graph="graph"/>
+        <RangeGraph
+            :graph="graph"
+            :current-min="currentMin"
+            :current-max="currentMax"
+        />
         <RangeSlider
             :min="min"
             :max="max"

@@ -14,6 +14,7 @@
         >
             <ListboxOption
                 class="filter-options-item"
+                :class="{ 'bg-gray-100': isSelected(item) }"
                 v-for="(item, key) in filterStore.roominessDropdownComponent.items"
                 :key="key"
                 :value="item"
@@ -37,7 +38,7 @@ const props = defineProps<{
     isOpen: boolean
 }>()
 
-const rooms = ref<FilterInputDTO[]>([filterStore.roominessDropdownComponent.default])
+const rooms = ref<FilterInputDTO[]>(filterStore.roominess)
 const label = computed(() => {
     return filterStore.roominess
         .map((item: FilterInputDTO) => (item.value === '' && filterStore.roominess.length > 1) ? '' : item.name)
@@ -59,6 +60,13 @@ const handleRoominessClick = (item: FilterInputDTO): void => {
         rooms.value = withAnyRoom
         filterStore.setRoominess(withAnyRoom)
     }
+}
+
+const isSelected = (item: FilterInputDTO): boolean => {
+    const roominess = filterStore.roominess
+    return roominess.filter((room: FilterInputDTO) => {
+        return room.value === item.value
+    }).length > 0
 }
 </script>
 
