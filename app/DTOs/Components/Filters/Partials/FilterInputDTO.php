@@ -1,14 +1,14 @@
 <?php
 
-namespace App\DTOs\Components\Filters;
+namespace App\DTOs\Components\Filters\Partials;
 
+use App\Rules\Filters\FilterDefaultInputable;
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
 class FilterInputDTO extends ValidatedDTO
 {
     public string $name;
     public string $value;
-    public bool $default;
 
     protected function rules(): array
     {

@@ -2,7 +2,8 @@
 
 namespace App\DTOs\Pages\Public;
 
-use App\DTOs\Components\Filters\{FilterComponentDTO};
+use App\Enums\Filters\DealTypes;
+use App\DTOs\Components\Filters\{FilterComponentDTO, Partials\DealTypes\FilterDealTypeDropdownComponentDTO};
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 use WendellAdriel\ValidatedDTO\SimpleDTO;
@@ -16,7 +17,7 @@ class SalePropertyPageDTO extends SimpleDTO
     protected function defaults(): array
     {
         $filterComponent = new FilterComponentDTO([
-            'dealType' => FilterComponentDTO::SALE,
+            'dealType' => DealTypes::SALE,
         ]);
 
         return [

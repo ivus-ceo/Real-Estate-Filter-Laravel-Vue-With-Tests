@@ -2,20 +2,28 @@
 
 namespace App\DTOs\Pages\Public;
 
-use App\DTOs\Components\{Filters\FilterComponentDTO};
+use App\DTOs\Components\{Filters\FilterComponentDTO, Filters\Partials\DealTypes\FilterDealTypeDropdownComponentDTO};
 use Illuminate\Support\Facades\Route;
+use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
+use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 use WendellAdriel\ValidatedDTO\SimpleDTO;
 
 class HomePageDTO extends SimpleDTO
 {
+    /**
+     * @throws CastTargetException
+     * @throws MissingCastTypeException
+     */
     protected function defaults(): array
     {
-        $filterComponentDTO = app(FilterComponentDTO::class);
+        $filterComponent = new FilterComponentDTO([
+            'dealType' => FilterDealTypeDropdownComponentDTO::SALE,
+        ]);
 
         return [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'filter_component' => $filterComponentDTO->toArray()
+            'filterComponent' => $filterComponent->toArray()
         ];
     }
 

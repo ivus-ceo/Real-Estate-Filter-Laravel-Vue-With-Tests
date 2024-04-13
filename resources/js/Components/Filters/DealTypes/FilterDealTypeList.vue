@@ -1,10 +1,10 @@
 <template>
     <Listbox
         as="div"
-        @update:modelValue="(dealType: FilterDealType) => filterStore.setDealType(dealType)"
+        @update:modelValue="(dealType: FilterInputDTO) => filterStore.setDealType(dealType)"
     >
         <ListboxButton class="filter-list-value">
-            {{ filterStore!.dealType!.name }}
+            {{ filterStore.dealType.name }}
         </ListboxButton>
         <ListboxOptions
             v-if="isOpen"
@@ -13,11 +13,11 @@
         >
             <ListboxOption
                 class="filter-options-item"
-                v-for="(dealType, key) in filterStore.filterComponent.dealTypes"
+                v-for="(item, key) in filterStore.dealTypeDropdownComponentDTO.items"
                 :key="key"
-                :value="dealType"
+                :value="item"
             >
-                {{ dealType.name }}
+                {{ item.name }}
             </ListboxOption>
         </ListboxOptions>
     </Listbox>
@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { useFilterStore } from "@/Stores/useFilterStore";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
-import type { FilterDealType } from "@/types";
+import type { FilterInputDTO } from "@/types";
 
 const filterStore = useFilterStore()
 const props = defineProps<{

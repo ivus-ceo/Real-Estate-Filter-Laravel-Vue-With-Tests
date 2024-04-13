@@ -7,36 +7,85 @@ export interface User {
     email_verified_at: string;
 }
 
-export type Lang = {
+export type FilterBody = Record<string, FilterInputDTO | FilterInputDTO[] | FilterRangeDTO | FilterRangeDTO[] | string | number | boolean | null | undefined>
 
+export interface FilterComponentDTO {
+    dealTypeDropdownComponent: DealTypeDropdownComponentDTO
+    roominessDropdownComponent: RoominessDropdownComponentDTO
+    priceRangeComponent: PriceRangeComponentDTO
 }
 
-export type FilterComponent = {
-    dealType: keyof FilterDealTypes
-    defaultDealType: FilterDealType
-    dealTypes: FilterDealTypes
-    defaultRoominess: FilterRoom
-    roominess: FilterRoominess
-    defaultPrice: FilterPrice
-    prices: FilterPrices
-}
-
-export type FilterInput = {
+export interface FilterInputDTO {
     name: string
     value: string
 }
 
-export type FilterDealType = FilterInput
-export type FilterDealTypes = {
-    sale: FilterDealType
-    rent: FilterDealType
+export interface FilterRangeDTO {
+    name: string
+    minValue: number
+    maxValue: number
 }
 
-export type FilterRoom = FilterInput
-export type FilterRoominess = FilterRoom[]
+export interface FilterRangeGraphDTO {
+    min: number
+    max: number
+    items: number[]
+}
 
-export type FilterPrice = FilterInput
-export type FilterPrices = FilterPrice[]
+export interface FilterDropdownComponentDTO {
+    query: string
+    items: FilterInputDTO[]
+    default: FilterInputDTO
+}
+
+export interface FilterRangeComponentDTO {
+    query: string
+    current: FilterRangeDTO
+    default: FilterRangeDTO
+    items: FilterRangeDTO[]
+    graph: FilterRangeGraphDTO
+}
+
+export type DealType = 'sale' | 'rent'
+export interface DealTypeDropdownComponentDTO extends FilterDropdownComponentDTO {
+    dealType: DealType
+    items: {
+        sale: FilterInputDTO
+        rent: FilterInputDTO
+    }
+}
+
+export interface RoominessDropdownComponentDTO extends FilterDropdownComponentDTO {
+    items: {
+        any: FilterInputDTO
+        0: FilterInputDTO
+        1: FilterInputDTO
+        2: FilterInputDTO
+        3: FilterInputDTO
+        4: FilterInputDTO
+    }
+}
+
+export interface PriceRangeComponentDTO extends FilterRangeComponentDTO {
+    dealType: DealType
+}
+
+// export type FilterInput = {
+//     name: string
+//     value: string
+// }
+//
+// export type FilterDealType = FilterInput
+// export type FilterDealTypes = {
+//     sale: FilterDealType
+//     rent: FilterDealType
+// }
+//
+// export type FilterRoom = FilterInput
+// export type FilterRoominess = FilterRoom[]
+//
+// export type FilterPrice = FilterInput
+// export type FilterPrices = FilterPrice[]
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {

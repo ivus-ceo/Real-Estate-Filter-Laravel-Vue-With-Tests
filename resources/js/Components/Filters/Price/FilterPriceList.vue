@@ -1,5 +1,4 @@
 <template>
-    <!-- @update:modelValue="(dealType: FilterDealType) => filterStore.setDealType(dealType)" -->
     <Listbox as="div">
         <ListboxButton class="filter-list-value">
             {{ filterStore.price!.name }}
@@ -11,15 +10,17 @@
                 class="filter-options-list"
                 static
             >
-                <FilterPriceRange @click.stop />
+                <FilterPriceRange @click.stop/>
 
                 <ListboxOption
                     class="filter-options-item"
-                    v-for="(price, key) in filterStore.filterComponent.prices"
+                    :class="{ 'bg-gray-100': isSelected(item) }"
+                    v-for="(item, key) in filterStore.priceRangeComponent.items"
                     :key="key"
-                    :value="price"
+                    :value="item"
+                    @click="handlePriceClick(item)"
                 >
-                    {{ price.name }}
+                    {{ item.name }}
                 </ListboxOption>
             </ListboxOptions>
         </div>
@@ -29,15 +30,25 @@
 <script setup lang="ts">
 import { useFilterStore } from "@/Stores/useFilterStore";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
-import type { FilterDealType } from "@/types";
+import type { FilterRangeDTO } from "@/types";
 import { computed } from "vue";
 import useLang from "@/Composables/useLang";
 import FilterPriceRange from "@/Components/Filters/Price/FilterPriceRange.vue";
 
 const filterStore = useFilterStore()
+const priceRangeComponent = filterStore.priceRangeComponent
+
 const props = defineProps<{
     isOpen: boolean
 }>()
+
+const handlePriceClick = (item: FilterRangeDTO) => {
+    filterStore.setPrice(item)
+}
+
+const isSelected = (item: FilterRangeDTO): boolean => {
+    return item.maxValue === filterStore.price.maxValue && item.minValue === filterStore.price.minValue
+}
 </script>
 
 <style scoped>

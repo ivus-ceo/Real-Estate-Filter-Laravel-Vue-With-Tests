@@ -7,18 +7,13 @@
             <FilterDealType/>
             <FilterRoominess/>
             <FilterPrice/>
-
-<!--                <FilterAreaList-->
-<!--                    :areas="filterComponent.areas"-->
-<!--                />-->
-
-<!--                <FilterSearch-->
-<!--                    -->
-<!--                />-->
         </form>
 
         <div class="flex items-center justify-end">
-            <div @click="filterStore.reset">
+            <div
+                class="cursor-pointer"
+                @click="filterStore.reset"
+            >
                 Reset
             </div>
 
@@ -28,8 +23,8 @@
 
             <div class="flex">
                 <img src="/icons/filter/list-view.svg" alt="List">
-                <img src="/icons/filter/grid-view.svg" alt="List">
-                <img src="/icons/filter/map-view.svg" alt="List">
+                <img src="/icons/filter/grid-view.svg" alt="Grid">
+                <img src="/icons/filter/map-view.svg" alt="Map">
             </div>
         </div>
 

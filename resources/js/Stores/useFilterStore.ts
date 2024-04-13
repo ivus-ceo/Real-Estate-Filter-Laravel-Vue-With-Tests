@@ -1,47 +1,63 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from "vue";
 import type {
-    FilterComponent,
-    FilterDealTypes,
-    FilterDealType,
-    FilterRoominess,
-    FilterRoom,
-    FilterPrices,
-    FilterPrice,
+    FilterBody,
+    FilterComponentDTO,
+    FilterInputDTO,
+    FilterRangeDTO,
 } from "@/types";
 import { usePage } from "@inertiajs/vue3";
 
 export const useFilterStore = defineStore('filter', () => {
     const page = usePage()
-    const filterComponent = page.props['filterComponent'] as FilterComponent
-    const dealType = ref<FilterDealType>()
-    const roominess = ref<FilterRoominess>([])
-    const price = ref<FilterPrice>()
+    const body = ref<FilterBody>({})
+    const filterComponentDTO = page.props['filterComponent'] as FilterComponentDTO
+    const dealTypeDropdownComponentDTO = filterComponentDTO.dealTypeDropdownComponent
+    const roominessDropdownComponent = filterComponentDTO.roominessDropdownComponent
+    const priceRangeComponent = filterComponentDTO.priceRangeComponent
+    // Set filter values
+    const dealType = ref<FilterInputDTO>(dealTypeDropdownComponentDTO.default)
+    const roominess = ref<FilterInputDTO[]>([roominessDropdownComponent.default])
+    const price = ref<FilterRangeDTO>(priceRangeComponent.default)
 
-    const setDealType = (value: FilterDealType): void => {
+    const setDealType = (value: FilterInputDTO): void => {
         dealType.value = value
     }
 
-    const setRoominess = (array: FilterRoominess): void => {
+    const resetDealType = (): void => {
+        body.value[dealTypeDropdownComponentDTO.query] = dealTypeDropdownComponentDTO.default
+        dealType.value = dealTypeDropdownComponentDTO.default
+    }
+
+    const setRoominess = (array: FilterInputDTO[]): void => {
         roominess.value = array
     }
 
-    const setPrice = (value: FilterPrice): void => {
-
+    const resetRoominess = (): void => {
+        body.value[roominessDropdownComponent.query] = [roominessDropdownComponent.default]
+        roominess.value = [roominessDropdownComponent.default]
     }
 
+    const setPrice = (value: FilterRangeDTO): void => {
+        price.value = value
+    }
+
+    const resetPrice = (): void => {
+        body.value[priceRangeComponent.query] = [priceRangeComponent.default]
+        price.value = priceRangeComponent.default
+    }
+
+    // Resets all filter values and body to default
     const reset = (): void => {
-        dealType.value = filterComponent.defaultDealType
-        roominess.value = [filterComponent.defaultRoominess]
-        price.value = filterComponent.defaultPrice
+        resetDealType()
+        resetRoominess()
+        resetPrice()
     }
-
-    // Set default filter values by query
-    reset()
 
     return {
-        filterComponent,
+        filterComponentDTO, dealTypeDropdownComponentDTO, roominessDropdownComponent, priceRangeComponent,
         dealType, roominess, price,
-        setDealType, setRoominess, setPrice
+        setDealType, setRoominess, setPrice,
+        reset
     }
 })
