@@ -7,21 +7,30 @@
 
 <script setup lang="ts">
 import 'nouislider/dist/nouislider.css';
-import noUiSlider from "nouislider";
+import noUiSlider, { API } from "nouislider";
 import { onMounted, ref } from "vue";
+import useEmitter from "@/Composables/Common/useEmitter";
+import type { FilterEvents } from "@/types";
 
 const range = ref<HTMLDivElement>()
+const rangeSlider = ref<API>()
 const props = defineProps<{
     min: number
     max: number
     currentMin: number
     currentMax: number
+    resetEvent: keyof FilterEvents
+    updateEvent: keyof FilterEvents
 }>()
 
 const emit = defineEmits(['update'])
 
+useEmitter.on(props.resetEvent, () => {
+    rangeSlider.value?.set([props.min, props.max])
+})
+
 onMounted(() => {
-    const priceRange = noUiSlider.create(range.value!, {
+    rangeSlider.value = noUiSlider.create(range.value!, {
         start: [
             props.currentMin,
             props.currentMax
@@ -34,8 +43,8 @@ onMounted(() => {
         },
     });
 
-    priceRange.on('slide', (values: (number | string)[]) => {
-        emit('update', [
+    rangeSlider.value.on('slide', (values: (number | string)[]) => {
+        useEmitter.emit(props.updateEvent, [
             Number(values[0]),
             Number(values[1])
         ])

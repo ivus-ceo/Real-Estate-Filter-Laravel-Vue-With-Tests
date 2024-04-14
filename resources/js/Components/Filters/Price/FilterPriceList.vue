@@ -6,7 +6,7 @@
 
         <div class="flex flex-col">
             <ListboxOptions
-                v-if="isOpen"
+                v-show="isOpen"
                 class="filter-options-list"
                 static
             >
@@ -17,7 +17,8 @@
                     :current-min="filterStore.price.minValue"
                     :current-max="filterStore.price.maxValue"
                     :graph="priceRangeComponent.graph"
-                    @update="handleRangeUpdate"
+                    reset-event="filter:resetPrice"
+                    update-event="filter:updatePrice"
                 />
 
                 <ListboxOption
@@ -42,6 +43,7 @@ import type { FilterRangeDTO } from "@/types";
 import useLang from "@/Composables/useLang";
 import Range from "@/Components/Filters/Partials/Ranges/Range.vue";
 import { ref } from "vue";
+import useEmitter from "@/Composables/Common/useEmitter";
 
 const props = defineProps<{
     isOpen: boolean
@@ -49,20 +51,14 @@ const props = defineProps<{
 
 const filterStore = useFilterStore()
 const priceRangeComponent = filterStore.priceRangeComponent
-const minPrice = ref(priceRangeComponent.current.minValue)
-const maxPrice = ref(priceRangeComponent.current.maxValue)
 
 const handlePriceClick = (item: FilterRangeDTO) => {
     filterStore.setPrice(item)
 }
 
-const handleRangeUpdate = (values: number[]) => {
-    filterStore.setPrice(getPrice(values[0], values[1]))
-}
-
-const handlePriceUpdate = () => {
-    filterStore.setPrice(getPrice(minPrice.value, maxPrice.value))
-}
+useEmitter.on('filter:updatePrice', (prices) => {
+    filterStore.setPrice(getPrice(prices[0], prices[1]))
+})
 
 const isSelected = (item: FilterRangeDTO): boolean => {
     return item.maxValue === filterStore.price.maxValue && item.minValue === filterStore.price.minValue

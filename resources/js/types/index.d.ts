@@ -7,6 +7,13 @@ export interface User {
     email_verified_at: string;
 }
 
+export type AppEvents = FilterEvents
+
+export type FilterEvents = {
+    'filter:resetPrice': void
+    'filter:updatePrice': [number, number]
+}
+
 export type FilterBody = Record<string, FilterInputDTO | FilterInputDTO[] | FilterRangeDTO | FilterRangeDTO[] | string | number | boolean | null | undefined>
 
 export interface FilterComponentDTO {
@@ -75,5 +82,4 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
     ziggy: Config & { location: string };
-    lang: Lang
 };

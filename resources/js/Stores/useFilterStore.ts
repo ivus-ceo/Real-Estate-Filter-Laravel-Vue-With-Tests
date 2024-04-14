@@ -7,6 +7,7 @@ import type {
     FilterRangeDTO,
 } from "@/types";
 import { usePage } from "@inertiajs/vue3";
+import useEmitter from "@/Composables/Common/useEmitter";
 
 export const useFilterStore = defineStore('filter', () => {
     const page = usePage()
@@ -45,6 +46,7 @@ export const useFilterStore = defineStore('filter', () => {
     const resetPrice = (): void => {
         body.value[priceRangeComponent.query] = [priceRangeComponent.default]
         price.value = priceRangeComponent.default
+        useEmitter.emit('filter:resetPrice')
     }
 
     // Resets all filter values and body to default

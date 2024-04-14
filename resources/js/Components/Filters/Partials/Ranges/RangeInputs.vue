@@ -28,18 +28,25 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import type { FilterEvents } from "@/types";
+import useEmitter from "@/Composables/Common/useEmitter";
 
 const props = defineProps<{
     min: number
     max: number
     currentMin: number
     currentMax: number
+    resetEvent: keyof FilterEvents
+    updateEvent: keyof FilterEvents
 }>()
-
-const emit = defineEmits(['update'])
 
 const minInput = ref<HTMLInputElement>()
 const maxInput = ref<HTMLInputElement>()
+
+useEmitter.on(props.resetEvent, () => {
+    minInput.value!.value = props.min.toString()
+    maxInput.value!.value = props.min.toString()
+})
 
 const handleInputChange = () => {
     let min = Number(minInput.value?.value)
@@ -61,7 +68,7 @@ const handleInputChange = () => {
         maxInput.value!.value = props.max.toString()
     }
 
-    emit('update', [min, max])
+    useEmitter.emit(props.updateEvent, [min, max])
 }
 
 onMounted(() => {

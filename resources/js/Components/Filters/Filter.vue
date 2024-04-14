@@ -24,7 +24,7 @@
             <div class="flex">
                 <img src="/icons/filter/list-view.svg" alt="List">
                 <img src="/icons/filter/grid-view.svg" alt="Grid">
-                <img src="/icons/filter/map-view.svg" alt="Map">
+                <img src="/icons/filter/map-view.svg" alt="Map" @click="emitter.emit('filter:resetPrice')">
             </div>
         </div>
 

@@ -8,7 +8,7 @@
             {{ label }}
         </ListboxButton>
         <ListboxOptions
-            v-if="isOpen"
+            v-show="isOpen"
             class="filter-options-list"
             static
         >
