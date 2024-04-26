@@ -7,15 +7,15 @@ use App\DTOs\BaseValidatedDTO;
 class FilterRangeDTO extends BaseValidatedDTO
 {
     public string $name;
-    public int $minValue;
-    public int $maxValue;
+    public array | FilterInputDTO $minValue;
+    public array | FilterInputDTO $maxValue;
 
     protected function rules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'minValue' => ['required', 'integer'],
-            'maxValue' => ['required', 'integer'],
+            'minValue' => ['required'],
+            'maxValue' => ['required'],
         ];
     }
 

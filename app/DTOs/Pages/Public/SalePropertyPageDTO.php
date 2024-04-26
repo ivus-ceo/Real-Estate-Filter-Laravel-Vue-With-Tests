@@ -2,13 +2,12 @@
 
 namespace App\DTOs\Pages\Public;
 
+use App\DTOs\BaseSimpleDTO;
 use App\Enums\Filters\DealTypes;
-use App\DTOs\Components\Filters\{FilterComponentDTO, Partials\DealTypes\FilterDealTypeDropdownComponentDTO};
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
-use WendellAdriel\ValidatedDTO\SimpleDTO;
+use App\DTOs\Components\Filters\{FilterComponentDTO};
+use WendellAdriel\ValidatedDTO\Exceptions\{CastTargetException, MissingCastTypeException};
 
-class SalePropertyPageDTO extends SimpleDTO
+class SalePropertyPageDTO extends BaseSimpleDTO
 {
     /**
      * @throws CastTargetException

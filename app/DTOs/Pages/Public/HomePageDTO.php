@@ -2,7 +2,7 @@
 
 namespace App\DTOs\Pages\Public;
 
-use App\DTOs\Components\{Filters\FilterComponentDTO, Filters\Partials\DealTypes\FilterDealTypeDropdownComponentDTO};
+use App\DTOs\Components\{Filters\Dropdowns\DealTypes\FilterDealTypeDropdownComponentDTO, Filters\FilterComponentDTO};
 use Illuminate\Support\Facades\Route;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;

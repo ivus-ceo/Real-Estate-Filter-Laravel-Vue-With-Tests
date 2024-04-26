@@ -2,17 +2,25 @@
 
 namespace App\DTOs\Pages\Public;
 
-use App\DTOs\Components\Filters\{FilterComponentDTO, FilterSaleComponentDTO};
-use WendellAdriel\ValidatedDTO\SimpleDTO;
+use App\DTOs\BaseSimpleDTO;
+use App\Enums\Filters\DealTypes;
+use App\DTOs\Components\Filters\{FilterComponentDTO};
+use WendellAdriel\ValidatedDTO\Exceptions\{CastTargetException, MissingCastTypeException};
 
-class RentPropertyPageDTO extends SimpleDTO
+class RentPropertyPageDTO extends BaseSimpleDTO
 {
+    /**
+     * @throws CastTargetException
+     * @throws MissingCastTypeException
+     */
     protected function defaults(): array
     {
-        $filterComponentDTO = app(FilterSaleComponentDTO::class);
+        $filterComponent = new FilterComponentDTO([
+            'dealType' => DealTypes::RENT,
+        ]);
 
         return [
-            'filter_component' => $filterComponentDTO->toArray()
+            'filterComponent' => $filterComponent->toArray()
         ];
     }
 

@@ -29,8 +29,8 @@ export interface FilterInputDTO {
 
 export interface FilterRangeDTO {
     name: string
-    minValue: number
-    maxValue: number
+    minValue: FilterInputDTO
+    maxValue: FilterInputDTO
 }
 
 export interface FilterRangeGraphDTO {
@@ -40,17 +40,40 @@ export interface FilterRangeGraphDTO {
 }
 
 export interface FilterDropdownComponentDTO {
-    query: string
+    queryName: string
+    queryItem: FilterInputDTO
+    defaultItem: FilterInputDTO
     items: FilterInputDTO[]
-    default: FilterInputDTO
+}
+
+export interface FilterMultipleChoicesDropdownComponentDTO {
+    queryName: string
+    queryItems: FilterInputDTO[]
+    defaultItems: FilterInputDTO[]
+    items: FilterInputDTO[]
 }
 
 export interface FilterRangeComponentDTO {
-    query: string
-    current: FilterRangeDTO
-    default: FilterRangeDTO
-    items: FilterRangeDTO[]
-    graph: FilterRangeGraphDTO
+    minQueryName: string
+    maxQueryName: string
+    queryNames: {
+        min: string,
+        max: string
+    }
+    minQueryItem: FilterInputDTO
+    maxQueryItem: FilterInputDTO
+    queryItems: {
+        min: FilterInputDTO
+        max: FilterInputDTO
+    }
+    minDefaultItem: FilterInputDTO;
+    maxDefaultItem: FilterInputDTO;
+    defaultItems: {
+        min: FilterInputDTO
+        max: FilterInputDTO
+    };
+    items: FilterRangeDTO[];
+    // $graph;
 }
 
 export type DealType = 'sale' | 'rent'
@@ -62,15 +85,8 @@ export interface DealTypeDropdownComponentDTO extends FilterDropdownComponentDTO
     }
 }
 
-export interface RoominessDropdownComponentDTO extends FilterDropdownComponentDTO {
-    items: {
-        any: FilterInputDTO
-        0: FilterInputDTO
-        1: FilterInputDTO
-        2: FilterInputDTO
-        3: FilterInputDTO
-        4: FilterInputDTO
-    }
+export interface RoominessDropdownComponentDTO extends FilterMultipleChoicesDropdownComponentDTO {
+    dealType: DealType
 }
 
 export interface PriceRangeComponentDTO extends FilterRangeComponentDTO {

@@ -17,49 +17,61 @@ export const useFilterStore = defineStore('filter', () => {
     const roominessDropdownComponent = filterComponentDTO.roominessDropdownComponent
     const priceRangeComponent = filterComponentDTO.priceRangeComponent
     // Set filter values
-    const dealType = ref<FilterInputDTO>(dealTypeDropdownComponentDTO.default)
-    const roominess = ref<FilterInputDTO[]>([roominessDropdownComponent.default])
-    const price = ref<FilterRangeDTO>(priceRangeComponent.current)
+    const dealType = ref<FilterInputDTO>(dealTypeDropdownComponentDTO.queryItem ?? dealTypeDropdownComponentDTO.defaultItem)
+    const roominess = ref<FilterInputDTO[]>(roominessDropdownComponent.queryItems ?? roominessDropdownComponent.defaultItems)
+    const minPrice = ref<FilterInputDTO>(priceRangeComponent.minQueryItem ?? priceRangeComponent.minDefaultItem)
+    const maxPrice = ref<FilterInputDTO>(priceRangeComponent.maxQueryItem ?? priceRangeComponent.maxDefaultItem)
 
     const setDealType = (value: FilterInputDTO): void => {
         dealType.value = value
     }
 
     const resetDealType = (): void => {
-        body.value[dealTypeDropdownComponentDTO.query] = dealTypeDropdownComponentDTO.default
-        dealType.value = dealTypeDropdownComponentDTO.default
+        body.value[dealTypeDropdownComponentDTO.queryName] = dealTypeDropdownComponentDTO.queryItem ?? dealTypeDropdownComponentDTO.defaultItem
+        dealType.value = dealTypeDropdownComponentDTO.queryItem ?? dealTypeDropdownComponentDTO.defaultItem
     }
 
-    const setRoominess = (array: FilterInputDTO[]): void => {
-        roominess.value = array
+    const setRoominess = (value: FilterInputDTO[]): void => {
+        roominess.value = value
     }
 
     const resetRoominess = (): void => {
-        body.value[roominessDropdownComponent.query] = [roominessDropdownComponent.default]
-        roominess.value = [roominessDropdownComponent.default]
+        body.value[roominessDropdownComponent.queryName] = roominessDropdownComponent.queryItems ?? roominessDropdownComponent.defaultItems
+        roominess.value = roominessDropdownComponent.queryItems ?? roominessDropdownComponent.defaultItems
     }
 
-    const setPrice = (value: FilterRangeDTO): void => {
-        price.value = value
+    const setMinPrice = (value: FilterInputDTO): void => {
+        minPrice.value = value
     }
 
-    const resetPrice = (): void => {
-        body.value[priceRangeComponent.query] = [priceRangeComponent.default]
-        price.value = priceRangeComponent.default
-        useEmitter.emit('filter:resetPrice')
+    const setMaxPrice = (value: FilterInputDTO): void => {
+        maxPrice.value = value
+    }
+
+    const resetMinPrice = (): void => {
+        body.value[priceRangeComponent.minQueryName] = priceRangeComponent.minDefaultItem
+        minPrice.value = priceRangeComponent.minDefaultItem
+        // useEmitter.emit('filter:resetPrice')
+    }
+
+    const resetMaxPrice = (): void => {
+        body.value[priceRangeComponent.maxQueryName] = priceRangeComponent.maxDefaultItem
+        maxPrice.value = priceRangeComponent.maxDefaultItem
+        // useEmitter.emit('filter:resetPrice')
     }
 
     // Resets all filter values and body to default
     const reset = (): void => {
         resetDealType()
         resetRoominess()
-        resetPrice()
+        resetMinPrice()
+        resetMaxPrice()
     }
 
     return {
         filterComponentDTO, dealTypeDropdownComponentDTO, roominessDropdownComponent, priceRangeComponent,
-        dealType, roominess, price,
-        setDealType, setRoominess, setPrice,
+        dealType, roominess, minPrice, maxPrice,
+        setDealType, setRoominess, setMinPrice, setMaxPrice,
         reset
     }
 })

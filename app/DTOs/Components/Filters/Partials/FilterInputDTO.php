@@ -2,10 +2,9 @@
 
 namespace App\DTOs\Components\Filters\Partials;
 
-use App\Rules\Filters\FilterDefaultInputable;
-use WendellAdriel\ValidatedDTO\ValidatedDTO;
+use App\DTOs\BaseValidatedDTO;
 
-class FilterInputDTO extends ValidatedDTO
+class FilterInputDTO extends BaseValidatedDTO
 {
     public string $name;
     public string $value;

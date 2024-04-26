@@ -6,7 +6,7 @@
         >
             <FilterDealType/>
             <FilterRoominess/>
-            <FilterPrice/>
+<!--            <FilterPrice/>-->
         </form>
 
         <div class="flex items-center justify-end">
