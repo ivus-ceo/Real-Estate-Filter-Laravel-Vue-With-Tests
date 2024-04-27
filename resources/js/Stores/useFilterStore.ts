@@ -48,6 +48,11 @@ export const useFilterStore = defineStore('filter', () => {
         maxPrice.value = value
     }
 
+    const setPrices = (values: [FilterInputDTO, FilterInputDTO]): void => {
+        minPrice.value = values[0]
+        maxPrice.value = values[1]
+    }
+
     const resetMinPrice = (): void => {
         body.value[priceRangeComponent.minQueryName] = priceRangeComponent.minDefaultItem
         minPrice.value = priceRangeComponent.minDefaultItem
@@ -71,7 +76,7 @@ export const useFilterStore = defineStore('filter', () => {
     return {
         filterComponentDTO, dealTypeDropdownComponentDTO, roominessDropdownComponent, priceRangeComponent,
         dealType, roominess, minPrice, maxPrice,
-        setDealType, setRoominess, setMinPrice, setMaxPrice,
+        setDealType, setRoominess, setMinPrice, setMaxPrice, setPrices,
         reset
     }
 })

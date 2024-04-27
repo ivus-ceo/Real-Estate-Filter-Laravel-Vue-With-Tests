@@ -1,7 +1,9 @@
 <template>
     <Listbox as="div">
         <ListboxButton class="filter-list-value">
-            {{ filterStore.price!.name }}
+            {{ filterStore.minPrice.value }}
+            -
+            {{ filterStore.maxPrice.value }}
         </ListboxButton>
 
         <div class="flex flex-col">
@@ -10,24 +12,22 @@
                 class="filter-options-list"
                 static
             >
-                <Range
-                    class="mx-6 my-4"
-                    :min="priceRangeComponent.default.minValue"
-                    :max="priceRangeComponent.default.maxValue"
-                    :current-min="filterStore.price.minValue"
-                    :current-max="filterStore.price.maxValue"
-                    :graph="priceRangeComponent.graph"
-                    reset-event="filter:resetPrice"
-                    update-event="filter:updatePrice"
-                />
+<!--                <Range-->
+<!--                    class="mx-6 my-4"-->
+<!--                    :min="priceRangeComponent.default.minValue"-->
+<!--                    :max="priceRangeComponent.default.maxValue"-->
+<!--                    :current-min="filterStore.price.minValue"-->
+<!--                    :current-max="filterStore.price.maxValue"-->
+<!--                    :graph="priceRangeComponent.graph"-->
+<!--                    reset-event="filter:resetPrice"-->
+<!--                    update-event="filter:updatePrice"-->
+<!--                />-->
 
                 <ListboxOption
                     class="filter-options-item"
-                    :class="{ 'bg-gray-100': isSelected(item) }"
                     v-for="(item, key) in filterStore.priceRangeComponent.items"
                     :key="key"
                     :value="item"
-                    @click="handlePriceClick(item)"
                 >
                     {{ item.name }}
                 </ListboxOption>
@@ -52,28 +52,28 @@ const props = defineProps<{
 const filterStore = useFilterStore()
 const priceRangeComponent = filterStore.priceRangeComponent
 
-const handlePriceClick = (item: FilterRangeDTO) => {
-    filterStore.setPrice(item)
-}
-
-useEmitter.on('filter:updatePrice', (prices) => {
-    filterStore.setPrice(getPrice(prices[0], prices[1]))
-})
-
-const isSelected = (item: FilterRangeDTO): boolean => {
-    return item.maxValue === filterStore.price.maxValue && item.minValue === filterStore.price.minValue
-}
-
-const getPrice = (min: number, max: number): FilterRangeDTO => {
-    const name = useLang('base.filter.prices.between') as string;
-    return {
-        name: name
-            .replace(':from', new Intl.NumberFormat('en-US').format(min))
-            .replace(':to', new Intl.NumberFormat('en-US').format(max)),
-        minValue: min,
-        maxValue: max
-    }
-}
+// const handlePriceClick = (item: FilterRangeDTO) => {
+//     filterStore.setPrices([item.minValue, item.maxValue])
+// }
+//
+// useEmitter.on('filter:updatePrice', (prices) => {
+//     filterStore.setPrices(getPrice(prices[0], prices[1]))
+// })
+//
+// const isSelected = (item: FilterRangeDTO): boolean => {
+//     return item.maxValue === filterStore.price.maxValue && item.minValue === filterStore.price.minValue
+// }
+//
+// const getPrice = (min: number, max: number): FilterRangeDTO => {
+//     const name = useLang('base.filter.prices.between') as string;
+//     return {
+//         name: name
+//             .replace(':from', new Intl.NumberFormat('en-US').format(min))
+//             .replace(':to', new Intl.NumberFormat('en-US').format(max)),
+//         minValue: min,
+//         maxValue: max
+//     }
+// }
 </script>
 
 <style scoped>
