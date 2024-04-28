@@ -142,18 +142,18 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
     private function getFormattedPrice(PriceRanges $priceRange, int $minPrice = null, int $maxPrice = null): string
     {
         $locale = app()->getLocale();
-        $currency = Currencies::USD->value;
-        $minPriceForHumans = !empty($minPrice) ? Number::forHumans($minPrice) : '';
-        $maxPriceForHumans = !empty($maxPrice) ? Number::forHumans($maxPrice) : '';
+        $currency = Currencies::USD;
+        $minPriceForHumans = !empty($minPrice) ? Number::currency($minPrice, locale: $locale, in: $currency->name) : '';
+        $maxPriceForHumans = !empty($maxPrice) ? Number::currency($maxPrice, locale: $locale, in: $currency->name) : '';
 
         if ($priceRange->name === PriceRanges::OVER->name) {
             return trans('base.filter.prices.over', [
                 'price' => $maxPriceForHumans
-            ]) . ' ' . $currency;
+            ]);
         } elseif ($priceRange->name === PriceRanges::UP_TO->name) {
             return trans('base.filter.prices.up_to', [
                 'price' => $minPriceForHumans
-            ]) . ' ' . $currency;
+            ]);
         } elseif ($priceRange->name === PriceRanges::BETWEEN->name) {
 
             if (empty($minPrice)) {
@@ -171,7 +171,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
             return trans('base.filter.prices.between', [
                 'from' => $minPriceForHumans,
                 'to' => $maxPriceForHumans
-            ]) . ' ' . $currency;
+            ]);
         }
 
         return '';

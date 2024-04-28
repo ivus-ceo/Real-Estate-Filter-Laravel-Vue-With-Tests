@@ -1,7 +1,7 @@
 <template>
     <Listbox as="div">
         <ListboxButton class="filter-list-value">
-            {{ value }}
+            {{ label }}
         </ListboxButton>
 
         <div class="flex flex-col">
@@ -10,6 +10,19 @@
                 class="filter-options-list"
                 static
             >
+                <FilterRangeGraph
+                    @click.stop
+                />
+
+                <FilterRangeSlider
+                    :min="min"
+                    :max="max"
+                    :current-min="currentMin"
+                    :current-max="currentMax"
+                    @click.stop
+                    @update-values="emit('update-values', $event)"
+                />
+
                 <!--                <Range-->
                 <!--                    class="mx-6 my-4"-->
                 <!--                    :min="priceRangeComponent.default.minValue"-->
@@ -26,7 +39,7 @@
                     v-for="(item, key) in items"
                     :key="key"
                     :value="item"
-                    @click="emit('update-values', item)"
+                    @click="emit('update-values', [item.minValue, item.maxValue])"
                 >
                     {{ item.name }}
                 </ListboxOption>
@@ -37,18 +50,22 @@
 
 <script setup lang="ts">
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
-import type { FilterRangeDTO } from "@/types";
+import FilterRangeGraph from "@/Components/Filters/Ranges/FilterRangeGraph.vue";
+import FilterRangeSlider from "@/Components/Filters/Ranges/FilterRangeSlider.vue";
+import type { FilterInputDTO, FilterRangeDTO } from "@/types";
 
 const emit = defineEmits<{
-    (e: 'update-values', item: FilterRangeDTO): void
-    // (e: 'update-min-value', value: string): void
-    // (e: 'update-max-value', value: string): void
+    (event: 'update-values', values: [FilterInputDTO, FilterInputDTO]): void
 }>()
 
 const props = defineProps<{
     isOpen: boolean
-    value: string
+    label: string
     items: FilterRangeDTO[]
+    min: number,
+    max: number,
+    currentMin: number,
+    currentMax: number,
 }>()
 </script>
 
