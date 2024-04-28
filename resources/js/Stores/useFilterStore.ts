@@ -56,21 +56,24 @@ export const useFilterStore = defineStore('filter', () => {
     const resetMinPrice = (): void => {
         body.value[priceRangeComponent.minQueryName] = priceRangeComponent.minDefaultItem
         minPrice.value = priceRangeComponent.minDefaultItem
-        // useEmitter.emit('filter:resetPrice')
     }
 
     const resetMaxPrice = (): void => {
         body.value[priceRangeComponent.maxQueryName] = priceRangeComponent.maxDefaultItem
         maxPrice.value = priceRangeComponent.maxDefaultItem
-        // useEmitter.emit('filter:resetPrice')
+    }
+
+    const resetPrices = (): void => {
+        resetMinPrice()
+        resetMaxPrice()
+        useEmitter.emit('filter:resetRange')
     }
 
     // Resets all filter values and body to default
     const reset = (): void => {
         resetDealType()
         resetRoominess()
-        resetMinPrice()
-        resetMaxPrice()
+        resetPrices()
     }
 
     return {

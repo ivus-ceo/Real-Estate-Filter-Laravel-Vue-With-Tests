@@ -27,7 +27,8 @@ abstract class BaseFilterRangeComponentDTO extends BaseValidatedDTO
     public FilterInputDTO $maxDefaultItem;
     /** @var array{min: FilterInputDTO, max: FilterInputDTO} */
     public array $defaultItems;
-    // public FilterRangeGraphDTO $graph;
+    /** @var array<int> */
+    public array $graph;
     /** @var array<FilterRangeDTO> */
     public array $items;
 
@@ -38,6 +39,10 @@ abstract class BaseFilterRangeComponentDTO extends BaseValidatedDTO
         ];
     }
 
+    /**
+     * @throws CastTargetException
+     * @throws MissingCastTypeException
+     */
     protected function defaults(): array
     {
         return [
@@ -51,6 +56,7 @@ abstract class BaseFilterRangeComponentDTO extends BaseValidatedDTO
             'maxDefaultItem' => $this->getMaxDefaultItem(),
             'defaultItems' => $this->getDefaultItems(),
             'items' => $this->getItems(),
+            'graph' => $this->getGraph(),
         ];
     }
 
@@ -128,6 +134,36 @@ abstract class BaseFilterRangeComponentDTO extends BaseValidatedDTO
     }
 
     /**
+     * Get graph ranges to count after
+     *
+     * @return array<int>
+     */
+    protected function getGraphRanges(): array
+    {
+        $numberOfColumns = 40;
+        $minDefaultItem = $this->getMinDefaultItem();
+        $maxDefaultItem = $this->getMaxDefaultItem();
+        $minNumber = (int) $minDefaultItem->value;
+        $maxNumber = (int) $maxDefaultItem->value;
+
+        $range = collect(
+            range(
+                $minNumber,
+                $maxNumber,
+                round(($minNumber + $maxNumber) / $numberOfColumns)
+            )
+        );
+
+        return $range
+            ->keyBy(function (int $minNumber, int $key) use ($range, $maxNumber) {
+                $maxPrice = ($range->count() === $key + 1) ? $maxNumber : $range[$key + 1];
+                return $minNumber . ':' . $maxPrice;
+            })
+            ->transform(fn () => 0)
+            ->toArray();
+    }
+
+    /**
      * Get query item
      *
      * @param string $queryName
@@ -188,4 +224,11 @@ abstract class BaseFilterRangeComponentDTO extends BaseValidatedDTO
      * @return array<FilterRangeDTO>
      */
     abstract protected function getItems(): array;
+
+    /**
+     * Get graph
+     *
+     * @return array
+     */
+    abstract protected function getGraph(): array;
 }

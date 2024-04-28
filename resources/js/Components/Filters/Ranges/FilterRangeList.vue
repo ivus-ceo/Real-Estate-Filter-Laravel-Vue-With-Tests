@@ -11,6 +11,9 @@
                 static
             >
                 <FilterRangeGraph
+                    :current-min="currentMin"
+                    :current-max="currentMax"
+                    :graph="graph"
                     @click.stop
                 />
 
@@ -22,17 +25,6 @@
                     @click.stop
                     @update-values="emit('update-values', $event)"
                 />
-
-                <!--                <Range-->
-                <!--                    class="mx-6 my-4"-->
-                <!--                    :min="priceRangeComponent.default.minValue"-->
-                <!--                    :max="priceRangeComponent.default.maxValue"-->
-                <!--                    :current-min="filterStore.price.minValue"-->
-                <!--                    :current-max="filterStore.price.maxValue"-->
-                <!--                    :graph="priceRangeComponent.graph"-->
-                <!--                    reset-event="filter:resetPrice"-->
-                <!--                    update-event="filter:updatePrice"-->
-                <!--                />-->
 
                 <ListboxOption
                     class="filter-options-item"
@@ -52,7 +44,7 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
 import FilterRangeGraph from "@/Components/Filters/Ranges/FilterRangeGraph.vue";
 import FilterRangeSlider from "@/Components/Filters/Ranges/FilterRangeSlider.vue";
-import type { FilterInputDTO, FilterRangeDTO } from "@/types";
+import type { FilterInputDTO, FilterRangeDTO, FilterRangeGraph as FilterRangeGraphType } from "@/types";
 
 const emit = defineEmits<{
     (event: 'update-values', values: [FilterInputDTO, FilterInputDTO]): void
@@ -66,6 +58,7 @@ const props = defineProps<{
     max: number,
     currentMin: number,
     currentMax: number,
+    graph: FilterRangeGraphType
 }>()
 </script>
 

@@ -10,8 +10,7 @@ export interface User {
 export type AppEvents = FilterEvents
 
 export type FilterEvents = {
-    'filter:resetPrice': void
-    'filter:updatePrice': [number, number]
+    'filter:resetRange': void
 }
 
 export type FilterBody = Record<string, FilterInputDTO | FilterInputDTO[] | FilterRangeDTO | FilterRangeDTO[] | string | number | boolean | null | undefined>
@@ -33,11 +32,7 @@ export interface FilterRangeDTO {
     maxValue: FilterInputDTO
 }
 
-export interface FilterRangeGraphDTO {
-    min: number
-    max: number
-    items: Record<string, number>
-}
+export type FilterRangeGraph = Record<string, number>
 
 export interface FilterDropdownComponentDTO {
     queryName: string
@@ -73,7 +68,7 @@ export interface FilterRangeComponentDTO {
         max: FilterInputDTO
     };
     items: FilterRangeDTO[];
-    // $graph;
+    graph: FilterRangeGraph
 }
 
 export type DealType = 'sale' | 'rent'
