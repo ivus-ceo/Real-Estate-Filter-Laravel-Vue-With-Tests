@@ -10,9 +10,10 @@
 <script setup lang="ts">
 import 'nouislider/dist/nouislider.css';
 import noUiSlider, { API } from "nouislider";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import type { FilterInputDTO } from "@/types";
 import useEmitter from "@/Composables/Common/useEmitter";
+import { watchDebounced } from "@vueuse/core";
 
 const props = defineProps<{
     min: number
@@ -53,6 +54,22 @@ onMounted(() => {
 useEmitter.on('filter:resetRange', () => {
     rangeSlider.value?.set([props.min, props.max])
 })
+
+watchDebounced(
+    () => props.currentMax,
+    (newCurrentMax: number) => {
+        rangeSlider.value?.set([props.currentMin, newCurrentMax])
+    },
+    { debounce: 500 },
+)
+
+watchDebounced(
+    () => props.currentMin,
+    (newCurrentMin: number) => {
+        rangeSlider.value?.set([newCurrentMin, props.currentMax])
+    },
+    { debounce: 500 },
+)
 </script>
 
 <style>
