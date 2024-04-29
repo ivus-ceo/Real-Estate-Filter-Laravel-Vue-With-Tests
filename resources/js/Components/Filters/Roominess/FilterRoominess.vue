@@ -1,6 +1,6 @@
 <template>
     <FilterDropdown
-        :label="useLang('base.filter.deal')"
+        :label="useLang('base.filter.roominess')"
         @click="isOpen = !isOpen"
     >
         <FilterDropdownList
@@ -32,10 +32,6 @@ const label = computed(() => {
 })
 
 const handleUpdateValue = (items: FilterInputDTO[]): void => {
-    items.map((item: FilterInputDTO) => {
-        console.log(item.name)
-    })
-
     filterStore.setRoominess(items)
 }
 

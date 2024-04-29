@@ -12,7 +12,7 @@
     }
 
     .filter-list-container {
-        @apply filter-list-padding flex flex-col gap-1 border-[1px] border-gray-100 rounded-lg cursor-pointer relative;
+        @apply filter-list-padding flex flex-col gap-1 border-[1px] border-gray-100 rounded-lg cursor-pointer relative bg-white;
     }
 
     .filter-list-label {

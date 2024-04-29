@@ -25,5 +25,6 @@ return [
             'four_bedroom' => '4+',
         ],
         'area' => 'Площадь',
+        'search' => 'Поиск',
     ],
 ];

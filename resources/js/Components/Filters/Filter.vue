@@ -8,6 +8,7 @@
             <FilterRoominess/>
             <FilterPrice/>
             <FilterArea/>
+            <FilterSearch/>
         </form>
 
         <div class="flex items-center justify-end">
@@ -46,6 +47,7 @@ import FilterDealType from "@/Components/Filters/DealTypes/FilterDealType.vue";
 import FilterRoominess from "@/Components/Filters/Roominess/FilterRoominess.vue";
 import FilterPrice from "@/Components/Filters/Prices/FilterPrice.vue";
 import FilterArea from "@/Components/Filters/Areas/FilterArea.vue";
+import FilterSearch from "@/Components/Filters/Search/FilterSearch.vue";
 
 const props = defineProps<{
     url: string

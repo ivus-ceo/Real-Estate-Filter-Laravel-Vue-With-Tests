@@ -1,6 +1,6 @@
 <template>
     <FilterRange
-        class="w-[250px]"
+        class="w-[250px] min-w-[250px]"
         :label="useLang(`base.filter.area`)"
         @click="isOpen = !isOpen"
     >

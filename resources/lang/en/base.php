@@ -30,5 +30,6 @@ return [
             'over' => 'over :area',
             'between' => 'from :from to :to',
         ],
+        'search' => 'Search',
     ],
 ];
