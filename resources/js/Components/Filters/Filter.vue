@@ -7,6 +7,7 @@
             <FilterDealType/>
             <FilterRoominess/>
             <FilterPrice/>
+            <FilterArea/>
         </form>
 
         <div class="flex items-center justify-end">
@@ -43,7 +44,8 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import { useFilterStore } from "@/Stores/useFilterStore";
 import FilterDealType from "@/Components/Filters/DealTypes/FilterDealType.vue";
 import FilterRoominess from "@/Components/Filters/Roominess/FilterRoominess.vue";
-import FilterPrice from "@/Components/Filters/Price/FilterPrice.vue";
+import FilterPrice from "@/Components/Filters/Prices/FilterPrice.vue";
+import FilterArea from "@/Components/Filters/Areas/FilterArea.vue";
 
 const props = defineProps<{
     url: string

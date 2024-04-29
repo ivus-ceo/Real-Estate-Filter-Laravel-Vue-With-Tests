@@ -25,5 +25,10 @@ return [
             'four_bedroom' => '4+',
         ],
         'area' => 'Area',
+        'areas' => [
+            'up_to' => 'up to :area',
+            'over' => 'over :area',
+            'between' => 'from :from to :to',
+        ],
     ],
 ];

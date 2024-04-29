@@ -1,8 +1,8 @@
 <template>
-    <div class="flex h-24 items-end gap-1 px-6 mt-3">
+    <div class="flex h-24 items-end px-6 mt-3">
         <div
             v-for="(number, range) in graph"
-            class="w-full bg-black"
+            class="w-full bg-black border-r-[1px] border-white"
             :class="{ 'bg-gray-100': !isColumnInRange(range) }"
             :style="`height: ${getHeight(number)}`"
         ></div>

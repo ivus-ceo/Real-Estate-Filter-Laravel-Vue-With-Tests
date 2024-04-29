@@ -1,6 +1,6 @@
 <template>
     <FilterRange
-        class="w-[500px]"
+        class="w-[400px]"
         :label="label"
         @click="isOpen = !isOpen"
     >

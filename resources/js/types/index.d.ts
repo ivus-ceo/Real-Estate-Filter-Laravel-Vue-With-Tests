@@ -19,6 +19,7 @@ export interface FilterComponentDTO {
     dealTypeDropdownComponent: DealTypeDropdownComponentDTO
     roominessDropdownComponent: RoominessDropdownComponentDTO
     priceRangeComponent: PriceRangeComponentDTO
+    areaRangeComponent: AreaRangeComponentDTO
 }
 
 export interface FilterInputDTO {
@@ -85,6 +86,10 @@ export interface RoominessDropdownComponentDTO extends FilterMultipleChoicesDrop
 }
 
 export interface PriceRangeComponentDTO extends FilterRangeComponentDTO {
+    dealType: DealType
+}
+
+export interface AreaRangeComponentDTO extends FilterRangeComponentDTO {
     dealType: DealType
 }
 
