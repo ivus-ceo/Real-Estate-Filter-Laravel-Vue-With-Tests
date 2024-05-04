@@ -16,14 +16,9 @@ class HomePageDTO extends SimpleDTO
      */
     protected function defaults(): array
     {
-        $filterComponent = new FilterComponentDTO([
-            'dealType' => FilterDealTypeDropdownComponentDTO::SALE,
-        ]);
-
         return [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'filterComponent' => $filterComponent->toArray()
         ];
     }
 

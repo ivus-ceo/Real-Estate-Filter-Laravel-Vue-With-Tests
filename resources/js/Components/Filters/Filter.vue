@@ -4,11 +4,11 @@
             class="flex gap-3 select-none"
             @submit.prevent
         >
-            <FilterDealType/>
-            <FilterRoominess/>
-            <FilterPrice/>
-            <FilterArea/>
-            <FilterSearch/>
+<!--            <FilterDealType/>-->
+<!--            <FilterRoominess/>-->
+<!--            <FilterPrice/>-->
+<!--            <FilterArea/>-->
+<!--            <FilterSearch/>-->
         </form>
 
         <div class="flex items-center justify-end">
