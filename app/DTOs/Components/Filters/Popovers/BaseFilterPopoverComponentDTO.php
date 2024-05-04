@@ -1,21 +1,22 @@
 <?php
 
-namespace App\DTOs\Components\Filters\Dropdowns;
+namespace App\DTOs\Components\Filters\Popovers;
 
 use App\DTOs\BaseValidatedDTO;
 use App\DTOs\Components\Filters\Partials\FilterInputDTO;
+use App\DTOs\Components\Filters\Partials\FilterListDTO;
 use App\Enums\Filters\DealTypes;
 use Illuminate\Validation\Rules\Enum;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
-abstract class BaseFilterDropdownComponentDTO extends BaseValidatedDTO
+abstract class BaseFilterPopoverComponentDTO extends BaseValidatedDTO
 {
     public string $dealType;
     public string $queryName;
-    public ?FilterInputDTO $queryItem;
-    public FilterInputDTO $defaultItem;
-    /** @var array<FilterInputDTO> */
+    public string $queryItem;
+    public string $defaultItem;
+    /** @var array<FilterListDTO> */
     public array $items;
 
     protected function rules(): array
@@ -57,9 +58,9 @@ abstract class BaseFilterDropdownComponentDTO extends BaseValidatedDTO
      *
      * @throws CastTargetException
      * @throws MissingCastTypeException
-     * @return FilterInputDTO|null
+     * @return string|null
      */
-    protected function getQueryItem(): ?FilterInputDTO
+    protected function getQueryItem(): ?string
     {
         $queryName = $this->getQueryName();
         $queryValue = request()->query($queryName);
@@ -88,16 +89,16 @@ abstract class BaseFilterDropdownComponentDTO extends BaseValidatedDTO
      *
      * @throws CastTargetException
      * @throws MissingCastTypeException
-     * @return FilterInputDTO
+     * @return string
      */
-    abstract protected function getDefaultItem(): FilterInputDTO;
+    abstract protected function getDefaultItem(): string;
 
     /**
      * Returns the all items
      *
      * @throws CastTargetException
      * @throws MissingCastTypeException
-     * @return array<FilterInputDTO>
+     * @return array<FilterListDTO>
      */
     abstract protected function getItems(): array;
 }

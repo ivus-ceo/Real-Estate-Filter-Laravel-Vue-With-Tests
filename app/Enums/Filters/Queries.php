@@ -10,4 +10,5 @@ enum Queries: string
     case MAX_PRICE = 'maxPrice';
     case MIN_AREA = 'minArea';
     case MAX_AREA = 'maxArea';
+    case SEARCH = 'search';
 }

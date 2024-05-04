@@ -104,7 +104,7 @@ abstract class BaseFilterMultipleChoicesDropdownComponentDTO extends BaseValidat
      *
      * @throws CastTargetException
      * @throws MissingCastTypeException
-     * @return array
+     * @return array<FilterInputDTO>
      */
     abstract protected function getItems(): array;
 }
