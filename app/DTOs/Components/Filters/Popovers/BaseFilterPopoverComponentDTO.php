@@ -2,15 +2,13 @@
 
 namespace App\DTOs\Components\Filters\Popovers;
 
-use App\DTOs\BaseValidatedDTO;
+use App\DTOs\BaseDTO;
 use App\DTOs\Components\Filters\Partials\FilterInputDTO;
 use App\DTOs\Components\Filters\Partials\FilterListDTO;
 use App\Enums\Filters\DealTypes;
 use Illuminate\Validation\Rules\Enum;
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
-abstract class BaseFilterPopoverComponentDTO extends BaseValidatedDTO
+abstract class BaseFilterPopoverComponentDTO extends BaseDTO
 {
     public string $dealType;
     public string $queryName;

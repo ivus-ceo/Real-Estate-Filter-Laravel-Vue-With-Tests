@@ -13,10 +13,10 @@
         "laravel/tinker": "^2.8",
         "malhal/laravel-geographical": "^1.0",
         "spatie/laravel-data": "^4.6",
+        "spatie/laravel-typescript-transformer": "^2.4",
         "spatie/typescript-transformer": "^2.3",
         "tightenco/ziggy": "^2.0",
-        "tucker-eric/eloquentfilter": "^3.3",
-        "wendelladriel/laravel-validated-dto": "^3.5"
+        "tucker-eric/eloquentfilter": "^3.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

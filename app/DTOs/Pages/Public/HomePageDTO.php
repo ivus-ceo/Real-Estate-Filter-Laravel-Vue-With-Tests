@@ -2,18 +2,11 @@
 
 namespace App\DTOs\Pages\Public;
 
-use App\DTOs\Components\{Filters\Dropdowns\DealTypes\FilterDealTypeDropdownComponentDTO, Filters\FilterComponentDTO};
+use App\DTOs\BaseDTO;
 use Illuminate\Support\Facades\Route;
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
-use WendellAdriel\ValidatedDTO\SimpleDTO;
 
-class HomePageDTO extends SimpleDTO
+class HomePageDTO extends BaseDTO
 {
-    /**
-     * @throws CastTargetException
-     * @throws MissingCastTypeException
-     */
     protected function defaults(): array
     {
         return [

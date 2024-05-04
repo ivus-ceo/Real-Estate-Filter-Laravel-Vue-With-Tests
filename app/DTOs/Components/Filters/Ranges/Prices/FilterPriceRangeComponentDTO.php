@@ -2,12 +2,13 @@
 
 namespace App\DTOs\Components\Filters\Ranges\Prices;
 
-use App\Enums\Money\Currencies;
 use App\DTOs\Components\Filters\Partials\{FilterInputDTO, FilterRangeDTO};
 use App\DTOs\Components\Filters\Ranges\BaseFilterRangeComponentDTO;
-use Illuminate\Support\Number;
-use App\Enums\Filters\{Queries, PriceRanges, DealTypes, RentPrices, SalePrices};
+use App\Enums\Filters\{DealTypes, Queries, RentPrices, SalePrices};
+use App\Enums\Langs\PriceRanges;
+use App\Enums\Money\Currencies;
 use App\Models\Room;
+use Illuminate\Support\Number;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 

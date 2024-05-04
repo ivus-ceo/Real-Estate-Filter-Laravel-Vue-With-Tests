@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\Filters;
+namespace App\Enums\Langs;
 
 enum AreaRanges: string
 {

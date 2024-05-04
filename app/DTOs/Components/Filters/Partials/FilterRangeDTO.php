@@ -2,9 +2,9 @@
 
 namespace App\DTOs\Components\Filters\Partials;
 
-use App\DTOs\BaseValidatedDTO;
+use App\DTOs\BaseDTO;
 
-class FilterRangeDTO extends BaseValidatedDTO
+class FilterRangeDTO extends BaseDTO
 {
     public string $name;
     public array | FilterInputDTO $minValue;

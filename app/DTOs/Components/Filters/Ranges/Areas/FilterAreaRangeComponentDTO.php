@@ -2,12 +2,12 @@
 
 namespace App\DTOs\Components\Filters\Ranges\Areas;
 
-use App\Enums\Money\Currencies;
 use App\DTOs\Components\Filters\Partials\{FilterInputDTO, FilterRangeDTO};
 use App\DTOs\Components\Filters\Ranges\BaseFilterRangeComponentDTO;
-use Illuminate\Support\Number;
-use App\Enums\Filters\{Queries, AreaRanges, Areas, DealTypes};
+use App\Enums\Filters\{Areas, Queries};
+use App\Enums\Langs\AreaRanges;
 use App\Models\Room;
+use Illuminate\Support\Number;
 use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
 use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 

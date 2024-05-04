@@ -2,14 +2,12 @@
 
 namespace App\DTOs\Components\Filters\Dropdowns;
 
-use App\DTOs\BaseValidatedDTO;
+use App\DTOs\BaseDTO;
 use App\DTOs\Components\Filters\Partials\FilterInputDTO;
 use App\Enums\Filters\DealTypes;
 use Illuminate\Validation\Rules\Enum;
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
-abstract class BaseFilterDropdownComponentDTO extends BaseValidatedDTO
+abstract class BaseFilterDropdownComponentDTO extends BaseDTO
 {
     public string $dealType;
     public string $queryName;

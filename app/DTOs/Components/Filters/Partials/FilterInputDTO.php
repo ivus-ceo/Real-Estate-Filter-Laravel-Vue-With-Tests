@@ -2,9 +2,9 @@
 
 namespace App\DTOs\Components\Filters\Partials;
 
-use App\DTOs\BaseValidatedDTO;
+use App\DTOs\BaseDTO;
 
-class FilterInputDTO extends BaseValidatedDTO
+class FilterInputDTO extends BaseDTO
 {
     public string $name;
     public string $value;

@@ -2,17 +2,15 @@
 
 namespace App\DTOs\Components\Filters\Ranges;
 
-use App\DTOs\BaseValidatedDTO;
+use App\DTOs\BaseDTO;
 use App\DTOs\Components\Filters\Partials\FilterInputDTO;
 use App\DTOs\Components\Filters\Partials\FilterRangeDTO;
 use App\Enums\Money\Currencies;
 use App\Enums\Filters\{DealTypes};
 use Illuminate\Support\Number;
 use Illuminate\Validation\Rules\Enum;
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
-abstract class BaseFilterRangeComponentDTO extends BaseValidatedDTO
+abstract class BaseFilterRangeComponentDTO extends BaseDTO
 {
     public string $dealType;
     public string $minQueryName;

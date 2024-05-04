@@ -20,7 +20,7 @@ class FilterSearchPopoverComponentDTO extends BaseFilterPopoverComponentDTO
         return Queries::SEARCH->value;
     }
 
-    protected function getDefaultItem(): FilterInputDTO
+    protected function getDefaultItem(): string
     {
         // TODO: Implement getDefaultItem() method.
     }

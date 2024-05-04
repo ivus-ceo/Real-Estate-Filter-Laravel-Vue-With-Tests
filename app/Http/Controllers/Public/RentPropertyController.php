@@ -10,9 +10,9 @@ class RentPropertyController extends Controller
 {
     private RentPropertyPageDTO $rentPropertyPageDTO;
 
-    public function __construct(RentPropertyPageDTO $rentPropertyPageDTO)
+    public function __construct()
     {
-        $this->rentPropertyPageDTO = $rentPropertyPageDTO;
+        $this->rentPropertyPageDTO = new RentPropertyPageDTO();
     }
 
     public function index()

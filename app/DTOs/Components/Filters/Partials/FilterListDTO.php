@@ -2,9 +2,9 @@
 
 namespace App\DTOs\Components\Filters\Partials;
 
-use App\DTOs\BaseValidatedDTO;
+use App\DTOs\BaseDTO;
 
-class FilterListDTO extends BaseValidatedDTO
+class FilterListDTO extends BaseDTO
 {
     public string $queryName;
     public string $name;

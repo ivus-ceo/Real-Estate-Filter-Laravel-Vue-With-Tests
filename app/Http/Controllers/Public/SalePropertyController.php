@@ -10,9 +10,9 @@ class SalePropertyController extends Controller
 {
     private SalePropertyPageDTO $salePropertyPageDTO;
 
-    public function __construct(SalePropertyPageDTO $salePropertyPageDTO)
+    public function __construct()
     {
-        $this->salePropertyPageDTO = $salePropertyPageDTO;
+        $this->salePropertyPageDTO = new SalePropertyPageDTO();
     }
 
     public function index()
