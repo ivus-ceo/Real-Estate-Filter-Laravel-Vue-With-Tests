@@ -11,9 +11,9 @@
 import 'nouislider/dist/nouislider.css';
 import noUiSlider, { API } from "nouislider";
 import { onMounted, ref, watch } from "vue";
-import type { FilterInputDTO } from "@/types";
 import useEmitter from "@/Composables/Common/useEmitter";
 import { watchDebounced } from "@vueuse/core";
+import FilterItem = App.DTOs.Filters.Items.FilterItem;
 
 const props = defineProps<{
     min: number
@@ -23,7 +23,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    (event: 'update-values', values: [FilterInputDTO, FilterInputDTO]): void
+    (event: 'update-values', values: [FilterItem, FilterItem]): void
 }>()
 
 const range = ref<HTMLDivElement>()
@@ -32,14 +32,14 @@ const rangeSlider = ref<API>()
 onMounted(() => {
     rangeSlider.value = noUiSlider.create(range.value!, {
         start: [
-            Number(props.currentMin),
-            Number(props.currentMax)
+            props.currentMin,
+            props.currentMax
         ],
         connect: true,
         step: 1,
         range: {
-            min: Number(props.min),
-            max: Number(props.max)
+            min: props.min,
+            max: props.max
         },
     });
 
