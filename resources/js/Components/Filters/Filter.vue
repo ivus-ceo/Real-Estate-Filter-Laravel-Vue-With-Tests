@@ -7,7 +7,7 @@
             <FilterDealType/>
             <FilterRoominess/>
             <FilterPrice/>
-<!--            <FilterArea/>-->
+            <FilterArea/>
 <!--            <FilterSearch/>-->
         </form>
 

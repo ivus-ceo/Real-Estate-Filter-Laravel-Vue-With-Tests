@@ -13,14 +13,14 @@ export const useFilterStore = defineStore('filter', () => {
     const dealTypeDropdownComponentDTO = filterComponentDTO.dealTypeDropdownComponent
     const roominessDropdownComponentDTO = filterComponentDTO.roominessDropdownComponent
     const priceRangeComponentDTO = filterComponentDTO.priceRangeComponent
-    // const areaRangeComponentDTO = filterComponentDTO.areaRangeComponent
+    const areaRangeComponentDTO = filterComponentDTO.areaRangeComponent
     // Set filter values
     const dealType = ref<FilterItem>(dealTypeDropdownComponentDTO.queryItem ?? dealTypeDropdownComponentDTO.defaultItem)
     const roominess = ref<FilterItem[]>(roominessDropdownComponentDTO.queryItems ?? roominessDropdownComponentDTO.defaultItems)
     const minPrice = ref<FilterItem>(priceRangeComponentDTO.minQueryItem ?? priceRangeComponentDTO.minDefaultItem)
     const maxPrice = ref<FilterItem>(priceRangeComponentDTO.maxQueryItem ?? priceRangeComponentDTO.maxDefaultItem)
-    // const minArea = ref<FilterInputDTO>(areaRangeComponent.minQueryItem ?? areaRangeComponent.minDefaultItem)
-    // const maxArea = ref<FilterInputDTO>(areaRangeComponent.maxQueryItem ?? areaRangeComponent.maxDefaultItem)
+    const minArea = ref<FilterItem>(areaRangeComponentDTO.minQueryItem ?? areaRangeComponentDTO.minDefaultItem)
+    const maxArea = ref<FilterItem>(areaRangeComponentDTO.maxQueryItem ?? areaRangeComponentDTO.maxDefaultItem)
 
     const setDealType = (value: FilterItem): void => {
         dealType.value = value
@@ -73,47 +73,49 @@ export const useFilterStore = defineStore('filter', () => {
         useEmitter.emit('filter:resetRange')
     }
 
-    // const setMinArea = (value: FilterInputDTO): void => {
-    //     minArea.value = value
-    // }
-    //
-    // const setMaxArea = (value: FilterInputDTO): void => {
-    //     maxArea.value = value
-    // }
-    //
-    // const setAreas = (values: [FilterInputDTO, FilterInputDTO]): void => {
-    //     minArea.value = values[0]
-    //     maxArea.value = values[1]
-    // }
-    //
-    // const resetMinArea = (): void => {
-    //     body.value[areaRangeComponent.minQueryName] = areaRangeComponent.minDefaultItem
-    //     minArea.value = areaRangeComponent.minDefaultItem
-    // }
-    //
-    // const resetMaxArea = (): void => {
-    //     body.value[areaRangeComponent.maxQueryName] = areaRangeComponent.maxDefaultItem
-    //     maxArea.value = areaRangeComponent.maxDefaultItem
-    // }
-    //
-    // const resetAreas = (): void => {
-    //     resetMinArea()
-    //     resetMaxArea()
-    //     useEmitter.emit('filter:resetRange')
-    // }
+    const setMinArea = (value: FilterItem): void => {
+        minArea.value = value
+    }
+
+    const setMaxArea = (value: FilterItem): void => {
+        maxArea.value = value
+    }
+
+    const setAreas = (values: [FilterItem, FilterItem]): void => {
+        minArea.value = values[0]
+        maxArea.value = values[1]
+    }
+
+    const resetMinArea = (): void => {
+        const item = areaRangeComponentDTO.minDefaultItem
+        body.value[areaRangeComponentDTO.minQuery] = item.value
+        minArea.value = item
+    }
+
+    const resetMaxArea = (): void => {
+        const item = areaRangeComponentDTO.maxDefaultItem
+        body.value[areaRangeComponentDTO.maxQuery] = item.value
+        maxArea.value = item
+    }
+
+    const resetAreas = (): void => {
+        resetMinArea()
+        resetMaxArea()
+        useEmitter.emit('filter:resetRange')
+    }
 
     // Resets all filter values and body to default
     const reset = (): void => {
         resetDealType()
         resetRoominess()
         resetPrices()
-        // resetAreas()
+        resetAreas()
     }
 
     return {
-        filterComponentDTO, dealTypeDropdownComponentDTO, roominessDropdownComponentDTO, priceRangeComponentDTO, // areaRangeComponent,
-        dealType, roominess, minPrice, maxPrice, //minArea, maxArea,
-        setDealType, setRoominess,  setMinPrice, setMaxPrice, setPrices, //setMinArea, setMaxArea, setAreas,
+        filterComponentDTO, dealTypeDropdownComponentDTO, roominessDropdownComponentDTO, priceRangeComponentDTO, areaRangeComponentDTO,
+        dealType, roominess, minPrice, maxPrice, minArea, maxArea,
+        setDealType, setRoominess,  setMinPrice, setMaxPrice, setPrices, setMinArea, setMaxArea, setAreas,
         reset
     }
 })

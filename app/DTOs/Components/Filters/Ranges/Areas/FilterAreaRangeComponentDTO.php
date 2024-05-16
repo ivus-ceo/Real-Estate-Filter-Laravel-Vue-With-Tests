@@ -2,84 +2,101 @@
 
 namespace App\DTOs\Components\Filters\Ranges\Areas;
 
-use App\DTOs\Components\Filters\Partials\{FilterInputDTO, FilterRangeDTO};
 use App\DTOs\Components\Filters\Ranges\BaseFilterRangeComponentDTO;
-use App\Enums\Filters\{Areas, Queries};
+use App\DTOs\Components\Filters\Ranges\Graphs\Areas\AreaRangeGraphComponent;
+use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponent;
+use App\DTOs\Filters\Items\FilterItem;
+use App\DTOs\Filters\Items\FilterRange;
 use App\Enums\Langs\AreaRanges;
 use App\Models\Room;
+use App\Enums\Filters\{Areas, DealTypes, Queries};
 use Illuminate\Support\Number;
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
 
+/** @typescript */
 class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
 {
-    /** @var array<FilterRangeDTO> */
-    public array $items;
-
-    protected function getMinQueryName(): string
+    public function __construct(
+        public DealTypes $dealType,
+    )
     {
-        return Queries::MIN_AREA->value;
+        parent::__construct(
+            dealType: $dealType,
+            minQuery: $this->getMinQuery(),
+            maxQuery: $this->getMaxQuery(),
+            minDefaultItem: $this->getMinDefaultItem(),
+            maxDefaultItem: $this->getMaxDefaultItem(),
+            graph: $this->getGraph(),
+            items: $this->getItems(),
+        );
+
+        $this->minQueryItem = $this->getMinQueryItem();
+        $this->maxQueryItem = $this->getMaxQueryItem();
     }
 
-    protected function getMaxQueryName(): string
+    protected function getMinQuery(): Queries
     {
-        return Queries::MAX_AREA->value;
+        return Queries::MIN_AREA;
     }
 
-    protected function getMinQueryItem(): ?FilterInputDTO
+    protected function getMaxQuery(): Queries
+    {
+        return Queries::MAX_AREA;
+    }
+
+    protected function getMinQueryItem(): ?FilterItem
     {
         $minQueryItem = parent::getMinQueryItem();
 
         if (empty($minQueryItem)) return null;
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedArea(
+        return new FilterItem(
+            name: $this->getFormattedArea(
                 areaRange: AreaRanges::UP_TO,
                 minArea: $minQueryItem->value
             ),
-            'value' => $minQueryItem->value
-        ]);
+            value: $minQueryItem->value
+        );
     }
 
-    protected function getMaxQueryItem(): ?FilterInputDTO
+    protected function getMaxQueryItem(): ?FilterItem
     {
         $maxQueryItem = parent::getMaxQueryItem();
 
         if (empty($maxQueryItem)) return null;
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedArea(
+        return new FilterItem(
+            name: $this->getFormattedArea(
                 areaRange: AreaRanges::OVER,
                 maxArea: $maxQueryItem->value
             ),
-            'value' => $maxQueryItem->value
-        ]);
+            value: $maxQueryItem->value
+        );
     }
 
-    protected function getMinDefaultItem(): FilterInputDTO
+    protected function getMinDefaultItem(): FilterItem
     {
         $minArea = Room::min('area');
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedArea(
+        return new FilterItem(
+            name: $this->getFormattedArea(
                 areaRange: AreaRanges::UP_TO,
                 minArea: $minArea
             ),
-            'value' => (string) $minArea
-        ]);
+            value: (string) $minArea
+        );
     }
 
-    protected function getMaxDefaultItem(): FilterInputDTO
+    protected function getMaxDefaultItem(): FilterItem
     {
         $maxArea = Room::max('area');
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedArea(
+        return new FilterItem(
+            name: $this->getFormattedArea(
                 areaRange: AreaRanges::OVER,
                 maxArea: $maxArea
             ),
-            'value' => (string) $maxArea
-        ]);
+            value: (string) $maxArea
+        );
     }
 
     protected function getItems(): array
@@ -90,47 +107,44 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
 
         foreach (Areas::cases() as $area) {
             $explodedArea = explode(':', $area->value);
-            $explodedMinArea = !empty($explodedArea[0]) ? (string) $explodedArea[0] : (string) $minArea;
-            $explodedMaxArea = !empty($explodedArea[1]) ? (string) $explodedArea[1] : (string) $maxArea;
+            $explodedMinArea = !empty($explodedArea[0]) ? $explodedArea[0] : $minArea;
+            $explodedMaxArea = !empty($explodedArea[1]) ? $explodedArea[1] : $maxArea;
 
-            $minValue = new FilterInputDTO([
-                'name' => $this->getFormattedArea(
+            $minItem = new FilterItem(
+                name: $this->getFormattedArea(
                     areaRange: AreaRanges::UP_TO,
                     minArea: $explodedMinArea
                 ),
-                'value' => $explodedMinArea
-            ]);
+                value: $explodedMinArea
+            );
 
-            $maxValue = new FilterInputDTO([
-                'name' => $this->getFormattedArea(
+            $maxItem = new FilterItem(
+                name: $this->getFormattedArea(
                     areaRange: AreaRanges::OVER,
                     maxArea: $explodedMaxArea
                 ),
-                'value' => $explodedMaxArea
-            ]);
+                value: $explodedMaxArea
+            );
 
-            $items[] = new FilterRangeDTO([
-                'name' => $this->getFormattedArea(
+            $items[] = new FilterRange(
+                name: $this->getFormattedArea(
                     areaRange: AreaRanges::BETWEEN,
                     minArea: (int) $explodedArea[0] ?? $minArea,
                     maxArea: (int) $explodedArea[1] ?? $maxArea
                 ),
-                'minValue' => $minValue,
-                'maxValue' => $maxValue,
-            ]);
+                minItem: $minItem,
+                maxItem: $maxItem,
+            );
         }
 
         return $items;
     }
 
-    protected function getGraph(): array
+    protected function getGraph(): BaseRangeGraphComponent
     {
-        return collect($this->getGraphRanges())
-            ->transform(function (int $count, string $range) {
-                $numbers = explode(':', $range);
-                return Room::whereBetween('area', [$numbers[0], $numbers[1]])->count();
-            })
-            ->toArray();
+        return new AreaRangeGraphComponent(
+            dealType: $this->dealType
+        );
     }
 
     private function getFormattedArea(AreaRanges $areaRange, int $minArea = null, int $maxArea = null): string
@@ -168,15 +182,5 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
         }
 
         return '';
-    }
-
-    protected function getMinQuery(): Queries
-    {
-        // TODO: Implement getMinQuery() method.
-    }
-
-    protected function getMaxQuery(): Queries
-    {
-        // TODO: Implement getMaxQuery() method.
     }
 }

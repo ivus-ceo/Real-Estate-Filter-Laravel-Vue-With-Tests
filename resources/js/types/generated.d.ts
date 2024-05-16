@@ -3,6 +3,7 @@ export type FilterComponentDTO = {
 dealTypeDropdownComponent: App.DTOs.Components.Filters.Dropdowns.DealTypes.FilterDealTypeDropdownComponentDTO;
 roominessDropdownComponent: App.DTOs.Components.Filters.Dropdowns.Roominess.FilterRoominessDropdownComponentDTO;
 priceRangeComponent: App.DTOs.Components.Filters.Ranges.Prices.FilterPriceRangeComponentDTO;
+areaRangeComponent: App.DTOs.Components.Filters.Ranges.Areas.FilterAreaRangeComponentDTO;
 dealType: App.Enums.Filters.DealTypes;
 };
 }
@@ -24,8 +25,33 @@ queryItems: App.DTOs.Filters.Items.FilterItem[] | null;
 defaultItems: App.DTOs.Filters.Items.FilterItem[];
 };
 }
+declare namespace App.DTOs.Components.Filters.Ranges.Areas {
+export type FilterAreaRangeComponentDTO = {
+dealType: App.Enums.Filters.DealTypes;
+minQueryItem: App.DTOs.Filters.Items.FilterItem | null;
+maxQueryItem: App.DTOs.Filters.Items.FilterItem | null;
+queries: {min: App.Enums.Filters.Queries, max: App.Enums.Filters.Queries};
+defaultItems: {min: App.DTOs.Filters.Items.FilterItem, max: App.DTOs.Filters.Items.FilterItem};
+queryItems: {min: App.DTOs.Filters.Items.FilterItem, max: App.DTOs.Filters.Items.FilterItem} | null;
+minQuery: App.Enums.Filters.Queries;
+maxQuery: App.Enums.Filters.Queries;
+minDefaultItem: App.DTOs.Filters.Items.FilterItem;
+maxDefaultItem: App.DTOs.Filters.Items.FilterItem;
+graph: App.DTOs.Components.Filters.Ranges.Graphs.BaseRangeGraphComponent;
+items: App.DTOs.Filters.Items.FilterRange[];
+};
+}
 declare namespace App.DTOs.Components.Filters.Ranges.Graphs {
 export type BaseRangeGraphComponent = {
+ranges: Record<string, number>;
+minNumber: number;
+maxNumber: number;
+numberOfColumns: number;
+};
+}
+declare namespace App.DTOs.Components.Filters.Ranges.Graphs.Areas {
+export type AreaRangeGraphComponent = {
+dealType: App.Enums.Filters.DealTypes;
 ranges: Record<string, number>;
 minNumber: number;
 maxNumber: number;

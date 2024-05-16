@@ -15,7 +15,7 @@ class FilterComponentDTO extends BaseDTO
     public FilterDealTypeDropdownComponentDTO $dealTypeDropdownComponent;
     public FilterRoominessDropdownComponentDTO $roominessDropdownComponent;
     public FilterPriceRangeComponentDTO $priceRangeComponent;
-//    public ?FilterAreaRangeComponentDTO $areaRangeComponent;
+    public FilterAreaRangeComponentDTO $areaRangeComponent;
 
     public function __construct(
         public DealTypes $dealType,
@@ -32,35 +32,9 @@ class FilterComponentDTO extends BaseDTO
         $this->priceRangeComponent = new FilterPriceRangeComponentDTO(
             dealType: $this->dealType
         );
+
+        $this->areaRangeComponent = new FilterAreaRangeComponentDTO(
+            dealType: $this->dealType
+        );
     }
-
-//    protected function rules(): array
-//    {
-//        return [
-//            'dealType' => ['required', 'string', new Enum(DealTypes::class)]
-//        ];
-//    }
-
-//    protected function defaults(): array
-//    {
-//        return [
-//            'dealTypeDropdownComponent' => new FilterDealTypeDropdownComponentDTO([
-//                'dealType' => $this->dealType,
-//            ]),
-//            'roominessDropdownComponent' => new FilterRoominessDropdownComponentDTO([
-//                'dealType' => $this->dealType,
-//            ]),
-//            'priceRangeComponent' => new FilterPriceRangeComponentDTO([
-//                'dealType' => $this->dealType,
-//            ]),
-//            'areaRangeComponent' => new FilterAreaRangeComponentDTO([
-//                'dealType' => $this->dealType,
-//            ]),
-//        ];
-//    }
-
-//    protected function casts(): array
-//    {
-//        return [];
-//    }
 }

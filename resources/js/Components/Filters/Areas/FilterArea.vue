@@ -7,12 +7,12 @@
         <FilterRangeList
             :is-open="isOpen"
             :label="label"
-            :min="areaRangeComponent.minDefaultItem.value"
-            :max="areaRangeComponent.maxDefaultItem.value"
-            :current-min="filterStore.minArea.value"
-            :current-max="filterStore.maxArea.value"
-            :items="areaRangeComponent.items"
-            :graph="areaRangeComponent.graph"
+            :min="parseInt(filterStore.areaRangeComponentDTO.minDefaultItem.value)"
+            :max="parseInt(filterStore.areaRangeComponentDTO.maxDefaultItem.value)"
+            :current-min="parseInt(filterStore.minArea.value)"
+            :current-max="parseInt(filterStore.maxArea.value)"
+            :items="filterStore.areaRangeComponentDTO.items"
+            :graph="filterStore.areaRangeComponentDTO.graph"
             @update-values="handleUpdateValues"
         />
     </FilterRange>
@@ -23,12 +23,11 @@ import { computed, ref } from "vue";
 import { useFilterStore } from "@/Stores/useFilterStore";
 import FilterRange from "@/Components/Filters/Ranges/FilterRange.vue";
 import FilterRangeList from "@/Components/Filters/Ranges/FilterRangeList.vue";
-import { FilterInputDTO } from "@/types";
 import useTrans from "@/Composables/Common/useTrans";
+import FilterItem = App.DTOs.Filters.Items.FilterItem;
 
 const isOpen = ref(false)
 const filterStore = useFilterStore()
-const areaRangeComponent = filterStore.areaRangeComponent
 
 const label = computed(() => {
     const currentMin = Number(filterStore.minArea.value)
@@ -45,7 +44,7 @@ const label = computed(() => {
         )
 })
 
-const handleUpdateValues = (values: [FilterInputDTO, FilterInputDTO]) => {
+const handleUpdateValues = (values: [FilterItem, FilterItem]) => {
     filterStore.setAreas(values)
 }
 </script>
