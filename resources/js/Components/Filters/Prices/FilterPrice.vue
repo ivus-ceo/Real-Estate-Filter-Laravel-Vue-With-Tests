@@ -1,40 +1,39 @@
 <template>
     <FilterRange
-        class="w-[400px] min-w-[400px]"
+        class="w-[450px] min-w-[450px]"
         :label="label"
         @click="isOpen = !isOpen"
     >
         <FilterRangeList
             :is-open="isOpen"
             :label="priceLabel"
-            :min="priceRangeComponent.minDefaultItem.value"
-            :max="priceRangeComponent.maxDefaultItem.value"
-            :current-min="filterStore.minPrice.value"
-            :current-max="filterStore.maxPrice.value"
-            :items="priceRangeComponent.items"
-            :graph="priceRangeComponent.graph"
+            :min="parseInt(filterStore.priceRangeComponentDTO.minDefaultItem.value)"
+            :max="parseInt(filterStore.priceRangeComponentDTO.maxDefaultItem.value)"
+            :current-min="parseInt(filterStore.minPrice.value)"
+            :current-max="parseInt(filterStore.maxPrice.value)"
+            :items="filterStore.priceRangeComponentDTO.items"
+            :graph="filterStore.priceRangeComponentDTO.graph"
             @update-values="handleUpdateValues"
         />
     </FilterRange>
 </template>
 
 <script setup lang="ts">
-import useLang from "@/Composables/useLang";
 import { computed, ref } from "vue";
 import { useFilterStore } from "@/Stores/useFilterStore";
 import FilterRange from "@/Components/Filters/Ranges/FilterRange.vue";
 import FilterRangeList from "@/Components/Filters/Ranges/FilterRangeList.vue";
-import { FilterInputDTO } from "@/types";
+import useTrans from "@/Composables/Common/useTrans";
+import FilterItem = App.DTOs.Filters.Items.FilterItem;
 
 const isOpen = ref(false)
 const filterStore = useFilterStore()
-const priceRangeComponent = filterStore.priceRangeComponent
-const label = computed(() => useLang(`base.filter.${filterStore.dealType?.value}_price`))
+const label = computed(() => useTrans(`base.filter.${filterStore.dealType?.value}_price`))
 
 const priceLabel = computed(() => {
-    const currentMin = Number(filterStore.minPrice.value)
-    const currentMax = Number(filterStore.maxPrice.value)
-    const title = useLang(`base.filter.prices.between`) as string
+    const currentMin = parseInt(filterStore.minPrice.value)
+    const currentMax = parseInt(filterStore.maxPrice.value)
+    const title = useTrans(`base.filter.prices.between`) as string
     return title
         .replace(
             ':from',
@@ -46,7 +45,7 @@ const priceLabel = computed(() => {
         )
 })
 
-const handleUpdateValues = (values: [FilterInputDTO, FilterInputDTO]) => {
+const handleUpdateValues = (values: [FilterItem, FilterItem]) => {
     filterStore.setPrices(values)
 }
 </script>

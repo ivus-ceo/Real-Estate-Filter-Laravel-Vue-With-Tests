@@ -44,18 +44,18 @@
 
 <script setup lang="ts">
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
-import type { FilterInputDTO } from "@/types";
 import { ref } from "vue";
+import FilterItem = App.DTOs.Filters.Items.FilterItem;
 
 const emit = defineEmits<{
-    (event: 'update-value', value: FilterInputDTO | FilterInputDTO[]): void
+    (event: 'update-value', value: FilterItem | FilterItem[]): void
 }>()
 
 const props = withDefaults(
     defineProps<{
         isOpen: boolean
         label: string
-        items: FilterInputDTO[]
+        items: Record<string, FilterItem>
         multiple?: boolean
     }>(),
     {
@@ -63,16 +63,16 @@ const props = withDefaults(
     }
 )
 
-const selectedItems = ref<FilterInputDTO[]>([])
+const selectedItems = ref<FilterItem[]>([])
 
-const handleAnyMultipleOptionClick = (item: FilterInputDTO): void => {
+const handleAnyMultipleOptionClick = (item: FilterItem): void => {
     selectedItems.value = [item]
     emit('update-value', selectedItems.value)
 }
 
-const handleMultipleOptionClick = (item: FilterInputDTO): void => {
+const handleMultipleOptionClick = (item: FilterItem): void => {
     // Remove any roominess if something was selected
-    selectedItems.value = selectedItems.value.filter((room: FilterInputDTO) => {
+    selectedItems.value = selectedItems.value.filter((room: FilterItem) => {
         return room.value !== 'any'
     })
 

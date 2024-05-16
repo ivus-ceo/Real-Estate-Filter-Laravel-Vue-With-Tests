@@ -169,4 +169,14 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
 
         return '';
     }
+
+    protected function getMinQuery(): Queries
+    {
+        // TODO: Implement getMinQuery() method.
+    }
+
+    protected function getMaxQuery(): Queries
+    {
+        // TODO: Implement getMaxQuery() method.
+    }
 }

@@ -35,7 +35,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => $this->getAuth($request),
             'ziggy' => fn () => $this->getZiggy($request),
-            'lang' => fn () => $this->getTranslations(),
+            'trans' => fn () => $this->getTranslations(),
         ];
     }
 

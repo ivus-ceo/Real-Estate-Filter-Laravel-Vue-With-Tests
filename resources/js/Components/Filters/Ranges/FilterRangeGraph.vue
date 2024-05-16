@@ -1,7 +1,7 @@
 <template>
     <div class="flex h-24 items-end px-6 mt-3">
         <div
-            v-for="(number, range) in graph"
+            v-for="(number, range) in graph.ranges"
             class="w-full bg-black border-r-[1px] border-white"
             :class="{ 'bg-gray-100': !isColumnInRange(range) }"
             :style="`height: ${getHeight(number)}`"
@@ -10,21 +10,19 @@
 </template>
 
 <script setup lang="ts">
-import { FilterRangeGraph } from "@/types";
+import BaseRangeGraphComponent = App.DTOs.Components.Filters.Ranges.Graphs.BaseRangeGraphComponent;
 
 const props = defineProps<{
     currentMin: number,
     currentMax: number,
-    graph: FilterRangeGraph
+    graph: BaseRangeGraphComponent
 }>()
 
-const max = Math.max(...Object.values(props.graph).map((item) => item))
+const max = Math.max(...Object.values(props.graph.ranges))
 
 const isColumnInRange = (range: string): boolean => {
     const rangeNumbers = range.split(':')
-    const minRangeNumber = Number(rangeNumbers[0])
-    const maxRangeNumber = Number(rangeNumbers[1])
-    return minRangeNumber >= props.currentMin && maxRangeNumber <= props.currentMax
+    return parseInt(rangeNumbers[0]) >= props.currentMin && parseInt(rangeNumbers[1]) <= props.currentMax
 }
 
 const getHeight = (number: number): string => {

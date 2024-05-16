@@ -1,6 +1,6 @@
 <template>
     <FilterDropdown
-        :label="useLang('base.filter.deal')"
+        :label="useTrans('base.filter.deal')"
         @click="isOpen = !isOpen"
     >
         <FilterDropdownList
@@ -14,17 +14,18 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import useLang from "@/Composables/useLang";
 import FilterDropdown from "@/Components/Filters/Dropdowns/FilterDropdown.vue";
 import FilterDropdownList from "@/Components/Filters/Dropdowns/FilterDropdownList.vue";
 import { useFilterStore } from "@/Stores/useFilterStore";
-import type { FilterInputDTO } from "@/types";
+import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import useTrans from "@/Composables/Common/useTrans";
 
 const isOpen = ref(false)
 const filterStore = useFilterStore()
 
-const handleUpdateValue = (item: FilterInputDTO) => {
-    filterStore.setDealType(item)
+const handleUpdateValue = (item: FilterItem | FilterItem[]) => {
+    if (!Array.isArray(item))
+        filterStore.setDealType(item as FilterItem)
 }
 </script>
 

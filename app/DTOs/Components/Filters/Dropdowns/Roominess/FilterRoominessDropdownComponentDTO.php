@@ -2,45 +2,57 @@
 
 namespace App\DTOs\Components\Filters\Dropdowns\Roominess;
 
+use App\Enums\Filters\DealTypes;
+use App\DTOs\Components\Filters\Dropdowns\{BaseFilterMultipleChoiceDropdownComponentDTO};
+use App\DTOs\Filters\Items\FilterItem;
 use App\Enums\Filters\Queries;
 use App\Enums\Filters\Roominess;
-use App\DTOs\Components\Filters\Dropdowns\{BaseFilterMultipleChoicesDropdownComponentDTO};
-use App\DTOs\Components\Filters\Partials\{FilterInputDTO};
-use WendellAdriel\ValidatedDTO\Exceptions\{CastTargetException, MissingCastTypeException};
 use Illuminate\Support\Str;
+use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
+use Spatie\TypeScriptTransformer\Attributes\TypeScriptType;
 
-class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoicesDropdownComponentDTO
+/** @typescript */
+class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdownComponentDTO
 {
-    /** @var array<FilterInputDTO> */
+    #[RecordTypeScriptType(Roominess::class, FilterItem::class)]
+    /** @var $items array<FilterItem> */
     public array $items;
 
-    public function getQueryName(): string
+    public function __construct(
+        public DealTypes $dealType,
+    )
     {
-        return Queries::ROOMINESS->value;
+        parent::__construct(
+            dealType: $dealType,
+            query: $this->getQuery(),
+            queryItems: $this->getQueryItems(),
+            defaultItems: $this->getDefaultItems(),
+            items:  $this->getItems()
+        );
+    }
+
+    public function getQuery(): Queries
+    {
+        return Queries::ROOMINESS;
     }
 
     public function getDefaultItems(): array
     {
         return [
-            new FilterInputDTO([
-                'name' => trans('base.filter.rooms.any'),
-                'value' => 'any'
-            ])
+            new FilterItem(
+                name: trans('base.filter.rooms.any'),
+                value: 'any'
+            )
         ];
     }
 
-    /**
-     * @throws MissingCastTypeException
-     * @throws CastTargetException
-     * @return array<FilterInputDTO>
-     */
     public function getItems(): array
     {
         $items = [
-            new FilterInputDTO([
-                'name' => trans('base.filter.rooms.any'),
-                'value' => 'any',
-            ])
+            new FilterItem(
+                name: trans('base.filter.rooms.any'),
+                value: 'any',
+            )
         ];
 
         foreach (Roominess::cases() as $i => $room) {
@@ -51,10 +63,10 @@ class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoicesDropd
                 $value .= ':';
             }
 
-            $items[] = new FilterInputDTO([
-                'name' => trans('base.filter.rooms.' . Str::lower($room->name)),
-                'value' => (string) $value,
-            ]);
+            $items[] = new FilterItem(
+                name: trans('base.filter.rooms.' . Str::lower($room->name)),
+                value: (string) $value,
+            );
         }
 
         return $items;

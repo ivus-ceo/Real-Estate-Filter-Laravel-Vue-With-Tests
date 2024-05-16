@@ -3,64 +3,51 @@
 namespace App\DTOs\Components\Filters\Ranges;
 
 use App\DTOs\BaseDTO;
-use App\DTOs\Components\Filters\Partials\FilterInputDTO;
-use App\DTOs\Components\Filters\Partials\FilterRangeDTO;
-use App\Enums\Money\Currencies;
-use App\Enums\Filters\{DealTypes};
+use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponent;
+use App\DTOs\Filters\Items\{FilterItem, FilterRange};
+use App\Enums\Filters\{DealTypes, Queries};
 use Illuminate\Support\Number;
-use Illuminate\Validation\Rules\Enum;
+use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 
 abstract class BaseFilterRangeComponentDTO extends BaseDTO
 {
-    public string $dealType;
-    public string $minQueryName;
-    public string $maxQueryName;
-    /** @var array{min: string, max: string} */
-    public array $queryNames;
-    public ?FilterInputDTO $minQueryItem;
-    public ?FilterInputDTO $maxQueryItem;
-    /** @var array{min: FilterInputDTO, max: FilterInputDTO}|null */
-    public ?array $queryItems;
-    public FilterInputDTO $minDefaultItem;
-    public FilterInputDTO $maxDefaultItem;
-    /** @var array{min: FilterInputDTO, max: FilterInputDTO} */
+    public ?FilterItem $minQueryItem;
+    public ?FilterItem $maxQueryItem;
+    #[LiteralTypeScriptType('{min: App.Enums.Filters.Queries, max: App.Enums.Filters.Queries}')]
+    /** @var $queries array{min: Queries, max: Queries} */
+    public array $queries;
+    #[LiteralTypeScriptType('{min: App.DTOs.Filters.Items.FilterItem, max: App.DTOs.Filters.Items.FilterItem}')]
+    /** @var $defaultItems array{min: FilterItem, max: FilterItem} */
     public array $defaultItems;
-    /** @var array<int> */
-    public array $graph;
-    /** @var array<FilterRangeDTO> */
-    public array $items;
-
-    protected function rules(): array
-    {
-        return [
-            'dealType' => ['required', 'string', new Enum(DealTypes::class)],
-        ];
-    }
+    #[LiteralTypeScriptType('{min: App.DTOs.Filters.Items.FilterItem, max: App.DTOs.Filters.Items.FilterItem} | null')]
+    /** @var $queryItems array{min: FilterItem, max: FilterItem}|null */
+    public ?array $queryItems;
 
     /**
-     * @throws CastTargetException
-     * @throws MissingCastTypeException
+     * @param DealTypes $dealType
+     * @param Queries $minQuery
+     * @param Queries $maxQuery
+     * @param FilterItem $minDefaultItem
+     * @param FilterItem $maxDefaultItem
+     * @param BaseRangeGraphComponent $graph
+     * @param array<FilterRange> $items
      */
-    protected function defaults(): array
+    public function __construct(
+        public DealTypes $dealType,
+        public Queries $minQuery,
+        public Queries $maxQuery,
+        public FilterItem $minDefaultItem,
+        public FilterItem $maxDefaultItem,
+        public BaseRangeGraphComponent $graph,
+        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterRange[]')]
+        public array $items,
+    )
     {
-        return [
-            'minQueryName' => $this->getMinQueryName(),
-            'maxQueryName' => $this->getMaxQueryName(),
-            'queryNames' => $this->getQueryNames(),
-            'minQueryItem' => $this->getMinQueryItem(),
-            'maxQueryItem' => $this->getMaxQueryItem(),
-            'queryItems' => $this->getQueryItems(),
-            'minDefaultItem' => $this->getMinDefaultItem(),
-            'maxDefaultItem' => $this->getMaxDefaultItem(),
-            'defaultItems' => $this->getDefaultItems(),
-            'items' => $this->getItems(),
-            'graph' => $this->getGraph(),
-        ];
-    }
-
-    protected function casts(): array
-    {
-        return [];
+        $this->minQueryItem = $this->getMinQueryItem();
+        $this->maxQueryItem = $this->getMaxQueryItem();
+        $this->queries = $this->getQueries();
+        $this->defaultItems = $this->getDefaultItems();
+        $this->queryItems = $this->getQueryItems();
     }
 
     /**
@@ -68,36 +55,33 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
      *
      * @return array{min: string, max: string}
      */
-    protected function getQueryNames(): array
+    protected function getQueries(): array
     {
         return [
-            'min' => $this->getMinQueryName(),
-            'max' => $this->getMaxQueryName(),
+            'min' => $this->getMinQuery(),
+            'max' => $this->getMaxQuery(),
         ];
     }
 
     /**
      * Get min and max query items
      *
-     * @return array{min: FilterInputDTO, max: FilterInputDTO}|null
+     * @return array{min: FilterItem, max: FilterItem}|null
      */
     protected function getQueryItems(): ?array
     {
-        $minQueryItem = $this->getMinQueryItem();
-        $maxQueryItem = $this->getMaxQueryItem();
-
-        if (empty($minQueryItem) || empty($maxQueryItem)) return null;
+        if (empty($this->minQueryItem) && empty($this->maxQueryItem)) return null;
 
         return [
-            'min' => $minQueryItem,
-            'max' => $maxQueryItem,
+            'min' => !empty($this->minQueryItem) ? $this->minQueryItem : null,
+            'max' => !empty($this->maxQueryItem) ? $this->maxQueryItem : null,
         ];
     }
 
     /**
      * Get min and max query items
      *
-     * @return array{min: FilterInputDTO, max: FilterInputDTO}
+     * @return array{min: FilterItem, max: FilterItem}
      */
     protected function getDefaultItems(): array
     {
@@ -110,65 +94,36 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     /**
      * Get min query item
      *
-     * @return FilterInputDTO|null
+     * @return FilterItem|null
      */
-    protected function getMinQueryItem(): ?FilterInputDTO
+    protected function getMinQueryItem(): ?FilterItem
     {
         return $this->getQueryItem(
-            queryName: $this->getMinQueryName(),
+            query: $this->getMinQuery(),
         );
     }
 
     /**
      * Get max query item
      *
-     * @return FilterInputDTO|null
+     * @return FilterItem|null
      */
-    protected function getMaxQueryItem(): ?FilterInputDTO
+    protected function getMaxQueryItem(): ?FilterItem
     {
         return $this->getQueryItem(
-            queryName: $this->getMaxQueryName(),
+            query: $this->getMaxQuery(),
         );
-    }
-
-    /**
-     * Get graph ranges to count after
-     *
-     * @return array<int>
-     */
-    protected function getGraphRanges(): array
-    {
-        $numberOfColumns = 40;
-        $minDefaultItem = $this->getMinDefaultItem();
-        $maxDefaultItem = $this->getMaxDefaultItem();
-        $minNumber = (int) $minDefaultItem->value;
-        $maxNumber = (int) $maxDefaultItem->value;
-
-        $range = collect(
-            range(
-                $minNumber,
-                $maxNumber,
-                round(($minNumber + $maxNumber) / $numberOfColumns)
-            )
-        );
-
-        return $range
-            ->keyBy(function (int $minNumber, int $key) use ($range, $maxNumber) {
-                $maxPrice = ($range->count() === $key + 1) ? $maxNumber : $range[$key + 1];
-                return $minNumber . ':' . $maxPrice;
-            })
-            ->transform(fn () => 0)
-            ->toArray();
     }
 
     /**
      * Get query item
      *
-     * @param string $queryName
-     * @return FilterInputDTO|null
+     * @param Queries $query
+     * @return FilterItem|null
      */
-    private function getQueryItem(string $queryName): ?FilterInputDTO
+    private function getQueryItem(Queries $query): ?FilterItem
     {
+        $queryName = $query->value;
         $queryValue = request()->query($queryName);
 
         if (!empty($queryValue)) {
@@ -177,56 +132,54 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
             $maxDefaultValue = (int) $this->getMaxDefaultItem()->value;
             $clampedValue = Number::clamp($queryValue, min: $minDefaultValue, max: $maxDefaultValue);
 
-            return new FilterInputDTO([
-                'name' => (string) $clampedValue,
-                'value' => (string) $clampedValue
-            ]);
+            return new FilterItem(
+                name: (string) $clampedValue,
+                value: (string) $clampedValue
+            );
         }
 
         return null;
     }
 
     /**
-     * Get min query name
+     * Get min query
      *
-     * @return string
+     * @return Queries
      */
-    abstract protected function getMinQueryName(): string;
+    abstract protected function getMinQuery(): Queries;
 
     /**
-     * Get max query name
+     * Get max query
      *
-     * @return string
+     * @return Queries
      */
-    abstract protected function getMaxQueryName(): string;
+    abstract protected function getMaxQuery(): Queries;
 
     /**
      * Get min query item
      *
-     * @return FilterInputDTO
+     * @return FilterItem
      */
-    abstract protected function getMinDefaultItem(): FilterInputDTO;
+    abstract protected function getMinDefaultItem(): FilterItem;
 
     /**
      * Get max query item
      *
-     * @return FilterInputDTO
+     * @return FilterItem
      */
-    abstract protected function getMaxDefaultItem(): FilterInputDTO;
+    abstract protected function getMaxDefaultItem(): FilterItem;
 
     /**
      * Get items
      *
-     * @throws MissingCastTypeException
-     * @throws CastTargetException
-     * @return array<FilterRangeDTO>
+     * @return array<FilterRange>
      */
     abstract protected function getItems(): array;
 
     /**
      * Get graph
      *
-     * @return array
+     * @return BaseRangeGraphComponent
      */
-    abstract protected function getGraph(): array;
+    abstract protected function getGraph(): BaseRangeGraphComponent;
 }

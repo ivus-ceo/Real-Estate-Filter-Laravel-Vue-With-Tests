@@ -9,21 +9,29 @@ use App\DTOs\Components\Filters\Dropdowns\{Roominess\FilterRoominessDropdownComp
 use App\Enums\Filters\DealTypes;
 use Illuminate\Validation\{Rules\Enum};
 
+/** @typescript */
 class FilterComponentDTO extends BaseDTO
 {
-//    public ?FilterDealTypeDropdownComponentDTO $dealTypeDropdownComponent;
-//    public ?FilterRoominessDropdownComponentDTO $roominessDropdownComponent;
-//    public ?FilterPriceRangeComponentDTO $priceRangeComponent;
+    public FilterDealTypeDropdownComponentDTO $dealTypeDropdownComponent;
+    public FilterRoominessDropdownComponentDTO $roominessDropdownComponent;
+    public FilterPriceRangeComponentDTO $priceRangeComponent;
 //    public ?FilterAreaRangeComponentDTO $areaRangeComponent;
 
     public function __construct(
         public DealTypes $dealType,
-//        public ?FilterDealTypeDropdownComponentDTO $dealTypeDropdownComponent,
     )
     {
-//        $this->dealTypeDropdownComponent = new FilterDealTypeDropdownComponentDTO([
-//            'dealType' => $this->dealType,
-//        ]);
+        $this->dealTypeDropdownComponent = new FilterDealTypeDropdownComponentDTO(
+            dealType: $this->dealType
+        );
+
+        $this->roominessDropdownComponent = new FilterRoominessDropdownComponentDTO(
+            dealType: $this->dealType
+        );
+
+        $this->priceRangeComponent = new FilterPriceRangeComponentDTO(
+            dealType: $this->dealType
+        );
     }
 
 //    protected function rules(): array

@@ -2,46 +2,56 @@
 
 namespace App\DTOs\Components\Filters\Dropdowns\DealTypes;
 
-use App\DTOs\Components\Filters\Dropdowns\{BaseFilterDropdownComponentDTO};
-use App\DTOs\Components\Filters\Partials\{FilterInputDTO};
+use App\DTOs\Components\Filters\Dropdowns\{BaseFilterSingleChoiceDropdownComponentDTO};
+use App\DTOs\Filters\Items\FilterItem;
 use App\Enums\Filters\DealTypes;
 use App\Enums\Filters\Queries;
-use Illuminate\Validation\Rules\{Enum};
-use WendellAdriel\ValidatedDTO\Exceptions\{CastTargetException, MissingCastTypeException};
+use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 
-class FilterDealTypeDropdownComponentDTO extends BaseFilterDropdownComponentDTO
+/** @typescript */
+class FilterDealTypeDropdownComponentDTO extends BaseFilterSingleChoiceDropdownComponentDTO
 {
-    public string $dealType;
-    /** @var array{sale: FilterInputDTO, rent: FilterInputDTO} */
+    #[RecordTypeScriptType(DealTypes::class, FilterItem::class)]
+    /** @var $items array{sale: FilterItem, rent: FilterItem} */
     public array $items;
 
-    public function getQueryName(): string
+    public function __construct(
+        public DealTypes $dealType
+    )
     {
-        return Queries::DEAL_TYPE->value;
+        $this->dealType = $dealType;
+
+        parent::__construct(
+            dealType: $dealType,
+            query: $this->getQuery(),
+            queryItem: $this->getQueryItem(),
+            defaultItem: $this->getDefaultItem(),
+            items: $this->getItems()
+        );
     }
 
-    public function getDefaultItem(): FilterInputDTO
+    protected function getQuery(): Queries
     {
-        return new FilterInputDTO([
-            'name' => trans('base.filter.deal_types.' . $this->dealType),
-            'value' => $this->dealType
-        ]);
+        return Queries::DEAL_TYPE;
     }
 
-    /**
-     * @throws CastTargetException
-     * @throws MissingCastTypeException
-     * @return array{sale: FilterInputDTO, rent: FilterInputDTO}
-     */
-    public function getItems(): array
+    protected function getDefaultItem(): FilterItem
+    {
+        return new FilterItem(
+            name: trans('base.filter.deal_types.' . $this->dealType->value),
+            value: $this->dealType->value
+        );
+    }
+
+    protected function getItems(): array
     {
         $items = [];
 
         foreach (DealTypes::cases() as $dealType) {
-            $items[$dealType->value] = new FilterInputDTO([
-                'name' => trans('base.filter.deal_types.' . $dealType->value),
-                'value' => $dealType
-            ]);
+            $items[$dealType->value] = new FilterItem(
+                name: trans('base.filter.deal_types.' . $dealType->value),
+                value: $dealType->value
+            );
         }
 
         return $items;

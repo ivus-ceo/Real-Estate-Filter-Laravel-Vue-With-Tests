@@ -4,9 +4,9 @@
             class="flex gap-3 select-none"
             @submit.prevent
         >
-<!--            <FilterDealType/>-->
-<!--            <FilterRoominess/>-->
-<!--            <FilterPrice/>-->
+            <FilterDealType/>
+            <FilterRoominess/>
+            <FilterPrice/>
 <!--            <FilterArea/>-->
 <!--            <FilterSearch/>-->
         </form>

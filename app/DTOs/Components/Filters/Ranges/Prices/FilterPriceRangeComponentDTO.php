@@ -2,102 +2,123 @@
 
 namespace App\DTOs\Components\Filters\Ranges\Prices;
 
-use App\DTOs\Components\Filters\Partials\{FilterInputDTO, FilterRangeDTO};
-use App\DTOs\Components\Filters\Ranges\BaseFilterRangeComponentDTO;
+use App\Models\{Room};
+use App\DTOs\Components\Filters\Ranges\{BaseFilterRangeComponentDTO,
+    Graphs\BaseRangeGraphComponent,
+    Graphs\Prices\PriceRangeGraphComponent};
+use App\DTOs\Filters\Items\{FilterItem, FilterRange};
 use App\Enums\Filters\{DealTypes, Queries, RentPrices, SalePrices};
 use App\Enums\Langs\PriceRanges;
 use App\Enums\Money\Currencies;
-use App\Models\Room;
 use Illuminate\Support\Number;
-use WendellAdriel\ValidatedDTO\Exceptions\CastTargetException;
-use WendellAdriel\ValidatedDTO\Exceptions\MissingCastTypeException;
+use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 
+/** @typescript */
 class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
 {
-    /** @var array<FilterRangeDTO> */
-    public array $items;
-
-    protected function getMinQueryName(): string
+    public function __construct(
+        public DealTypes $dealType,
+    )
     {
-        return Queries::MIN_PRICE->value;
+        parent::__construct(
+            dealType: $dealType,
+            minQuery: $this->getMinQuery(),
+            maxQuery: $this->getMaxQuery(),
+            minDefaultItem: $this->getMinDefaultItem(),
+            maxDefaultItem: $this->getMaxDefaultItem(),
+            graph: $this->getGraph(),
+            items: $this->getItems(),
+        );
+
+        $this->minQueryItem = $this->getMinQueryItem();
+        $this->maxQueryItem = $this->getMaxQueryItem();
     }
 
-    protected function getMaxQueryName(): string
+    protected function getMinQuery(): Queries
     {
-        return Queries::MAX_PRICE->value;
+        return Queries::MIN_PRICE;
     }
 
-    protected function getMinQueryItem(): ?FilterInputDTO
+    protected function getMaxQuery(): Queries
+    {
+        return Queries::MAX_PRICE;
+    }
+
+    protected function getMinQueryItem(): ?FilterItem
     {
         $minQueryItem = parent::getMinQueryItem();
 
         if (empty($minQueryItem)) return null;
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedPrice(
+        return new FilterItem(
+            name: $this->getFormattedPrice(
                 priceRange: PriceRanges::UP_TO,
                 minPrice: $minQueryItem->value
             ),
-            'value' => $minQueryItem->value
-        ]);
+            value: $minQueryItem->value
+        );
     }
 
-    protected function getMaxQueryItem(): ?FilterInputDTO
+    protected function getMaxQueryItem(): ?FilterItem
     {
         $maxQueryItem = parent::getMaxQueryItem();
 
         if (empty($maxQueryItem)) return null;
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedPrice(
+        return new FilterItem(
+            name: $this->getFormattedPrice(
                 priceRange: PriceRanges::OVER,
                 maxPrice: $maxQueryItem->value
             ),
-            'value' => $maxQueryItem->value
-        ]);
+            value: $maxQueryItem->value
+        );
     }
 
-    protected function getMinDefaultItem(): FilterInputDTO
+    protected function getMinDefaultItem(): FilterItem
     {
-        if ($this->dealType === DealTypes::SALE->value)
+        if ($this->dealType->value === DealTypes::SALE->value)
             $minPrice = Room::min('price_sale');
-        elseif ($this->dealType === DealTypes::RENT->value)
+        elseif ($this->dealType->value === DealTypes::RENT->value)
             $minPrice = Room::min('price_rent');
+        else
+            $minPrice = 0;
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedPrice(
+        return new FilterItem(
+            name: $this->getFormattedPrice(
                 priceRange: PriceRanges::UP_TO,
-                minPrice: (int) $minPrice
+                minPrice: $minPrice
             ),
-            'value' => (string) $minPrice
-        ]);
+            value: $minPrice
+        );
     }
 
-    protected function getMaxDefaultItem(): FilterInputDTO
+    protected function getMaxDefaultItem(): FilterItem
     {
-        if ($this->dealType === DealTypes::SALE->value)
+        if ($this->dealType->value === DealTypes::SALE->value)
             $maxPrice = Room::max('price_sale');
-        elseif ($this->dealType === DealTypes::RENT->value)
+        elseif ($this->dealType->value === DealTypes::RENT->value)
             $maxPrice = Room::max('price_rent');
+        else
+            $maxPrice = 100_000_000;
 
-        return new FilterInputDTO([
-            'name' => $this->getFormattedPrice(
+        return new FilterItem(
+            name: $this->getFormattedPrice(
                 priceRange: PriceRanges::OVER,
                 maxPrice: (int) $maxPrice
             ),
-            'value' => (string) $maxPrice
-        ]);
+            value: (string) $maxPrice
+        );
     }
 
     protected function getItems(): array
     {
         $items = [];
 
-        if ($this->dealType === DealTypes::SALE->value) {
+        if ($this->dealType->value === DealTypes::SALE->value) {
             $minPrice = Room::min('price_sale');
             $maxPrice = Room::max('price_sale');
             $prices = SalePrices::cases();
-        } elseif ($this->dealType === DealTypes::RENT->value) {
+        } elseif ($this->dealType->value === DealTypes::RENT->value) {
             $minPrice = Room::min('price_rent');
             $maxPrice = Room::max('price_rent');
             $prices = RentPrices::cases();
@@ -110,49 +131,41 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
             $explodedMinPrice = !empty($explodedPrice[0]) ? (string) $explodedPrice[0] : (string) $minPrice;
             $explodedMaxPrice = !empty($explodedPrice[1]) ? (string) $explodedPrice[1] : (string) $maxPrice;
 
-            $minValue = new FilterInputDTO([
-                'name' => $this->getFormattedPrice(
+            $minItem = new FilterItem(
+                name: $this->getFormattedPrice(
                     priceRange: PriceRanges::UP_TO,
                     minPrice: $explodedMinPrice
                 ),
-                'value' => $explodedMinPrice
-            ]);
+                value: $explodedMinPrice
+            );
 
-            $maxValue = new FilterInputDTO([
-                'name' => $this->getFormattedPrice(
+            $maxItem = new FilterItem(
+                name: $this->getFormattedPrice(
                     priceRange: PriceRanges::OVER,
                     maxPrice: $explodedMaxPrice
                 ),
-                'value' => $explodedMaxPrice
-            ]);
+                value: $explodedMaxPrice
+            );
 
-            $items[] = new FilterRangeDTO([
-                'name' => $this->getFormattedPrice(
+            $items[] = new FilterRange(
+                name: $this->getFormattedPrice(
                     priceRange: PriceRanges::BETWEEN,
                     minPrice: (int) $explodedPrice[0] ?? $minPrice,
                     maxPrice: (int) $explodedPrice[1] ?? $maxPrice
                 ),
-                'minValue' => $minValue,
-                'maxValue' => $maxValue,
-            ]);
+                minItem: $minItem,
+                maxItem: $maxItem,
+            );
         }
 
         return $items;
     }
 
-    protected function getGraph(): array
+    protected function getGraph(): BaseRangeGraphComponent
     {
-        if ($this->dealType === DealTypes::SALE->value)
-            $column = 'price_sale';
-        elseif ($this->dealType === DealTypes::RENT->value)
-            $column = 'price_rent';
-
-        return collect($this->getGraphRanges())
-            ->transform(function (int $count, string $range) use ($column) {
-                $numbers = explode(':', $range);
-                return Room::whereBetween($column, [$numbers[0], $numbers[1]])->count();
-            })
-            ->toArray();
+        return new PriceRangeGraphComponent(
+            dealType: $this->dealType,
+        );
     }
 
     private function getFormattedPrice(PriceRanges $priceRange, int $minPrice = null, int $maxPrice = null): string

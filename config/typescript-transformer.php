@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\TypeScriptTransformer\Formatters\PrettierFormatter;
+
 return [
     /*
      * The paths where typescript-transformer will look for PHP classes
@@ -29,7 +31,7 @@ return [
     'transformers' => [
         Spatie\LaravelTypeScriptTransformer\Transformers\SpatieStateTransformer::class,
         Spatie\TypeScriptTransformer\Transformers\EnumTransformer::class,
-        Spatie\TypeScriptTransformer\Transformers\SpatieEnumTransformer::class,
+        // Spatie\TypeScriptTransformer\Transformers\SpatieEnumTransformer::class,
         Spatie\LaravelTypeScriptTransformer\Transformers\DtoTransformer::class,
     ],
 
