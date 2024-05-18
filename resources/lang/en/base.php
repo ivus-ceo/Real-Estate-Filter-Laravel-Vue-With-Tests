@@ -31,5 +31,6 @@ return [
             'between' => 'from :from to :to',
         ],
         'search' => 'Search',
+        'search_placeholder' => 'Search for properties name and tags',
     ],
 ];
