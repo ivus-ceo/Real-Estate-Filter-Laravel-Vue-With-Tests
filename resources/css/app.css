@@ -4,15 +4,15 @@
 
 @layer base {
     body {
-        @apply bg-white text-gray-600;
+        @apply bg-gray-950 text-gray-600;
     }
 
     .filter-list-padding {
-        @apply py-4 px-6
+        @apply py-3 px-4
     }
 
     .filter-list-container {
-        @apply filter-list-padding flex flex-col gap-1 border-[1px] border-gray-100 rounded-lg cursor-pointer relative bg-white;
+        @apply filter-list-padding bg-gray-900/75 gap-1  flex flex-col border-[1px] border-gray-900 rounded-lg cursor-pointer relative;
     }
 
     .filter-list-label {
@@ -20,18 +20,14 @@
     }
 
     .filter-list-value {
-        @apply font-black text-black text-xl;
+        @apply font-black text-white text-lg;
     }
 
     .filter-options-list {
-        @apply absolute top-[calc(100%+0.75rem)] left-0 w-full border-[1px] border-gray-100 rounded-lg font-black;
+        @apply absolute top-[calc(100%+0.25rem)] left-0 w-full border-[1px] border-gray-900 bg-gray-900/75 rounded-lg font-black;
     }
 
     .filter-options-item {
-        @apply filter-list-padding bg-transparent
-    }
-
-    .filter-options-item:hover {
-        @apply bg-gray-100
+        @apply filter-list-padding bg-transparent hover:bg-gray-800 hover:text-white;
     }
 }

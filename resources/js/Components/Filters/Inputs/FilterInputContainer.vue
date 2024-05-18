@@ -1,8 +1,8 @@
 <template>
     <div class="filter-list-container">
-        <div class="filter-list-label">
+        <small class="filter-list-label">
             {{ label }}
-        </div>
+        </small>
 
         <slot/>
     </div>

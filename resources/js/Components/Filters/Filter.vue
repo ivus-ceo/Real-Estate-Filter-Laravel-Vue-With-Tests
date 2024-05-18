@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col">
         <form
-            class="flex gap-3 select-none"
+            class="flex gap-1 select-none"
             @submit.prevent
         >
             <FilterDealType/>

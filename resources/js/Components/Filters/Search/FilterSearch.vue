@@ -8,7 +8,7 @@
         </PopoverButton>
 
         <input
-            class="filter-list-value h-full p-0 border-none placeholder-black"
+            class="filter-list-value h-full p-0 border-none placeholder-white bg-transparent"
             ref="search"
             :placeholder="useTrans('base.filter.search_placeholder')"
             @click.stop.prevent
