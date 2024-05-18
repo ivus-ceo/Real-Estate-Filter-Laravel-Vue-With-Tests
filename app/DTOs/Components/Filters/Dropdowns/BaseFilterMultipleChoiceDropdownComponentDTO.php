@@ -12,23 +12,25 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScriptType;
 
 abstract class BaseFilterMultipleChoiceDropdownComponentDTO extends BaseDTO
 {
+    #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItem[] | null')]
+    public ?array $queryItems;
+
     /**
      * @param DealTypes $dealType
      * @param Queries $query
-     * @param array<FilterItem>|null $queryItems
      * @param array<FilterItem> $defaultItems
      * @param array<FilterItem> $items
      */
     public function __construct(
         public DealTypes $dealType,
         public Queries $query,
-        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItem[] | null')]
-        public ?array $queryItems,
         #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItem[]')]
         public array $defaultItems,
         public array $items
     )
-    {}
+    {
+        $this->queryItems = $this->getQueryItems();
+    }
 
     /**
      * Returns the query item

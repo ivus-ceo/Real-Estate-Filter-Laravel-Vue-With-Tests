@@ -9,21 +9,23 @@ use App\Enums\Filters\Queries;
 
 abstract class BaseFilterSingleChoiceDropdownComponentDTO extends BaseDTO
 {
+    public ?FilterItem $queryItem;
+
     /**
      * @param DealTypes $dealType
      * @param Queries $query
-     * @param FilterItem|null $queryItem
      * @param FilterItem $defaultItem
      * @param array $items
      */
     public function __construct(
         public DealTypes $dealType,
         public Queries $query,
-        public ?FilterItem $queryItem,
         public FilterItem $defaultItem,
         public array $items
     )
-    {}
+    {
+        $this->queryItem = $this->getQueryItem();
+    }
 
     /**
      * Returns the query item

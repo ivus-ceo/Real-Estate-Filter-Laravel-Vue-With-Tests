@@ -25,7 +25,6 @@ class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdo
         parent::__construct(
             dealType: $dealType,
             query: $this->getQuery(),
-            queryItems: $this->getQueryItems(),
             defaultItems: $this->getDefaultItems(),
             items:  $this->getItems()
         );

@@ -11,8 +11,8 @@ declare namespace App.DTOs.Components.Filters.Dropdowns.DealTypes {
 export type FilterDealTypeDropdownComponentDTO = {
 items: Record<App.Enums.Filters.DealTypes, App.DTOs.Filters.Items.FilterItem>;
 dealType: App.Enums.Filters.DealTypes;
-query: App.Enums.Filters.Queries;
 queryItem: App.DTOs.Filters.Items.FilterItem | null;
+query: App.Enums.Filters.Queries;
 defaultItem: App.DTOs.Filters.Items.FilterItem;
 };
 }
@@ -20,8 +20,8 @@ declare namespace App.DTOs.Components.Filters.Dropdowns.Roominess {
 export type FilterRoominessDropdownComponentDTO = {
 items: Record<App.Enums.Filters.Roominess, App.DTOs.Filters.Items.FilterItem>;
 dealType: App.Enums.Filters.DealTypes;
-query: App.Enums.Filters.Queries;
 queryItems: App.DTOs.Filters.Items.FilterItem[] | null;
+query: App.Enums.Filters.Queries;
 defaultItems: App.DTOs.Filters.Items.FilterItem[];
 };
 }

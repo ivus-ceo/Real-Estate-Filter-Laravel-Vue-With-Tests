@@ -33,7 +33,6 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
      * @param array<FilterRange> $items
      */
     public function __construct(
-        public DealTypes $dealType,
         public Queries $minQuery,
         public Queries $maxQuery,
         public FilterItem $minDefaultItem,

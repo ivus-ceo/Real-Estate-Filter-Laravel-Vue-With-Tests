@@ -21,7 +21,6 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
     )
     {
         parent::__construct(
-            dealType: $dealType,
             minQuery: $this->getMinQuery(),
             maxQuery: $this->getMaxQuery(),
             minDefaultItem: $this->getMinDefaultItem(),

@@ -8,7 +8,7 @@
             <FilterRoominess/>
             <FilterPrice/>
             <FilterArea/>
-<!--            <FilterSearch/>-->
+            <FilterSearch/>
         </form>
 
         <div class="flex items-center justify-end">

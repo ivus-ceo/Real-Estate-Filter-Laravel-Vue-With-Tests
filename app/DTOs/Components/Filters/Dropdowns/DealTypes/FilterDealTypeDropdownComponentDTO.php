@@ -24,7 +24,6 @@ class FilterDealTypeDropdownComponentDTO extends BaseFilterSingleChoiceDropdownC
         parent::__construct(
             dealType: $dealType,
             query: $this->getQuery(),
-            queryItem: $this->getQueryItem(),
             defaultItem: $this->getDefaultItem(),
             items: $this->getItems()
         );
