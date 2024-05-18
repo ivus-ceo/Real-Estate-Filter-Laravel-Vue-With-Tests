@@ -14,6 +14,7 @@ export const useFilterStore = defineStore('filter', () => {
     const roominessDropdownComponentDTO = filterComponentDTO.roominessDropdownComponent
     const priceRangeComponentDTO = filterComponentDTO.priceRangeComponent
     const areaRangeComponentDTO = filterComponentDTO.areaRangeComponent
+    const searchComponentDTO = filterComponentDTO.searchComponent
     // Set filter values
     const dealType = ref<FilterItem>(dealTypeDropdownComponentDTO.queryItem ?? dealTypeDropdownComponentDTO.defaultItem)
     const roominess = ref<FilterItem[]>(roominessDropdownComponentDTO.queryItems ?? roominessDropdownComponentDTO.defaultItems)
@@ -21,6 +22,7 @@ export const useFilterStore = defineStore('filter', () => {
     const maxPrice = ref<FilterItem>(priceRangeComponentDTO.maxQueryItem ?? priceRangeComponentDTO.maxDefaultItem)
     const minArea = ref<FilterItem>(areaRangeComponentDTO.minQueryItem ?? areaRangeComponentDTO.minDefaultItem)
     const maxArea = ref<FilterItem>(areaRangeComponentDTO.maxQueryItem ?? areaRangeComponentDTO.maxDefaultItem)
+    const search = ref<FilterItem>(searchComponentDTO.queryItem ?? searchComponentDTO.defaultItem)
 
     const setDealType = (value: FilterItem): void => {
         dealType.value = value
@@ -104,18 +106,41 @@ export const useFilterStore = defineStore('filter', () => {
         useEmitter.emit('filter:resetRange')
     }
 
+    const setSearch = (value: FilterItem): void => {
+        search.value = value
+    }
+
+    const resetSearch = (): void => {
+        const item = searchComponentDTO.defaultItem
+        body.value[searchComponentDTO.query] = item.value
+        search.value = item
+    }
+
     // Resets all filter values and body to default
     const reset = (): void => {
         resetDealType()
         resetRoominess()
         resetPrices()
         resetAreas()
+        resetSearch()
     }
 
     return {
-        filterComponentDTO, dealTypeDropdownComponentDTO, roominessDropdownComponentDTO, priceRangeComponentDTO, areaRangeComponentDTO,
-        dealType, roominess, minPrice, maxPrice, minArea, maxArea,
-        setDealType, setRoominess,  setMinPrice, setMaxPrice, setPrices, setMinArea, setMaxArea, setAreas,
+        // DTOs
+        filterComponentDTO, dealTypeDropdownComponentDTO,
+        roominessDropdownComponentDTO, priceRangeComponentDTO,
+        areaRangeComponentDTO, searchComponentDTO,
+        // Filterables
+        dealType, roominess,
+        minPrice, maxPrice,
+        minArea, maxArea,
+        search,
+        // Methods
+        setDealType, setRoominess,
+        setMinPrice, setMaxPrice,
+        setPrices, setMinArea,
+        setMaxArea, setAreas,
+        setSearch,
         reset
     }
 })

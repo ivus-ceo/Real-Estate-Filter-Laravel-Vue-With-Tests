@@ -9,6 +9,7 @@ use App\Enums\Filters\{DealTypes, Queries};
 use Illuminate\Support\Number;
 use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 
+/** @typescript */
 abstract class BaseFilterRangeComponentDTO extends BaseDTO
 {
     public ?FilterItem $minQueryItem;
@@ -24,7 +25,6 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     public ?array $queryItems;
 
     /**
-     * @param DealTypes $dealType
      * @param Queries $minQuery
      * @param Queries $maxQuery
      * @param FilterItem $minDefaultItem

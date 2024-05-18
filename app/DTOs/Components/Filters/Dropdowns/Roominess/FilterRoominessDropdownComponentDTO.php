@@ -26,7 +26,7 @@ class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdo
             dealType: $dealType,
             query: $this->getQuery(),
             defaultItems: $this->getDefaultItems(),
-            items:  $this->getItems()
+            items: $this->getItems()
         );
     }
 
