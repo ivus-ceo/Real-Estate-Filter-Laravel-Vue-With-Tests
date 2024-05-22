@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\DTOs\Locations\LocationDTO;
 use App\Services\Files\FileService;
 use App\Models\Country;
 use App\Models\Location;
@@ -17,6 +18,8 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
+        $locationDTO = new LocationDTO;
+
         foreach (FileService::getCountries() as $country)
         {
             $model = Country::create([

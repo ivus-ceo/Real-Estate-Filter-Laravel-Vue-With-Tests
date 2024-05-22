@@ -20,7 +20,7 @@
     }
 
     .filter-list-value {
-        @apply font-black text-white text-lg;
+        @apply font-black text-white text-xl;
     }
 
     .filter-options-list {

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
+/**
+ * @method static slug
+ */
 class Country extends Model
 {
     protected $fillable = [
@@ -22,5 +25,14 @@ class Country extends Model
     public function location(): MorphOne
     {
         return $this->morphOne(Location::class, 'locationable');
+    }
+
+    /**
+     * @static
+     * @return MorphOne
+     */
+    public function slug(): MorphOne
+    {
+        return $this->morphOne(Slug::class, 'slugable');
     }
 }
