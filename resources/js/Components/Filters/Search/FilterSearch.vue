@@ -51,9 +51,9 @@ import { watchDebounced } from '@vueuse/core'
 import { useFilterStore } from "@/Stores/useFilterStore";
 import FilterTagList from "@/Components/Filters/Tags/FilterTagList.vue";
 
-const props = defineProps<{
-    label: string
-}>()
+// const props = defineProps<{
+//     label: string
+// }>()
 
 const emit = defineEmits<{
     (event: 'update-value', value: boolean): void
