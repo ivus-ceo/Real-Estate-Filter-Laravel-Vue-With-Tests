@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
 import FilterTagItem from "@/Components/Filters/Tags/FilterTagItem.vue";
 
 const props = defineProps<{
-    tags: FilterItem[]
+    tags: FilterItemDTO[]
 }>()
 </script>
 

@@ -7,12 +7,12 @@
         <FilterRangeList
             :is-open="isOpen"
             :label="priceLabel"
-            :min="parseInt(filterStore.priceRangeComponentDTO.minDefaultItem.value)"
-            :max="parseInt(filterStore.priceRangeComponentDTO.maxDefaultItem.value)"
+            :min="parseInt(filterStore.filterPriceRangeComponentDTO.minDefaultItem.value)"
+            :max="parseInt(filterStore.filterPriceRangeComponentDTO.maxDefaultItem.value)"
             :current-min="parseInt(filterStore.minPrice.value)"
             :current-max="parseInt(filterStore.maxPrice.value)"
-            :items="filterStore.priceRangeComponentDTO.items"
-            :graph="filterStore.priceRangeComponentDTO.graph"
+            :items="filterStore.filterPriceRangeComponentDTO.items"
+            :graph="filterStore.filterPriceRangeComponentDTO.graph"
             @update-values="handleUpdateValues"
         />
     </FilterRange>
@@ -24,7 +24,7 @@ import { useFilterStore } from "@/Stores/useFilterStore";
 import FilterRange from "@/Components/Filters/Ranges/FilterRange.vue";
 import FilterRangeList from "@/Components/Filters/Ranges/FilterRangeList.vue";
 import useTrans from "@/Composables/Common/useTrans";
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
 
 const isOpen = ref(false)
 const filterStore = useFilterStore()
@@ -45,7 +45,7 @@ const priceLabel = computed(() => {
         )
 })
 
-const handleUpdateValues = (values: [FilterItem, FilterItem]) => {
+const handleUpdateValues = (values: [FilterItemDTO, FilterItemDTO]) => {
     filterStore.setPrices(values)
 }
 </script>

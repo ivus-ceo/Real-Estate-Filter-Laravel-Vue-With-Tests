@@ -17,11 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
 import { v4 as uuidv4 } from 'uuid';
 
 const props = defineProps<{
-    tag: FilterItem
+    tag: FilterItemDTO
 }>()
 
 const uuid = uuidv4();

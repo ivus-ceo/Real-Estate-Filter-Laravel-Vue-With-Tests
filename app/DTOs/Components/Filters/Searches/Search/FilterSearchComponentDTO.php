@@ -3,8 +3,8 @@
 namespace App\DTOs\Components\Filters\Searches\Search;
 
 use App\DTOs\Components\Filters\Searches\BaseFilterSearchComponentDTO;
-use App\DTOs\Filters\Items\FilterItem;
-use App\DTOs\Filters\Items\FilterList;
+use App\DTOs\Filters\Items\FilterItemDTO;
+use App\DTOs\Filters\Items\FilterListDTO;
 use App\Models\{Finishing, Room, Building};
 use App\Enums\Filters\{DealTypes, Queries};
 
@@ -27,9 +27,9 @@ class FilterSearchComponentDTO extends BaseFilterSearchComponentDTO
         return Queries::SEARCH;
     }
 
-    protected function getDefaultItem(): FilterItem
+    protected function getDefaultItem(): FilterItemDTO
     {
-        return new FilterItem(
+        return new FilterItemDTO(
             name: trans('base.filter.search_placeholder'),
             value: '',
         );
@@ -43,10 +43,10 @@ class FilterSearchComponentDTO extends BaseFilterSearchComponentDTO
         $finishings = Finishing::get();
         $floors = $buildings->map(fn (Building $building) => $building->floors)->flatten()->unique();
 
-        $items[] = new FilterList(
+        $items[] = new FilterListDTO(
             query: Queries::BUILDING,
             name: 'Test 1',
-            list: $buildings->transform(fn (Building $building) => new FilterItem(
+            list: $buildings->transform(fn (Building $building) => new FilterItemDTO(
                 name: $building->name,
                 value: $building->id
             ))->all()

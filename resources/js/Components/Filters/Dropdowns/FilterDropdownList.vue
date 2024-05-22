@@ -45,17 +45,17 @@
 <script setup lang="ts">
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
 import { ref } from "vue";
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
 
 const emit = defineEmits<{
-    (event: 'update-value', value: FilterItem | FilterItem[]): void
+    (event: 'update-value', value: FilterItemDTO | FilterItemDTO[]): void
 }>()
 
 const props = withDefaults(
     defineProps<{
         isOpen: boolean
         label: string
-        items: Record<string, FilterItem>
+        items: Record<string, FilterItemDTO>
         multiple?: boolean
     }>(),
     {
@@ -63,17 +63,17 @@ const props = withDefaults(
     }
 )
 
-const selectedItems = ref<FilterItem[]>([])
+const selectedItems = ref<FilterItemDTO[]>([])
 
-const handleAnyMultipleOptionClick = (item: FilterItem): void => {
+const handleAnyMultipleOptionClick = (item: FilterItemDTO): void => {
     selectedItems.value = [item]
     emit('update-value', selectedItems.value)
 }
 
-const handleMultipleOptionClick = (item: FilterItem): void => {
+const handleMultipleOptionClick = (item: FilterItemDTO): void => {
     // Remove any roominess if something was selected
-    selectedItems.value = selectedItems.value.filter((room: FilterItem) => {
-        return room.value !== 'any'
+    selectedItems.value = selectedItems.value.filter((item: FilterItemDTO) => {
+        return item.value !== 'any'
     })
 
     // If nothing is selected, select any

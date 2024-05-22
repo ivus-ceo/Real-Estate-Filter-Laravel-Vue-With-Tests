@@ -13,33 +13,33 @@ use Illuminate\Validation\{Rules\Enum};
 /** @typescript */
 class FilterComponentDTO extends BaseDTO
 {
-    public FilterDealTypeDropdownComponentDTO $dealTypeDropdownComponent;
-    public FilterRoominessDropdownComponentDTO $roominessDropdownComponent;
-    public FilterPriceRangeComponentDTO $priceRangeComponent;
-    public FilterAreaRangeComponentDTO $areaRangeComponent;
-    public FilterSearchComponentDTO $searchComponent;
+    public FilterDealTypeDropdownComponentDTO $filterDealTypeDropdownComponentDTO;
+    public FilterRoominessDropdownComponentDTO $filterRoominessDropdownComponentDTO;
+    public FilterPriceRangeComponentDTO $filterPriceRangeComponentDTO;
+    public FilterAreaRangeComponentDTO $filterAreaRangeComponentDTO;
+    public FilterSearchComponentDTO $filterSearchComponentDTO;
 
     public function __construct(
         public DealTypes $dealType,
     )
     {
-        $this->dealTypeDropdownComponent = new FilterDealTypeDropdownComponentDTO(
+        $this->filterDealTypeDropdownComponentDTO = new FilterDealTypeDropdownComponentDTO(
             dealType: $this->dealType
         );
 
-        $this->roominessDropdownComponent = new FilterRoominessDropdownComponentDTO(
+        $this->filterRoominessDropdownComponentDTO = new FilterRoominessDropdownComponentDTO(
             dealType: $this->dealType
         );
 
-        $this->priceRangeComponent = new FilterPriceRangeComponentDTO(
+        $this->filterPriceRangeComponentDTO = new FilterPriceRangeComponentDTO(
             dealType: $this->dealType
         );
 
-        $this->areaRangeComponent = new FilterAreaRangeComponentDTO(
+        $this->filterAreaRangeComponentDTO = new FilterAreaRangeComponentDTO(
             dealType: $this->dealType
         );
 
-        $this->searchComponent = new FilterSearchComponentDTO(
+        $this->filterSearchComponentDTO = new FilterSearchComponentDTO(
             dealType: $this->dealType
         );
     }

@@ -3,7 +3,7 @@
 namespace App\DTOs\Components\Filters\Dropdowns\DealTypes;
 
 use App\DTOs\Components\Filters\Dropdowns\{BaseFilterSingleChoiceDropdownComponentDTO};
-use App\DTOs\Filters\Items\FilterItem;
+use App\DTOs\Filters\Items\FilterItemDTO;
 use App\Enums\Filters\DealTypes;
 use App\Enums\Filters\Queries;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
@@ -11,8 +11,8 @@ use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 /** @typescript */
 class FilterDealTypeDropdownComponentDTO extends BaseFilterSingleChoiceDropdownComponentDTO
 {
-    #[RecordTypeScriptType(DealTypes::class, FilterItem::class)]
-    /** @var $items array{sale: FilterItem, rent: FilterItem} */
+    #[RecordTypeScriptType(DealTypes::class, FilterItemDTO::class)]
+    /** @var $items array{sale: FilterItemDTO, rent: FilterItemDTO} */
     public array $items;
 
     public function __construct(
@@ -34,9 +34,9 @@ class FilterDealTypeDropdownComponentDTO extends BaseFilterSingleChoiceDropdownC
         return Queries::DEAL_TYPE;
     }
 
-    protected function getDefaultItem(): FilterItem
+    protected function getDefaultItem(): FilterItemDTO
     {
-        return new FilterItem(
+        return new FilterItemDTO(
             name: trans('base.filter.deal_types.' . $this->dealType->value),
             value: $this->dealType->value
         );
@@ -47,7 +47,7 @@ class FilterDealTypeDropdownComponentDTO extends BaseFilterSingleChoiceDropdownC
         $items = [];
 
         foreach (DealTypes::cases() as $dealType) {
-            $items[$dealType->value] = new FilterItem(
+            $items[$dealType->value] = new FilterItemDTO(
                 name: trans('base.filter.deal_types.' . $dealType->value),
                 value: $dealType->value
             );

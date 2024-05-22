@@ -4,9 +4,9 @@ namespace App\DTOs\Components\Filters\Ranges\Prices;
 
 use App\Models\{Room};
 use App\DTOs\Components\Filters\Ranges\{BaseFilterRangeComponentDTO,
-    Graphs\BaseRangeGraphComponent,
-    Graphs\Prices\PriceRangeGraphComponent};
-use App\DTOs\Filters\Items\{FilterItem, FilterRange};
+    Graphs\BaseRangeGraphComponentDTO,
+    Graphs\Prices\PriceRangeGraphComponentDTO};
+use App\DTOs\Filters\Items\{FilterItemDTO, FilterRangeDTO};
 use App\Enums\Filters\{DealTypes, Queries, RentPrices, SalePrices};
 use App\Enums\Langs\PriceRanges;
 use App\Enums\Money\Currencies;
@@ -43,13 +43,13 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         return Queries::MAX_PRICE;
     }
 
-    protected function getMinQueryItem(): ?FilterItem
+    protected function getMinQueryItem(): ?FilterItemDTO
     {
         $minQueryItem = parent::getMinQueryItem();
 
         if (empty($minQueryItem)) return null;
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedPrice(
                 priceRange: PriceRanges::UP_TO,
                 minPrice: $minQueryItem->value
@@ -58,13 +58,13 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         );
     }
 
-    protected function getMaxQueryItem(): ?FilterItem
+    protected function getMaxQueryItem(): ?FilterItemDTO
     {
         $maxQueryItem = parent::getMaxQueryItem();
 
         if (empty($maxQueryItem)) return null;
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedPrice(
                 priceRange: PriceRanges::OVER,
                 maxPrice: $maxQueryItem->value
@@ -73,7 +73,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         );
     }
 
-    protected function getMinDefaultItem(): FilterItem
+    protected function getMinDefaultItem(): FilterItemDTO
     {
         if ($this->dealType->value === DealTypes::SALE->value)
             $minPrice = Room::min('price_sale');
@@ -82,7 +82,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         else
             $minPrice = 0;
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedPrice(
                 priceRange: PriceRanges::UP_TO,
                 minPrice: $minPrice
@@ -91,7 +91,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         );
     }
 
-    protected function getMaxDefaultItem(): FilterItem
+    protected function getMaxDefaultItem(): FilterItemDTO
     {
         if ($this->dealType->value === DealTypes::SALE->value)
             $maxPrice = Room::max('price_sale');
@@ -100,7 +100,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         else
             $maxPrice = 100_000_000;
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedPrice(
                 priceRange: PriceRanges::OVER,
                 maxPrice: (int) $maxPrice
@@ -130,7 +130,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
             $explodedMinPrice = !empty($explodedPrice[0]) ? (string) $explodedPrice[0] : (string) $minPrice;
             $explodedMaxPrice = !empty($explodedPrice[1]) ? (string) $explodedPrice[1] : (string) $maxPrice;
 
-            $minItem = new FilterItem(
+            $minItem = new FilterItemDTO(
                 name: $this->getFormattedPrice(
                     priceRange: PriceRanges::UP_TO,
                     minPrice: $explodedMinPrice
@@ -138,7 +138,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
                 value: $explodedMinPrice
             );
 
-            $maxItem = new FilterItem(
+            $maxItem = new FilterItemDTO(
                 name: $this->getFormattedPrice(
                     priceRange: PriceRanges::OVER,
                     maxPrice: $explodedMaxPrice
@@ -146,7 +146,7 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
                 value: $explodedMaxPrice
             );
 
-            $items[] = new FilterRange(
+            $items[] = new FilterRangeDTO(
                 name: $this->getFormattedPrice(
                     priceRange: PriceRanges::BETWEEN,
                     minPrice: (int) $explodedPrice[0] ?? $minPrice,
@@ -160,9 +160,9 @@ class FilterPriceRangeComponentDTO extends BaseFilterRangeComponentDTO
         return $items;
     }
 
-    protected function getGraph(): BaseRangeGraphComponent
+    protected function getGraph(): BaseRangeGraphComponentDTO
     {
-        return new PriceRangeGraphComponent(
+        return new PriceRangeGraphComponentDTO(
             dealType: $this->dealType,
         );
     }

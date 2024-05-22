@@ -3,25 +3,25 @@
 namespace App\DTOs\Components\Filters\Searches;
 
 use App\DTOs\BaseDTO;
-use App\DTOs\Filters\Items\{FilterItem, FilterList};
+use App\DTOs\Filters\Items\{FilterItemDTO, FilterListDTO};
 use App\Enums\Filters\Queries;
 use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 
 /** @typescript */
 abstract class BaseFilterSearchComponentDTO extends BaseDTO
 {
-    public ?FilterItem $queryItem;
+    public ?FilterItemDTO $queryItem;
 
     /**
      * @param Queries $query
-     * @param FilterItem $defaultItem
-     * @param array<FilterList> $items
+     * @param FilterItemDTO $defaultItem
+     * @param array<FilterListDTO> $items
      */
     public function __construct(
-        public Queries $query,
-        public FilterItem $defaultItem,
+        public Queries       $query,
+        public FilterItemDTO $defaultItem,
         #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterList[]')]
-        public array $items,
+        public array         $items,
     )
     {
         $this->queryItem = $this->getQueryItem();
@@ -30,9 +30,9 @@ abstract class BaseFilterSearchComponentDTO extends BaseDTO
     /**
      * Get query item
      *
-     * @return FilterItem|null
+     * @return FilterItemDTO|null
      */
-    protected function getQueryItem(): ?FilterItem
+    protected function getQueryItem(): ?FilterItemDTO
     {
         return null;
     }
@@ -47,14 +47,14 @@ abstract class BaseFilterSearchComponentDTO extends BaseDTO
     /**
      * Get default item
      *
-     * @return FilterItem
+     * @return FilterItemDTO
      */
-    abstract protected function getDefaultItem(): FilterItem;
+    abstract protected function getDefaultItem(): FilterItemDTO;
 
     /**
      * Get items
      *
-     * @return array<FilterList>
+     * @return array<FilterListDTO>
      */
     abstract protected function getItems(): array;
 }

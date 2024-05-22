@@ -44,12 +44,12 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/vue";
 import FilterRangeGraph from "@/Components/Filters/Ranges/FilterRangeGraph.vue";
 import FilterRangeSlider from "@/Components/Filters/Ranges/FilterRangeSlider.vue";
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
-import BaseRangeGraphComponent = App.DTOs.Components.Filters.Ranges.Graphs.BaseRangeGraphComponent;
-import FilterRange = App.DTOs.Filters.Items.FilterRange;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
+import BaseRangeGraphComponentDTO = App.DTOs.Components.Filters.Ranges.Graphs.BaseRangeGraphComponentDTO;
+import FilterRangeDTO = App.DTOs.Filters.Items.FilterRangeDTO;
 
 const emit = defineEmits<{
-    (event: 'update-values', values: [FilterItem, FilterItem]): void
+    (event: 'update-values', values: [FilterItemDTO, FilterItemDTO]): void
 }>()
 
 const props = defineProps<{
@@ -59,8 +59,8 @@ const props = defineProps<{
     max: number,
     currentMin: number,
     currentMax: number,
-    items: FilterRange[]
-    graph: BaseRangeGraphComponent
+    items: FilterRangeDTO[]
+    graph: BaseRangeGraphComponentDTO
 }>()
 </script>
 

@@ -6,17 +6,17 @@ use App\Enums\Filters\Queries;
 use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 
 /** @typescript */
-class FilterList extends BaseFilterItem
+class FilterListDTO extends BaseFilterItemDTO
 {
     /**
      * @param Queries $query
      * @param string $name
-     * @param array<FilterItem> $list
+     * @param array<FilterItemDTO> $list
      */
     public function __construct(
         Queries $query,
         string $name,
-        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItem[]')]
+        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItemDTO[]')]
         public array $list
     )
     {

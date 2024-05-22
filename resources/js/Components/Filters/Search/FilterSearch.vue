@@ -28,7 +28,7 @@
             >
                 <div class="flex">
                     <div
-                        v-for="(item, i) in filterStore.searchComponentDTO.items"
+                        v-for="(item, i) in filterStore.filterSearchComponentDTO.items"
                         :key="i"
                     >
                         {{ item.name }}

@@ -3,8 +3,8 @@
 namespace App\DTOs\Components\Filters\Ranges;
 
 use App\DTOs\BaseDTO;
-use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponent;
-use App\DTOs\Filters\Items\{FilterItem, FilterRange};
+use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponentDTO;
+use App\DTOs\Filters\Items\{FilterItemDTO, FilterRangeDTO};
 use App\Enums\Filters\{DealTypes, Queries};
 use Illuminate\Support\Number;
 use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
@@ -12,34 +12,34 @@ use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 /** @typescript */
 abstract class BaseFilterRangeComponentDTO extends BaseDTO
 {
-    public ?FilterItem $minQueryItem;
-    public ?FilterItem $maxQueryItem;
+    public ?FilterItemDTO $minQueryItem;
+    public ?FilterItemDTO $maxQueryItem;
     #[LiteralTypeScriptType('{min: App.Enums.Filters.Queries, max: App.Enums.Filters.Queries}')]
     /** @var $queries array{min: Queries, max: Queries} */
     public array $queries;
-    #[LiteralTypeScriptType('{min: App.DTOs.Filters.Items.FilterItem, max: App.DTOs.Filters.Items.FilterItem}')]
-    /** @var $defaultItems array{min: FilterItem, max: FilterItem} */
+    #[LiteralTypeScriptType('{min: App.DTOs.Filters.Items.FilterItemDTO, max: App.DTOs.Filters.Items.FilterItemDTO}')]
+    /** @var $defaultItems array{min: FilterItemDTO, max: FilterItemDTO} */
     public array $defaultItems;
-    #[LiteralTypeScriptType('{min: App.DTOs.Filters.Items.FilterItem, max: App.DTOs.Filters.Items.FilterItem} | null')]
-    /** @var $queryItems array{min: FilterItem, max: FilterItem}|null */
+    #[LiteralTypeScriptType('{min: App.DTOs.Filters.Items.FilterItemDTO, max: App.DTOs.Filters.Items.FilterItemDTO} | null')]
+    /** @var $queryItems array{min: FilterItemDTO, max: FilterItemDTO}|null */
     public ?array $queryItems;
 
     /**
      * @param Queries $minQuery
      * @param Queries $maxQuery
-     * @param FilterItem $minDefaultItem
-     * @param FilterItem $maxDefaultItem
-     * @param BaseRangeGraphComponent $graph
-     * @param array<FilterRange> $items
+     * @param FilterItemDTO $minDefaultItem
+     * @param FilterItemDTO $maxDefaultItem
+     * @param BaseRangeGraphComponentDTO $graph
+     * @param array<FilterRangeDTO> $items
      */
     public function __construct(
-        public Queries $minQuery,
-        public Queries $maxQuery,
-        public FilterItem $minDefaultItem,
-        public FilterItem $maxDefaultItem,
-        public BaseRangeGraphComponent $graph,
-        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterRange[]')]
-        public array $items,
+        public Queries                    $minQuery,
+        public Queries                    $maxQuery,
+        public FilterItemDTO              $minDefaultItem,
+        public FilterItemDTO              $maxDefaultItem,
+        public BaseRangeGraphComponentDTO $graph,
+        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterRangeDTO[]')]
+        public array                      $items,
     )
     {
         $this->minQueryItem = $this->getMinQueryItem();
@@ -65,7 +65,7 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     /**
      * Get min and max query items
      *
-     * @return array{min: FilterItem, max: FilterItem}|null
+     * @return array{min: FilterItemDTO, max: FilterItemDTO}|null
      */
     protected function getQueryItems(): ?array
     {
@@ -80,7 +80,7 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     /**
      * Get min and max query items
      *
-     * @return array{min: FilterItem, max: FilterItem}
+     * @return array{min: FilterItemDTO, max: FilterItemDTO}
      */
     protected function getDefaultItems(): array
     {
@@ -93,9 +93,9 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     /**
      * Get min query item
      *
-     * @return FilterItem|null
+     * @return FilterItemDTO|null
      */
-    protected function getMinQueryItem(): ?FilterItem
+    protected function getMinQueryItem(): ?FilterItemDTO
     {
         return $this->getQueryItem(
             query: $this->getMinQuery(),
@@ -105,9 +105,9 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     /**
      * Get max query item
      *
-     * @return FilterItem|null
+     * @return FilterItemDTO|null
      */
-    protected function getMaxQueryItem(): ?FilterItem
+    protected function getMaxQueryItem(): ?FilterItemDTO
     {
         return $this->getQueryItem(
             query: $this->getMaxQuery(),
@@ -118,9 +118,9 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
      * Get query item
      *
      * @param Queries $query
-     * @return FilterItem|null
+     * @return FilterItemDTO|null
      */
-    private function getQueryItem(Queries $query): ?FilterItem
+    private function getQueryItem(Queries $query): ?FilterItemDTO
     {
         $queryName = $query->value;
         $queryValue = request()->query($queryName);
@@ -131,7 +131,7 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
             $maxDefaultValue = (int) $this->getMaxDefaultItem()->value;
             $clampedValue = Number::clamp($queryValue, min: $minDefaultValue, max: $maxDefaultValue);
 
-            return new FilterItem(
+            return new FilterItemDTO(
                 name: (string) $clampedValue,
                 value: (string) $clampedValue
             );
@@ -157,28 +157,28 @@ abstract class BaseFilterRangeComponentDTO extends BaseDTO
     /**
      * Get min query item
      *
-     * @return FilterItem
+     * @return FilterItemDTO
      */
-    abstract protected function getMinDefaultItem(): FilterItem;
+    abstract protected function getMinDefaultItem(): FilterItemDTO;
 
     /**
      * Get max query item
      *
-     * @return FilterItem
+     * @return FilterItemDTO
      */
-    abstract protected function getMaxDefaultItem(): FilterItem;
+    abstract protected function getMaxDefaultItem(): FilterItemDTO;
 
     /**
      * Get items
      *
-     * @return array<FilterRange>
+     * @return array<FilterRangeDTO>
      */
     abstract protected function getItems(): array;
 
     /**
      * Get graph
      *
-     * @return BaseRangeGraphComponent
+     * @return BaseRangeGraphComponentDTO
      */
-    abstract protected function getGraph(): BaseRangeGraphComponent;
+    abstract protected function getGraph(): BaseRangeGraphComponentDTO;
 }

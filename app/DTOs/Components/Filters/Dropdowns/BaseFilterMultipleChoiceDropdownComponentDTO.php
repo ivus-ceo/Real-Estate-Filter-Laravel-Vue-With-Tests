@@ -3,7 +3,7 @@
 namespace App\DTOs\Components\Filters\Dropdowns;
 
 use App\DTOs\BaseDTO;
-use App\DTOs\Filters\Items\FilterItem;
+use App\DTOs\Filters\Items\FilterItemDTO;
 use App\Enums\Filters\DealTypes;
 use App\Enums\Filters\Queries;
 use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
@@ -12,19 +12,19 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScriptType;
 
 abstract class BaseFilterMultipleChoiceDropdownComponentDTO extends BaseDTO
 {
-    #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItem[] | null')]
+    #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItemDTO[] | null')]
     public ?array $queryItems;
 
     /**
      * @param DealTypes $dealType
      * @param Queries $query
-     * @param array<FilterItem> $defaultItems
-     * @param array<FilterItem> $items
+     * @param array<FilterItemDTO> $defaultItems
+     * @param array<FilterItemDTO> $items
      */
     public function __construct(
         public DealTypes $dealType,
         public Queries $query,
-        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItem[]')]
+        #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItemDTO[]')]
         public array $defaultItems,
         public array $items
     )
@@ -35,7 +35,7 @@ abstract class BaseFilterMultipleChoiceDropdownComponentDTO extends BaseDTO
     /**
      * Returns the query item
      *
-     * @return array<FilterItem>|null
+     * @return array<FilterItemDTO>|null
      */
     protected function getQueryItems(): ?array
     {
@@ -68,14 +68,14 @@ abstract class BaseFilterMultipleChoiceDropdownComponentDTO extends BaseDTO
     /**
      * Returns the default item
      *
-     * @return array<FilterItem>
+     * @return array<FilterItemDTO>
      */
     abstract protected function getDefaultItems(): array;
 
     /**
      * Returns the all items
      *
-     * @return array<FilterItem>
+     * @return array<FilterItemDTO>
      */
     abstract protected function getItems(): array;
 }

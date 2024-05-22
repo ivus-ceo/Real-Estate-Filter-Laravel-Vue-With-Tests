@@ -1,14 +1,13 @@
 <?php
 
-namespace App\DTOs\Components\Filters\Ranges\Graphs\Areas;
+namespace App\DTOs\Components\Filters\Ranges\Graphs\Prices;
 
-use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponent;
+use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponentDTO;
 use App\Enums\Filters\DealTypes;
 use App\Models\Room;
 use Illuminate\Database\Query\Builder;
 
-/** @typescript */
-class AreaRangeGraphComponent extends BaseRangeGraphComponent
+class PriceRangeGraphComponentDTO extends BaseRangeGraphComponentDTO
 {
     public function __construct(
         public DealTypes $dealType,
@@ -31,6 +30,13 @@ class AreaRangeGraphComponent extends BaseRangeGraphComponent
 
     protected function getColumn(): string
     {
-        return 'area';
+        if ($this->dealType->value === DealTypes::SALE->value)
+            $column = 'price_sale';
+        elseif ($this->dealType->value === DealTypes::RENT->value)
+            $column = 'price_rent';
+        else
+            $column = '';
+
+        return $column;
     }
 }

@@ -3,25 +3,25 @@
 namespace App\DTOs\Components\Filters\Dropdowns;
 
 use App\DTOs\BaseDTO;
-use App\DTOs\Filters\Items\FilterItem;
+use App\DTOs\Filters\Items\FilterItemDTO;
 use App\Enums\Filters\DealTypes;
 use App\Enums\Filters\Queries;
 
 abstract class BaseFilterSingleChoiceDropdownComponentDTO extends BaseDTO
 {
-    public ?FilterItem $queryItem;
+    public ?FilterItemDTO $queryItem;
 
     /**
      * @param DealTypes $dealType
      * @param Queries $query
-     * @param FilterItem $defaultItem
+     * @param FilterItemDTO $defaultItem
      * @param array $items
      */
     public function __construct(
-        public DealTypes $dealType,
-        public Queries $query,
-        public FilterItem $defaultItem,
-        public array $items
+        public DealTypes     $dealType,
+        public Queries       $query,
+        public FilterItemDTO $defaultItem,
+        public array         $items
     )
     {
         $this->queryItem = $this->getQueryItem();
@@ -30,9 +30,9 @@ abstract class BaseFilterSingleChoiceDropdownComponentDTO extends BaseDTO
     /**
      * Returns the query item
      *
-     * @return FilterItem|null
+     * @return FilterItemDTO|null
      */
-    protected function getQueryItem(): ?FilterItem
+    protected function getQueryItem(): ?FilterItemDTO
     {
         $query = $this->getQuery();
         $queryValue = request()->query($query->value);
@@ -59,14 +59,14 @@ abstract class BaseFilterSingleChoiceDropdownComponentDTO extends BaseDTO
     /**
      * Returns the default item
      *
-     * @return FilterItem
+     * @return FilterItemDTO
      */
-    abstract protected function getDefaultItem(): FilterItem;
+    abstract protected function getDefaultItem(): FilterItemDTO;
 
     /**
      * Returns the all items
      *
-     * @return array<FilterItem>
+     * @return array<FilterItemDTO>
      */
     abstract protected function getItems(): array;
 }

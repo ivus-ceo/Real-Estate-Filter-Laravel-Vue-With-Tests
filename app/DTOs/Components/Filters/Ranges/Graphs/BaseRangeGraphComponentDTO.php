@@ -7,7 +7,7 @@ use Illuminate\Database\Query\Builder;
 use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 
 /** @typescript */
-abstract class BaseRangeGraphComponent extends BaseDTO
+abstract class BaseRangeGraphComponentDTO extends BaseDTO
 {
     #[LiteralTypeScriptType('Record<string, number>')]
     /** @var $ranges array<string, int> */

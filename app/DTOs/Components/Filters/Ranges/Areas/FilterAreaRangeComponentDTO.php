@@ -3,10 +3,10 @@
 namespace App\DTOs\Components\Filters\Ranges\Areas;
 
 use App\DTOs\Components\Filters\Ranges\BaseFilterRangeComponentDTO;
-use App\DTOs\Components\Filters\Ranges\Graphs\Areas\AreaRangeGraphComponent;
-use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponent;
-use App\DTOs\Filters\Items\FilterItem;
-use App\DTOs\Filters\Items\FilterRange;
+use App\DTOs\Components\Filters\Ranges\Graphs\Areas\AreaRangeGraphComponentDTO;
+use App\DTOs\Components\Filters\Ranges\Graphs\BaseRangeGraphComponentDTO;
+use App\DTOs\Filters\Items\FilterItemDTO;
+use App\DTOs\Filters\Items\FilterRangeDTO;
 use App\Enums\Langs\AreaRanges;
 use App\Models\Room;
 use App\Enums\Filters\{Areas, DealTypes, Queries};
@@ -42,13 +42,13 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
         return Queries::MAX_AREA;
     }
 
-    protected function getMinQueryItem(): ?FilterItem
+    protected function getMinQueryItem(): ?FilterItemDTO
     {
         $minQueryItem = parent::getMinQueryItem();
 
         if (empty($minQueryItem)) return null;
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedArea(
                 areaRange: AreaRanges::UP_TO,
                 minArea: $minQueryItem->value
@@ -57,13 +57,13 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
         );
     }
 
-    protected function getMaxQueryItem(): ?FilterItem
+    protected function getMaxQueryItem(): ?FilterItemDTO
     {
         $maxQueryItem = parent::getMaxQueryItem();
 
         if (empty($maxQueryItem)) return null;
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedArea(
                 areaRange: AreaRanges::OVER,
                 maxArea: $maxQueryItem->value
@@ -72,11 +72,11 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
         );
     }
 
-    protected function getMinDefaultItem(): FilterItem
+    protected function getMinDefaultItem(): FilterItemDTO
     {
         $minArea = Room::min('area');
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedArea(
                 areaRange: AreaRanges::UP_TO,
                 minArea: $minArea
@@ -85,11 +85,11 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
         );
     }
 
-    protected function getMaxDefaultItem(): FilterItem
+    protected function getMaxDefaultItem(): FilterItemDTO
     {
         $maxArea = Room::max('area');
 
-        return new FilterItem(
+        return new FilterItemDTO(
             name: $this->getFormattedArea(
                 areaRange: AreaRanges::OVER,
                 maxArea: $maxArea
@@ -109,7 +109,7 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
             $explodedMinArea = !empty($explodedArea[0]) ? $explodedArea[0] : $minArea;
             $explodedMaxArea = !empty($explodedArea[1]) ? $explodedArea[1] : $maxArea;
 
-            $minItem = new FilterItem(
+            $minItem = new FilterItemDTO(
                 name: $this->getFormattedArea(
                     areaRange: AreaRanges::UP_TO,
                     minArea: $explodedMinArea
@@ -117,7 +117,7 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
                 value: $explodedMinArea
             );
 
-            $maxItem = new FilterItem(
+            $maxItem = new FilterItemDTO(
                 name: $this->getFormattedArea(
                     areaRange: AreaRanges::OVER,
                     maxArea: $explodedMaxArea
@@ -125,7 +125,7 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
                 value: $explodedMaxArea
             );
 
-            $items[] = new FilterRange(
+            $items[] = new FilterRangeDTO(
                 name: $this->getFormattedArea(
                     areaRange: AreaRanges::BETWEEN,
                     minArea: (int) $explodedArea[0] ?? $minArea,
@@ -139,9 +139,9 @@ class FilterAreaRangeComponentDTO extends BaseFilterRangeComponentDTO
         return $items;
     }
 
-    protected function getGraph(): BaseRangeGraphComponent
+    protected function getGraph(): BaseRangeGraphComponentDTO
     {
-        return new AreaRangeGraphComponent(
+        return new AreaRangeGraphComponentDTO(
             dealType: $this->dealType
         );
     }

@@ -4,7 +4,7 @@ namespace App\DTOs\Components\Filters\Dropdowns\Roominess;
 
 use App\Enums\Filters\DealTypes;
 use App\DTOs\Components\Filters\Dropdowns\{BaseFilterMultipleChoiceDropdownComponentDTO};
-use App\DTOs\Filters\Items\FilterItem;
+use App\DTOs\Filters\Items\FilterItemDTO;
 use App\Enums\Filters\Queries;
 use App\Enums\Filters\Roominess;
 use Illuminate\Support\Str;
@@ -14,8 +14,8 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScriptType;
 /** @typescript */
 class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdownComponentDTO
 {
-    #[RecordTypeScriptType(Roominess::class, FilterItem::class)]
-    /** @var $items array<FilterItem> */
+    #[RecordTypeScriptType(Roominess::class, FilterItemDTO::class)]
+    /** @var $items array<FilterItemDTO> */
     public array $items;
 
     public function __construct(
@@ -38,7 +38,7 @@ class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdo
     public function getDefaultItems(): array
     {
         return [
-            new FilterItem(
+            new FilterItemDTO(
                 name: trans('base.filter.rooms.any'),
                 value: 'any'
             )
@@ -48,7 +48,7 @@ class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdo
     public function getItems(): array
     {
         $items = [
-            new FilterItem(
+            new FilterItemDTO(
                 name: trans('base.filter.rooms.any'),
                 value: 'any',
             )
@@ -62,7 +62,7 @@ class FilterRoominessDropdownComponentDTO extends BaseFilterMultipleChoiceDropdo
                 $value .= ':';
             }
 
-            $items[] = new FilterItem(
+            $items[] = new FilterItemDTO(
                 name: trans('base.filter.rooms.' . Str::lower($room->name)),
                 value: (string) $value,
             );

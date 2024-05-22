@@ -6,7 +6,7 @@ use App\DTOs\BaseDTO;
 use App\Enums\Filters\Queries;
 
 /** @typescript */
-class BaseFilterItem extends BaseDTO
+class BaseFilterItemDTO extends BaseDTO
 {
     public function __construct(
         public string $name,

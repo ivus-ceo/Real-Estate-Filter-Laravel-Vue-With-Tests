@@ -3,12 +3,11 @@
 namespace App\DTOs\Filters\Items;
 
 /** @typescript */
-class FilterRange extends BaseFilterItem
+class FilterItemDTO extends BaseFilterItemDTO
 {
     public function __construct(
         string $name,
-        public FilterItem $minItem,
-        public FilterItem $maxItem
+        public string $value
     )
     {
         parent::__construct($name);

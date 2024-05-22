@@ -3,69 +3,69 @@ import { computed, ref } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import useEmitter from "@/Composables/Common/useEmitter";
 import FilterComponentDTO = App.DTOs.Components.Filters.FilterComponentDTO;
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
 import type { FilterQueries } from "@/types";
 
 export const useFilterStore = defineStore('filter', () => {
     const page = usePage()
     const body = ref<FilterQueries>({})
     const filterComponentDTO = page.props['filterComponentDTO'] as FilterComponentDTO
-    const dealTypeDropdownComponentDTO = filterComponentDTO.dealTypeDropdownComponent
-    const roominessDropdownComponentDTO = filterComponentDTO.roominessDropdownComponent
-    const priceRangeComponentDTO = filterComponentDTO.priceRangeComponent
-    const areaRangeComponentDTO = filterComponentDTO.areaRangeComponent
-    const searchComponentDTO = filterComponentDTO.searchComponent
+    const filterDealTypeDropdownComponentDTO = filterComponentDTO.filterDealTypeDropdownComponentDTO
+    const filterRoominessDropdownComponentDTO = filterComponentDTO.filterRoominessDropdownComponentDTO
+    const filterPriceRangeComponentDTO = filterComponentDTO.filterPriceRangeComponentDTO
+    const filterAreaRangeComponentDTO = filterComponentDTO.filterAreaRangeComponentDTO
+    const filterSearchComponentDTO = filterComponentDTO.filterSearchComponentDTO
     // Set filter values
-    const dealType = ref<FilterItem>(dealTypeDropdownComponentDTO.queryItem ?? dealTypeDropdownComponentDTO.defaultItem)
-    const roominess = ref<FilterItem[]>(roominessDropdownComponentDTO.queryItems ?? roominessDropdownComponentDTO.defaultItems)
-    const minPrice = ref<FilterItem>(priceRangeComponentDTO.minQueryItem ?? priceRangeComponentDTO.minDefaultItem)
-    const maxPrice = ref<FilterItem>(priceRangeComponentDTO.maxQueryItem ?? priceRangeComponentDTO.maxDefaultItem)
-    const minArea = ref<FilterItem>(areaRangeComponentDTO.minQueryItem ?? areaRangeComponentDTO.minDefaultItem)
-    const maxArea = ref<FilterItem>(areaRangeComponentDTO.maxQueryItem ?? areaRangeComponentDTO.maxDefaultItem)
-    const search = ref<FilterItem>(searchComponentDTO.queryItem ?? searchComponentDTO.defaultItem)
+    const dealType = ref<FilterItemDTO>(filterDealTypeDropdownComponentDTO.queryItem ?? filterDealTypeDropdownComponentDTO.defaultItem)
+    const roominess = ref<FilterItemDTO[]>(filterRoominessDropdownComponentDTO.queryItems ?? filterRoominessDropdownComponentDTO.defaultItems)
+    const minPrice = ref<FilterItemDTO>(filterPriceRangeComponentDTO.minQueryItem ?? filterPriceRangeComponentDTO.minDefaultItem)
+    const maxPrice = ref<FilterItemDTO>(filterPriceRangeComponentDTO.maxQueryItem ?? filterPriceRangeComponentDTO.maxDefaultItem)
+    const minArea = ref<FilterItemDTO>(filterAreaRangeComponentDTO.minQueryItem ?? filterAreaRangeComponentDTO.minDefaultItem)
+    const maxArea = ref<FilterItemDTO>(filterAreaRangeComponentDTO.maxQueryItem ?? filterAreaRangeComponentDTO.maxDefaultItem)
+    const search = ref<FilterItemDTO>(filterSearchComponentDTO.queryItem ?? filterSearchComponentDTO.defaultItem)
 
-    const setDealType = (value: FilterItem): void => {
+    const setDealType = (value: FilterItemDTO): void => {
         dealType.value = value
     }
 
     const resetDealType = (): void => {
-        const item = dealTypeDropdownComponentDTO.defaultItem
-        body.value[dealTypeDropdownComponentDTO.query] = item.value
+        const item = filterDealTypeDropdownComponentDTO.defaultItem
+        body.value[filterDealTypeDropdownComponentDTO.query] = item.value
         dealType.value = item
     }
 
-    const setRoominess = (value: FilterItem[]): void => {
+    const setRoominess = (value: FilterItemDTO[]): void => {
         roominess.value = value
     }
 
     const resetRoominess = (): void => {
-        const items = roominessDropdownComponentDTO.defaultItems
-        body.value[roominessDropdownComponentDTO.query] = items.map((item: FilterItem) => item.value)
+        const items = filterRoominessDropdownComponentDTO.defaultItems
+        body.value[filterRoominessDropdownComponentDTO.query] = items.map((item: FilterItemDTO) => item.value)
         roominess.value = items
     }
 
-    const setMinPrice = (value: FilterItem): void => {
+    const setMinPrice = (value: FilterItemDTO): void => {
         minPrice.value = value
     }
 
-    const setMaxPrice = (value: FilterItem): void => {
+    const setMaxPrice = (value: FilterItemDTO): void => {
         maxPrice.value = value
     }
 
-    const setPrices = (values: [FilterItem, FilterItem]): void => {
+    const setPrices = (values: [FilterItemDTO, FilterItemDTO]): void => {
         minPrice.value = values[0]
         maxPrice.value = values[1]
     }
 
     const resetMinPrice = (): void => {
-        const item = priceRangeComponentDTO.minDefaultItem
-        body.value[priceRangeComponentDTO.minQuery] = item.value
+        const item = filterPriceRangeComponentDTO.minDefaultItem
+        body.value[filterPriceRangeComponentDTO.minQuery] = item.value
         minPrice.value = item
     }
 
     const resetMaxPrice = (): void => {
-        const item = priceRangeComponentDTO.maxDefaultItem
-        body.value[priceRangeComponentDTO.maxQuery] = item.value
+        const item = filterPriceRangeComponentDTO.maxDefaultItem
+        body.value[filterPriceRangeComponentDTO.maxQuery] = item.value
         maxPrice.value = item
     }
 
@@ -75,28 +75,28 @@ export const useFilterStore = defineStore('filter', () => {
         useEmitter.emit('filter:resetRange')
     }
 
-    const setMinArea = (value: FilterItem): void => {
+    const setMinArea = (value: FilterItemDTO): void => {
         minArea.value = value
     }
 
-    const setMaxArea = (value: FilterItem): void => {
+    const setMaxArea = (value: FilterItemDTO): void => {
         maxArea.value = value
     }
 
-    const setAreas = (values: [FilterItem, FilterItem]): void => {
+    const setAreas = (values: [FilterItemDTO, FilterItemDTO]): void => {
         minArea.value = values[0]
         maxArea.value = values[1]
     }
 
     const resetMinArea = (): void => {
-        const item = areaRangeComponentDTO.minDefaultItem
-        body.value[areaRangeComponentDTO.minQuery] = item.value
+        const item = filterAreaRangeComponentDTO.minDefaultItem
+        body.value[filterAreaRangeComponentDTO.minQuery] = item.value
         minArea.value = item
     }
 
     const resetMaxArea = (): void => {
-        const item = areaRangeComponentDTO.maxDefaultItem
-        body.value[areaRangeComponentDTO.maxQuery] = item.value
+        const item = filterAreaRangeComponentDTO.maxDefaultItem
+        body.value[filterAreaRangeComponentDTO.maxQuery] = item.value
         maxArea.value = item
     }
 
@@ -106,13 +106,13 @@ export const useFilterStore = defineStore('filter', () => {
         useEmitter.emit('filter:resetRange')
     }
 
-    const setSearch = (value: FilterItem): void => {
+    const setSearch = (value: FilterItemDTO): void => {
         search.value = value
     }
 
     const resetSearch = (): void => {
-        const item = searchComponentDTO.defaultItem
-        body.value[searchComponentDTO.query] = item.value
+        const item = filterSearchComponentDTO.defaultItem
+        body.value[filterSearchComponentDTO.query] = item.value
         search.value = item
     }
 
@@ -127,9 +127,9 @@ export const useFilterStore = defineStore('filter', () => {
 
     return {
         // DTOs
-        filterComponentDTO, dealTypeDropdownComponentDTO,
-        roominessDropdownComponentDTO, priceRangeComponentDTO,
-        areaRangeComponentDTO, searchComponentDTO,
+        filterComponentDTO, filterDealTypeDropdownComponentDTO,
+        filterRoominessDropdownComponentDTO, filterPriceRangeComponentDTO,
+        filterAreaRangeComponentDTO, filterSearchComponentDTO,
         // Filterables
         dealType, roominess,
         minPrice, maxPrice,

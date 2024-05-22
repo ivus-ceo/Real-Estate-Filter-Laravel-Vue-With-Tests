@@ -13,7 +13,7 @@ import noUiSlider, { API } from "nouislider";
 import { onMounted, ref, watch } from "vue";
 import useEmitter from "@/Composables/Common/useEmitter";
 import { watchDebounced } from "@vueuse/core";
-import FilterItem = App.DTOs.Filters.Items.FilterItem;
+import FilterItemDTO = App.DTOs.Filters.Items.FilterItemDTO;
 
 const props = defineProps<{
     min: number
@@ -23,7 +23,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    (event: 'update-values', values: [FilterItem, FilterItem]): void
+    (event: 'update-values', values: [FilterItemDTO, FilterItemDTO]): void
 }>()
 
 const range = ref<HTMLDivElement>()

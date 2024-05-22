@@ -1,5 +1,4 @@
 import { Config } from 'ziggy-js';
-import FilterItem = App.DTOs.Filters.Items.Singles.FilterItem;
 
 export interface User {
     id: number;

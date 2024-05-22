@@ -10,12 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import BaseRangeGraphComponent = App.DTOs.Components.Filters.Ranges.Graphs.BaseRangeGraphComponent;
+import BaseRangeGraphComponentDTO = App.DTOs.Components.Filters.Ranges.Graphs.BaseRangeGraphComponentDTO;
 
 const props = defineProps<{
     currentMin: number,
     currentMax: number,
-    graph: BaseRangeGraphComponent
+    graph: BaseRangeGraphComponentDTO
 }>()
 
 const max = Math.max(...Object.values(props.graph.ranges))
