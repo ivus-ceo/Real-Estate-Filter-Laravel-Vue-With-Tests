@@ -15,6 +15,11 @@ final class SlugRepository extends BaseRepository implements SlugRepositoryInter
         parent::__construct($slug);
     }
 
+    public function exists(string $slug): bool
+    {
+        return $this->model->where(['slug' => $slug])->exists();
+    }
+
     public function createWithRelation(Model $model, array $attributes): Slug
     {
         return $model->slug()->create($attributes);

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         // Locations seeders
         $this->call(CountrySeeder::class);
         $this->call(RegionSeeder::class);
-//        $this->call(CitySeeder::class);
+        $this->call(CitySeeder::class);
 //        $this->call(DistrictSeeder::class);
 //        $this->call(StreetSeeder::class);
 

@@ -7,6 +7,7 @@ use App\Repositories\Slugs\{SlugRepositoryInterface, SlugRepository};
 use App\Repositories\Countries\{CountryRepositoryInterface, CountryRepository};
 use App\Repositories\Locations\{LocationRepositoryInterface, LocationRepository};
 use App\Repositories\Regions\{RegionRepositoryInterface, RegionRepository};
+use App\Repositories\Cities\{CityRepositoryInterface, CityRepository};
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -18,5 +19,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CountryRepositoryInterface::class, CountryRepository::class);
         $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
         $this->app->bind(RegionRepositoryInterface::class, RegionRepository::class);
+        $this->app->bind(CityRepositoryInterface::class, CityRepository::class);
     }
 }

@@ -7,7 +7,6 @@ use App\Services\Locations\LocationService;
 use App\Services\Regions\RegionService;
 use App\Services\Slugs\SlugService;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class RegionSeeder extends Seeder
 {
@@ -39,7 +38,7 @@ class RegionSeeder extends Seeder
             ]);
 
             $this->slugService->createWithRelation($region, [
-                'slug' => Str::slug($regionDTO->name . '-' . $regionDTO->code),
+                'slug' => $this->slugService->createUnique($regionDTO->name . '-' . $regionDTO->code),
                 'published_at' => now(),
             ]);
         }

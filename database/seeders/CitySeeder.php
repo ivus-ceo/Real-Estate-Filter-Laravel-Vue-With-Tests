@@ -5,39 +5,42 @@ namespace Database\Seeders;
 use App\DTOs\Locations\LocationDTO;
 use App\Models\City;
 use App\Models\Slug;
+use App\Services\Cities\CityService;
+use App\Services\Locations\LocationService;
+use App\Services\Slugs\SlugService;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class CitySeeder extends Seeder
 {
+    public function __construct(
+        private readonly LocationDTO $locationDTO,
+        private readonly CityService $cityService,
+        private readonly LocationService $locationService,
+        private readonly SlugService $slugService,
+    )
+    {}
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $locationDTO = new LocationDTO;
-
-        foreach ($locationDTO->cityDTOs as $cityDTO)
+        foreach ($this->locationDTO->cityDTOs as $cityDTO)
         {
-            $city = City::create([
+            $city = $this->cityService->create([
                 'name' => $cityDTO->name,
                 'region_id' => $cityDTO->region->id,
                 'published_at' => now(),
             ]);
 
-            $city->location()->create([
+            $this->locationService->createWithRelation($city, [
                 'latitude' => $cityDTO->latitude,
                 'longitude' => $cityDTO->longitude,
             ]);
 
-            $slug = Str::slug($cityDTO->name);
-
-            if (Slug::where(['slug' => $slug])->exists()) {
-                $slug .= '-' . uniqid();
-            }
-
-            $city->slug()->create([
-                'slug' => $slug,
+            $this->slugService->createWithRelation($city, [
+                'slug' => $this->slugService->createUnique($cityDTO->name),
+                'published_at' => now(),
             ]);
         }
     }

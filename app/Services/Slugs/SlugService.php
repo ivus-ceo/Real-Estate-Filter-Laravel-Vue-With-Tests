@@ -7,6 +7,7 @@ use App\Models\Slug;
 use App\Repositories\Slugs\SlugRepositoryInterface;
 use App\Traits\Models\HasSlugTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionException;
 
@@ -16,6 +17,17 @@ class SlugService
         private readonly SlugRepositoryInterface $slugRepository
     )
     {}
+
+    public function createUnique(string $name): string
+    {
+        $slug = Str::slug($name);
+        return ($this->exists($slug)) ? $slug .= '-' . uniqid() : $slug;
+    }
+
+    public function exists(string $slug): bool
+    {
+        return $this->slugRepository->exists($slug);
+    }
 
     /**
      * @throws SlugRelationshipDoesNotExistException
