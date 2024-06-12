@@ -18,7 +18,7 @@ class SlugService
     )
     {}
 
-    public function createUnique(string $name): string
+    public function getUniqueName(string $name): string
     {
         $slug = Str::slug($name);
         return ($this->exists($slug)) ? $slug .= '-' . uniqid() : $slug;

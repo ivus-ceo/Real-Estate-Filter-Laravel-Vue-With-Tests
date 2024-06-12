@@ -39,7 +39,7 @@ class CitySeeder extends Seeder
             ]);
 
             $this->slugService->createWithRelation($city, [
-                'slug' => $this->slugService->createUnique($cityDTO->name),
+                'slug' => $this->slugService->getUniqueName($cityDTO->name),
                 'published_at' => now(),
             ]);
         }

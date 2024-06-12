@@ -38,7 +38,7 @@ class RegionSeeder extends Seeder
             ]);
 
             $this->slugService->createWithRelation($region, [
-                'slug' => $this->slugService->createUnique($regionDTO->name . '-' . $regionDTO->code),
+                'slug' => $this->slugService->getUniqueName($regionDTO->name . '-' . $regionDTO->code),
                 'published_at' => now(),
             ]);
         }

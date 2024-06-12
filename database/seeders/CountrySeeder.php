@@ -39,7 +39,7 @@ class CountrySeeder extends Seeder
             ]);
 
             $this->slugService->createWithRelation($country, [
-                'slug' => $this->slugService->createUnique($countryDTO->name),
+                'slug' => $this->slugService->getUniqueName($countryDTO->name),
                 'published_at' => now(),
             ]);
         }
