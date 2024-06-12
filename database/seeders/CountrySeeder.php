@@ -12,10 +12,10 @@ use Illuminate\Support\Str;
 class CountrySeeder extends Seeder
 {
     public function __construct(
+        private readonly LocationDTO $locationDTO,
         private readonly CountryService $countryService,
         private readonly LocationService $locationService,
         private readonly SlugService $slugService,
-        private readonly LocationDTO $locationDTO,
     )
     {}
 
