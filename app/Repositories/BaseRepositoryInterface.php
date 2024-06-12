@@ -20,5 +20,30 @@ interface BaseRepositoryInterface
      * @param int $id
      * @return Model|null
      */
-    public function getById(int $id): ?Model;
+    public function find(int $id): ?Model;
+
+    /**
+     * Create new model
+     *
+     * @param array $attributes
+     * @return Model
+     */
+    public function create(array $attributes): Model;
+
+    /**
+     * Update existing model
+     *
+     * @param int $id
+     * @param array $attributes
+     * @return bool
+     */
+    public function update(int $id, array $attributes): bool;
+
+    /**
+     * Delete existing model
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool;
 }

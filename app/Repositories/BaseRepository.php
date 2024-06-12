@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class BaseRepository implements BaseRepositoryInterface
+abstract class BaseRepository implements BaseRepositoryInterface
 {
     public function __construct(
         protected Model $model
@@ -17,8 +17,23 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->all();
     }
 
-    public function getById(int $id): ?Model
+    public function find(int $id): ?Model
     {
         return $this->model->find($id);
+    }
+
+    public function create(array $attributes): Model
+    {
+        return $this->model->create($attributes);
+    }
+
+    public function update(int $id, array $attributes): bool
+    {
+        return $this->model->where(['id' => $id])->update($attributes);
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->model->where(['id' => $id])->delete();
     }
 }

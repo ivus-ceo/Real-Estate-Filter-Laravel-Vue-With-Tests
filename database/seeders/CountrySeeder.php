@@ -3,35 +3,44 @@
 namespace Database\Seeders;
 
 use App\DTOs\Locations\LocationDTO;
-use App\Models\Country;
+use App\Services\Countries\CountryService;
+use App\Services\Locations\LocationService;
+use App\Services\Slugs\SlugService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class CountrySeeder extends Seeder
 {
+    public function __construct(
+        private readonly CountryService $countryService,
+        private readonly LocationService $locationService,
+        private readonly SlugService $slugService,
+        private readonly LocationDTO $locationDTO,
+    )
+    {}
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $locationDTO = new LocationDTO;
-
-        foreach ($locationDTO->countryDTOs as $countryDTO)
+        foreach ($this->locationDTO->countryDTOs as $countryDTO)
         {
-            $country = Country::create([
+            $country = $this->countryService->create([
                 'name' => $countryDTO->name,
                 'code' => $countryDTO->code,
                 'continent' => $countryDTO->continent,
                 'published_at' => now(),
             ]);
 
-            $country->location()->create([
+            $this->locationService->createWithRelation($country, [
                 'latitude' => $countryDTO->latitude,
                 'longitude' => $countryDTO->longitude,
             ]);
 
-            $country->slug()->create([
+            $this->slugService->createWithRelation($country, [
                 'slug' => Str::slug($countryDTO->name),
+                'published_at' => now(),
             ]);
         }
     }
