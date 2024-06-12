@@ -4,9 +4,9 @@ return [
     'australia' => [],
     'canada' => [],
     'kazakhstan' => [],
-    'russian-federation' => [],
+    'russia' => [],
     'turkey' => [],
-    'united-arab-emirates' => [],
-    'united-kingdom' => [],
-    'united-states' => [],
+    'united_arab_emirates' => [],
+    'united_kingdom' => [],
+    'united_states' => [],
 ];

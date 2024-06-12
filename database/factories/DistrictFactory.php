@@ -18,7 +18,8 @@ class DistrictFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->words(3, true),
+            'name' => \Str::headline($this->faker->words(rand(1, 3), true)),
+            'published_at' => now(),
         ];
     }
 }

@@ -18,7 +18,8 @@ class DeveloperFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->words(3, true),
+            'name' => \Str::headline($this->faker->unique()->words(rand(1, 5), true)),
+            'published_at' => now(),
         ];
     }
 }

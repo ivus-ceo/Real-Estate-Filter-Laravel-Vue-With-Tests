@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 

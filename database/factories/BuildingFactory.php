@@ -22,7 +22,6 @@ class BuildingFactory extends Factory
         return [
             'name' => $this->faker->streetName,
             'developer_id' => $this->faker->numberBetween(Developer::min('id'), Developer::max('id')),
-            'district_id' => $this->faker->numberBetween(District::min('id'), District::max('id')),
         ];
     }
 }

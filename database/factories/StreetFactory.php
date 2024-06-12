@@ -19,6 +19,7 @@ class StreetFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->streetName,
+            'published_at' => now(),
         ];
     }
 }

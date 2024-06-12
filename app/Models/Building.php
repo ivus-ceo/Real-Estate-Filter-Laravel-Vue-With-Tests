@@ -30,11 +30,6 @@ class Building extends Model
         return $this->belongsTo(Developer::class);
     }
 
-    public function district(): BelongsTo
-    {
-        return $this->belongsTo(District::class);
-    }
-
     public function floors(): HasMany
     {
         return $this->hasMany(Floor::class);

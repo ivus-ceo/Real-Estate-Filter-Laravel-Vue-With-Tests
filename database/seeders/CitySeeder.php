@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Services\Files\FileService;
+use App\DTOs\Locations\LocationDTO;
 use App\Models\City;
-use App\Models\Region;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Slug;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class CitySeeder extends Seeder
@@ -17,18 +15,29 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (FileService::getCities() as $city)
-        {
-            $regionId = Region::where(['name' => $city['region']])->first()->id ?? null;
+        $locationDTO = new LocationDTO;
 
-            $model = City::create([
-                'name' => $city['name'],
-                'region_id' => $regionId,
+        foreach ($locationDTO->cityDTOs as $cityDTO)
+        {
+            $city = City::create([
+                'name' => $cityDTO->name,
+                'region_id' => $cityDTO->region->id,
+                'published_at' => now(),
             ]);
 
-            $model->location()->create([
-                'latitude' => $city['latitude'],
-                'longitude' => $city['longitude'],
+            $city->location()->create([
+                'latitude' => $cityDTO->latitude,
+                'longitude' => $cityDTO->longitude,
+            ]);
+
+            $slug = Str::slug($cityDTO->name);
+
+            if (Slug::where(['slug' => $slug])->exists()) {
+                $slug .= '-' . uniqid();
+            }
+
+            $city->slug()->create([
+                'slug' => $slug,
             ]);
         }
     }

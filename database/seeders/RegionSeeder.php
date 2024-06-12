@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Services\Files\FileService;
-use App\Models\Country;
+use App\DTOs\Locations\LocationDTO;
 use App\Models\Region;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class RegionSeeder extends Seeder
@@ -17,17 +14,24 @@ class RegionSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (FileService::getRegions() as $region)
+        $locationDTO = new LocationDTO;
+
+        foreach ($locationDTO->regionDTOs as $regionDTO)
         {
-            $model = Region::create([
-                'name' => $region['name'],
-                'code' => $region['state_code'],
-                'country_id' => Country::where(['name' => $region['country']])->first()->id
+            $region = Region::create([
+                'name' => $regionDTO->name,
+                'code' => $regionDTO->code,
+                'country_id' => $regionDTO->country->id,
+                'published_at' => now(),
             ]);
 
-            $model->location()->create([
-                'latitude' => $region['latitude'],
-                'longitude' => $region['longitude'],
+            $region->location()->create([
+                'latitude' => $regionDTO->latitude,
+                'longitude' => $regionDTO->longitude,
+            ]);
+
+            $region->slug()->create([
+                'slug' => Str::slug($regionDTO->name . '-' . $regionDTO->code),
             ]);
         }
     }

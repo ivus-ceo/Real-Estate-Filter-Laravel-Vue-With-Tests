@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::name('public.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-    Route::prefix('{country}/{region}/{city}')->group(function () {
+    Route::prefix('{country}/{city}')->middleware(['slugs.exists'])->group(function () {
         Route::get('/properties/sale', [SalePropertyController::class, 'index'])->name('sale.property.index');
         Route::get('/properties/rent', [RentPropertyController::class, 'index'])->name('rent.property.index');
     });

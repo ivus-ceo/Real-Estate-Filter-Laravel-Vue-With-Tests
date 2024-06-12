@@ -3,12 +3,8 @@
 namespace Database\Seeders;
 
 use App\DTOs\Locations\LocationDTO;
-use App\Services\Files\FileService;
 use App\Models\Country;
-use App\Models\Location;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class CountrySeeder extends Seeder
@@ -20,17 +16,22 @@ class CountrySeeder extends Seeder
     {
         $locationDTO = new LocationDTO;
 
-        foreach (FileService::getCountries() as $country)
+        foreach ($locationDTO->countryDTOs as $countryDTO)
         {
-            $model = Country::create([
-                'name' => $country['name'],
-                'code' => $country['code'],
-                'continent' => $country['continent'],
+            $country = Country::create([
+                'name' => $countryDTO->name,
+                'code' => $countryDTO->code,
+                'continent' => $countryDTO->continent,
+                'published_at' => now(),
             ]);
 
-            $model->location()->create([
-                'latitude' => $country['latitude'],
-                'longitude' => $country['longitude'],
+            $country->location()->create([
+                'latitude' => $countryDTO->latitude,
+                'longitude' => $countryDTO->longitude,
+            ]);
+
+            $country->slug()->create([
+                'slug' => Str::slug($countryDTO->name),
             ]);
         }
     }

@@ -15,7 +15,7 @@ class DeveloperSeeder extends Seeder
     public function run(): void
     {
         Country::all()->each(function (Country $country) {
-            Developer::factory(rand(5, 15))->create();
+            Developer::factory(rand(20, 40))->create();
         });
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->foreignIdFor(District::class)->nullable();
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 

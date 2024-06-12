@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string('name');
             $table->foreignIdFor(Street::class);
             $table->foreignIdFor(Developer::class);
-            $table->foreignIdFor(District::class);
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 

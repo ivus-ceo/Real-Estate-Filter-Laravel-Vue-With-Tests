@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('code');
             $table->foreignIdFor(Country::class)->nullable();
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 

@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->string('name');
             $table->foreignIdFor(City::class)->nullable();
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 

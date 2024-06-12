@@ -1,3 +1,11 @@
+declare namespace App.DTOs.Cities {
+export type CityDTO = {
+region: any;
+name: string;
+latitude: number;
+longitude: number;
+};
+}
 declare namespace App.DTOs.Components.Filters {
 export type FilterComponentDTO = {
 filterDealTypeDropdownComponentDTO: App.DTOs.Components.Filters.Dropdowns.DealTypes.FilterDealTypeDropdownComponentDTO;
@@ -106,6 +114,15 @@ defaultItem: App.DTOs.Filters.Items.FilterItemDTO;
 items: App.DTOs.Filters.Items.FilterList[];
 };
 }
+declare namespace App.DTOs.Countries {
+export type CountryDTO = {
+name: string;
+code: string;
+continent: string;
+latitude: number;
+longitude: number;
+};
+}
 declare namespace App.DTOs.Filters.Items {
 export type BaseFilterItemDTO = {
 name: string;
@@ -122,6 +139,25 @@ export type FilterRangeDTO = {
 minItem: App.DTOs.Filters.Items.FilterItemDTO;
 maxItem: App.DTOs.Filters.Items.FilterItemDTO;
 name: string;
+};
+}
+declare namespace App.DTOs.Locations {
+export type LocationDTO = {
+countries: { [key: string]: string };
+regions: { [key: string]: string };
+cities: { [key: string]: string };
+countryDTOs: App.DTOs.Countries.CountryDTO[];
+regionDTOs: App.DTOs.Regions.RegionDTO[];
+cityDTOs: App.DTOs.Cities.CityDTO[];
+};
+}
+declare namespace App.DTOs.Regions {
+export type RegionDTO = {
+country: any;
+name: string;
+code: string;
+latitude: number;
+longitude: number;
 };
 }
 declare namespace App.Enums.Filters {

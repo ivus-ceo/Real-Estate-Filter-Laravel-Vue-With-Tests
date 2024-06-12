@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\{HasLocationTrait, HasPublishDateTrait, HasSlugTrait};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Region extends Model
 {
+    use HasPublishDateTrait, HasSlugTrait, HasLocationTrait;
+
     protected $fillable = [
         'name',
         'code',
@@ -23,10 +26,5 @@ class Region extends Model
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
-    }
-
-    public function location(): MorphOne
-    {
-        return $this->morphOne(Location::class, 'locationable');
     }
 }

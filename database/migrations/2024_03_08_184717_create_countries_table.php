@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->string('code')->unique();
             $table->string('continent');
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 
