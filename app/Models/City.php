@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\Models\{HasLocationTrait, HasPublishDateTrait, HasSlugTrait};
+use App\Traits\Models\{HasLocation, HasPublishDate, HasSlug};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class City extends Model
 {
-    use HasPublishDateTrait, HasSlugTrait, HasLocationTrait;
+    use HasPublishDate, HasSlug, HasLocation;
 
     protected $fillable = [
         'name',

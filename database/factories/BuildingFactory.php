@@ -22,6 +22,7 @@ class BuildingFactory extends Factory
         return [
             'name' => $this->faker->streetName,
             'developer_id' => $this->faker->numberBetween(Developer::min('id'), Developer::max('id')),
+            'published_at' => now(),
         ];
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Traits\Models\{HasLocationTrait, HasPublishDateTrait, HasSlugTrait};
+use App\Traits\Models\{HasLocation, HasPublishDate, HasSlug};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
-    use HasPublishDateTrait, HasSlugTrait, HasLocationTrait;
+    use HasPublishDate, HasSlug, HasLocation;
 
     protected $fillable = [
         'name',

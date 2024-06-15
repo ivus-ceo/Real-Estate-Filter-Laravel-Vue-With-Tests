@@ -7,6 +7,7 @@ use App\DTOs\Filters\Items\FilterItemDTO;
 use App\Enums\Filters\DealTypes;
 use App\Enums\Filters\Queries;
 
+/** @typescript */
 abstract class BaseFilterSingleChoiceDropdownComponentDTO extends BaseDTO
 {
     public ?FilterItemDTO $queryItem;

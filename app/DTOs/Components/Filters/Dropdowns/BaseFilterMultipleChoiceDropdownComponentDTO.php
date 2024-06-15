@@ -10,6 +10,7 @@ use Spatie\TypeScriptTransformer\Attributes\LiteralTypeScriptType;
 use Spatie\TypeScriptTransformer\Attributes\RecordTypeScriptType;
 use Spatie\TypeScriptTransformer\Attributes\TypeScriptType;
 
+/** @typescript */
 abstract class BaseFilterMultipleChoiceDropdownComponentDTO extends BaseDTO
 {
     #[LiteralTypeScriptType('App.DTOs.Filters.Items.FilterItemDTO[] | null')]

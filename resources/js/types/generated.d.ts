@@ -16,6 +16,22 @@ filterSearchComponentDTO: App.DTOs.Components.Filters.Searches.Search.FilterSear
 dealType: App.Enums.Filters.DealTypes;
 };
 }
+declare namespace App.DTOs.Components.Filters.Dropdowns {
+export type BaseFilterMultipleChoiceDropdownComponentDTO = {
+queryItems: App.DTOs.Filters.Items.FilterItemDTO[] | null;
+dealType: App.Enums.Filters.DealTypes;
+query: App.Enums.Filters.Queries;
+defaultItems: App.DTOs.Filters.Items.FilterItemDTO[];
+items: Array<any>;
+};
+export type BaseFilterSingleChoiceDropdownComponentDTO = {
+queryItem: App.DTOs.Filters.Items.FilterItemDTO | null;
+dealType: App.Enums.Filters.DealTypes;
+query: App.Enums.Filters.Queries;
+defaultItem: App.DTOs.Filters.Items.FilterItemDTO;
+items: Array<any>;
+};
+}
 declare namespace App.DTOs.Components.Filters.Dropdowns.DealTypes {
 export type FilterDealTypeDropdownComponentDTO = {
 items: Record<App.Enums.Filters.DealTypes, App.DTOs.Filters.Items.FilterItemDTO>;
@@ -82,6 +98,15 @@ maxNumber: number;
 numberOfColumns: number;
 };
 }
+declare namespace App.DTOs.Components.Filters.Ranges.Graphs.Prices {
+export type PriceRangeGraphComponentDTO = {
+dealType: App.Enums.Filters.DealTypes;
+ranges: Record<string, number>;
+minNumber: number;
+maxNumber: number;
+numberOfColumns: number;
+};
+}
 declare namespace App.DTOs.Components.Filters.Ranges.Prices {
 export type FilterPriceRangeComponentDTO = {
 dealType: App.Enums.Filters.DealTypes;
@@ -139,16 +164,6 @@ export type FilterRangeDTO = {
 minItem: App.DTOs.Filters.Items.FilterItemDTO;
 maxItem: App.DTOs.Filters.Items.FilterItemDTO;
 name: string;
-};
-}
-declare namespace App.DTOs.Locations {
-export type LocationDTO = {
-countries: { [key: string]: string };
-regions: { [key: string]: string };
-cities: { [key: string]: string };
-countryDTOs: App.DTOs.Countries.CountryDTO[];
-regionDTOs: App.DTOs.Regions.RegionDTO[];
-cityDTOs: App.DTOs.Cities.CityDTO[];
 };
 }
 declare namespace App.DTOs.Regions {

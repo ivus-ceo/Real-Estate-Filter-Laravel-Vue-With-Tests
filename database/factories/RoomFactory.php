@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\DTOs\Filters\FilterDTO;
+use App\Models\Finishing;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class RoomFactory extends Factory
             'price_sale' => (rand(0, 1) == 1) ? $this->faker->numberBetween(50_000, 10_000_000) : null,
             'price_rent' => (rand(0, 1) == 1) ? $this->faker->numberBetween(500, 300_000) : null,
             'area' => $this->faker->numberBetween(7, 1000),
-            'finishing_id' => $this->faker->numberBetween(0, 2),
+            'finishing_id' => $this->faker->numberBetween(Finishing::min('id'), Finishing::max('id')),
         ];
     }
 }

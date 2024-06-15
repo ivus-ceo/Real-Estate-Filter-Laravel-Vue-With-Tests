@@ -6,9 +6,9 @@ use App\Models\Location;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-trait HasLocationTrait
+trait HasLocation
 {
-    public function initializeHasLocationTrait(): void
+    public function initializeHasLocation(): void
     {
         //
     }

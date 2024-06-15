@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use App\Models\{City, District};
 
 class DistrictSeeder extends Seeder
@@ -16,7 +14,7 @@ class DistrictSeeder extends Seeder
     {
         City::all()->each(function (City $city) {
             $city->districts()->createMany(
-                District::factory(rand(20, 70))->make()->toArray()
+                District::factory(rand(5, 10))->make()->toArray()
             );
         });
     }

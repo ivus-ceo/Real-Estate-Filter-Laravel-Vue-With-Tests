@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('streets', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->foreignIdFor(District::class)->nullable();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();

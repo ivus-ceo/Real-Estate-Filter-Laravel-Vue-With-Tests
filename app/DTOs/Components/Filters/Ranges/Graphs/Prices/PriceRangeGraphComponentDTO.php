@@ -7,6 +7,7 @@ use App\Enums\Filters\DealTypes;
 use App\Models\Room;
 use Illuminate\Database\Query\Builder;
 
+/** @typescript */
 class PriceRangeGraphComponentDTO extends BaseRangeGraphComponentDTO
 {
     public function __construct(

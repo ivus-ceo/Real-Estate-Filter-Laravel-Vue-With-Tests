@@ -12,8 +12,8 @@ class SalePropertyPageDTO extends BaseDTO
 
     public function __construct()
     {
-//        $this->filterComponentDTO = new FilterComponentDTO(
-//            dealType: DealTypes::SALE
-//        );
+        $this->filterComponentDTO = new FilterComponentDTO(
+            dealType: DealTypes::SALE
+        );
     }
 }

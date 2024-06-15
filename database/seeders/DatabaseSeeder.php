@@ -24,13 +24,14 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(RegionSeeder::class);
         $this->call(CitySeeder::class);
-//        $this->call(DistrictSeeder::class);
-//        $this->call(StreetSeeder::class);
+        $this->call(DistrictSeeder::class);
+        $this->call(StreetSeeder::class);
 
         // Buildings and developers
-//        $this->call(DeveloperSeeder::class);
-//        $this->call(BuildingSeeder::class);
-//        $this->call(FloorSeeder::class);
-//        $this->call(RoomSeeder::class);
+        $this->call(DeveloperSeeder::class);
+        $this->call(BuildingSeeder::class);
+        $this->call(FloorSeeder::class);
+        $this->call(FinishingSeeder::class);
+        $this->call(RoomSeeder::class);
     }
 }

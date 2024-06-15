@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * @method static published()
  */
-trait HasPublishDateTrait
+trait HasPublishDate
 {
-    public function initializeHasPublishDateTrait(): void
+    public function initializeHasPublishDate(): void
     {
         $this->fillable[] = 'published_at';
     }

@@ -6,9 +6,9 @@ use App\Models\Slug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-trait HasSlugTrait
+trait HasSlug
 {
-    public function initializeHasSlugTrait(): void
+    public function initializeHasSlug(): void
     {
         //
     }

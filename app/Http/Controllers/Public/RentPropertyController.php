@@ -8,12 +8,10 @@ use Inertia\Inertia;
 
 class RentPropertyController extends Controller
 {
-    private RentPropertyPageDTO $rentPropertyPageDTO;
-
-    public function __construct()
-    {
-        $this->rentPropertyPageDTO = new RentPropertyPageDTO();
-    }
+    public function __construct(
+        private readonly RentPropertyPageDTO $rentPropertyPageDTO
+    )
+    {}
 
     public function index()
     {
