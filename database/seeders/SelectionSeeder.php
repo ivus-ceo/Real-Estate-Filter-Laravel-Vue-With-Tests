@@ -62,7 +62,7 @@ class SelectionSeeder extends Seeder
 
             $buildingsSelection->buildings()->sync($buildings);
             $buildingsSelection->slug()->create([
-                'slug' => 'buildings',
+                'slug' => $this->slugService->getUniqueSlug('buildings'),
                 'published_at' => now(),
             ]);
 
@@ -75,7 +75,7 @@ class SelectionSeeder extends Seeder
 
             $roomsSelection->rooms()->sync($rooms);
             $roomsSelection->slug()->create([
-                'slug' => 'rooms',
+                'slug' => $this->slugService->getUniqueSlug('rooms'),
                 'published_at' => now(),
             ]);
         });
