@@ -8,10 +8,10 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('code')->unique();
-            $table->string('continent');
+            $table->id()->index();
+            $table->string('name')->unique()->index();
+            $table->string('code')->unique()->index();
+            $table->string('continent')->index();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });

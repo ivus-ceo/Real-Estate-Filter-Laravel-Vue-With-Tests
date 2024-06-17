@@ -8,8 +8,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('developers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id()->index();
+            $table->string('name')->index();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });

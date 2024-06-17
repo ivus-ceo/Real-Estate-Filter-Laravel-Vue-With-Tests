@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('features', function (Blueprint $table) {
-            $table->id()->index();
-            $table->string('name')->index();
-            $table->timestamps();
+        Schema::create('featureables', function (Blueprint $table) {
+            $table->foreignIdFor('feature_id')->index();
+            $table->morphs('featureable');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('featureables');
     }
 };

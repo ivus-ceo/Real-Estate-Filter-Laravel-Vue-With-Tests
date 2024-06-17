@@ -18,24 +18,20 @@ class BuildingSeeder extends Seeder
      */
     public function run(): void
     {
-        Street::all()->each(function (Street $street) {
-            $buildings = Building::factory(rand(1, 3))->make()->toArray();
-            $location = $street->district->city->location;
-            $buildings = $street->buildings()->createMany($buildings);
+        $buildings = Building::factory(rand(5000, 10000))->create();
 
-            foreach ($buildings as $building)
-            {
-                $coordinates = $this->coordinatesService->getRandomCoordinates(
-                    $location->latitude,
-                    $location->longitude,
-                    5
-                );
+        $buildings->map(function (Building $building) {
+            $location = $building->street->district->city->location;
+            $coordinates = $this->coordinatesService->getRandomCoordinates(
+                $location->latitude,
+                $location->longitude,
+                5
+            );
 
-                $building->location()->create([
-                    'latitude' => $coordinates['latitude'],
-                    'longitude' => $coordinates['longitude'],
-                ]);
-            }
+            $building->location()->create([
+                'latitude' => $coordinates['latitude'],
+                'longitude' => $coordinates['longitude'],
+            ]);
         });
     }
 }

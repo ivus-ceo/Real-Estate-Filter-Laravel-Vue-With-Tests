@@ -17,10 +17,10 @@ return new class extends Migration {
             $table->integer('price_sale')->nullable()->index();
             $table->integer('price_rent')->nullable()->index();
             $table->integer('area')->index();
-            $table->foreignIdFor(Finishing::class)->index();;
-            $table->foreignIdFor(Floor::class)->index();
-            $table->foreignIdFor(Building::class)->index();
+            $table->foreignIdFor(Floor::class)->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(Building::class)->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 

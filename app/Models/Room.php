@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\Models\{HasBuilding, HasFeatures, HasPublishDate, HasSelections};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Room extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSelections, HasBuilding,
+        HasPublishDate, HasFeatures;
 
     protected $fillable = [
         'name',
@@ -25,15 +26,5 @@ class Room extends Model
     public function floor(): BelongsTo
     {
         return $this->belongsTo(Floor::class);
-    }
-
-    public function building(): BelongsTo
-    {
-        return $this->belongsTo(Building::class);
-    }
-
-    public function features(): MorphMany
-    {
-        return $this->morphMany(Feature::class, 'featureable');
     }
 }

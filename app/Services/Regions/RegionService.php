@@ -6,6 +6,7 @@ use App\DTOs\Regions\RegionDTO;
 use App\Models\Country;
 use App\Models\Region;
 use App\Services\Countries\CountryService;
+use Illuminate\Support\Str;
 
 class RegionService
 {
@@ -25,6 +26,10 @@ class RegionService
                 return $data['states'];
             })
             ->flatten(1)
+            ->filter(function (array $data) {
+                // Filter undesired regions
+                return in_array($data['name'], config('locations.regions.' . $data['country']));
+            })
             ->all();
     }
 

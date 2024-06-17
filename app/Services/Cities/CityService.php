@@ -23,8 +23,7 @@ class CityService
                     $data['cities'][$i]['region'] = $region;
                 }
 
-                // Limit cities by min 5 in each region
-                return collect($data['cities'])->random(fn (Collection $items) => min(5, count($items)));
+                return $data['cities'];
             })
             ->flatten(1)
             ->all();

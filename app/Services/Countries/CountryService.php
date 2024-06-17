@@ -4,7 +4,6 @@ namespace App\Services\Countries;
 
 use App\DTOs\Countries\CountryDTO;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class CountryService
 {
@@ -25,7 +24,7 @@ class CountryService
         })
         ->filter(function (array $data) {
             // Filter undesired countries
-            return in_array(Str::snake($data['name']), array_keys(config('countries')));
+            return in_array($data['name'], config('locations.countries'));
         })
         ->all();
     }

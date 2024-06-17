@@ -3,15 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\{City};
+use App\Models\{District};
 
 return new class extends Migration {
     public function up()
     {
-        Schema::create('districts', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignIdFor(City::class)->nullable();
+        Schema::create('streets', function (Blueprint $table) {
+            $table->id()->index();
+            $table->string('name')->index();
+            $table->foreignIdFor(District::class)->nullable()->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });
@@ -19,6 +19,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('streets');
     }
 };

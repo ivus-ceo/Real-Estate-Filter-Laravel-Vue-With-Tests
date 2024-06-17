@@ -9,10 +9,10 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('code');
-            $table->foreignIdFor(Country::class)->nullable();
+            $table->id()->index();
+            $table->string('name')->index();
+            $table->string('code')->index();
+            $table->foreignIdFor(Country::class)->nullable()->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });

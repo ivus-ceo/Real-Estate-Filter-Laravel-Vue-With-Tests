@@ -9,9 +9,9 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('cities', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignIdFor(Region::class)->nullable();
+            $table->id()->index();
+            $table->string('name')->index();
+            $table->foreignIdFor(Region::class)->nullable()->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });

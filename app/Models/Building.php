@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\Models\{HasFeatures, HasLocation, HasPublishDate, HasRooms, HasSelections};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Building extends Model
 {
-    use HasFactory;
+    use HasFactory, HasLocation, HasSelections,
+        HasRooms, HasPublishDate, HasFeatures;
 
     protected $fillable = [
         'name',
@@ -33,20 +33,5 @@ class Building extends Model
     public function floors(): HasMany
     {
         return $this->hasMany(Floor::class);
-    }
-
-    public function rooms(): HasMany
-    {
-        return $this->hasMany(Room::class);
-    }
-
-    public function location(): MorphOne
-    {
-        return $this->morphOne(Location::class, 'locationable');
-    }
-
-    public function features(): MorphMany
-    {
-        return $this->morphMany(Feature::class, 'featureable');
     }
 }

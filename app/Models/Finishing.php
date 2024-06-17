@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Models\HasRooms;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Finishing extends Model
 {
+    use HasRooms;
+
     protected $fillable = [
         'name',
     ];
-
-    public function rooms(): HasMany
-    {
-        return $this->hasMany(Room::class);
-    }
 }

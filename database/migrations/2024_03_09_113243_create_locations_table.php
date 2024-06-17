@@ -8,9 +8,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->id();
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->id()->index();
+            $table->double('latitude')->index();
+            $table->double('longitude')->index();
             $table->morphs('locationable');
             $table->timestamps();
         });

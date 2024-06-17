@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\Models\{HasLocation, HasPublishDate, HasSlug};
+use App\Traits\Models\{HasLocation, HasPublishDate, HasSelections, HasSlug};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

@@ -9,9 +9,9 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('floors', function (Blueprint $table) {
-            $table->id();
-            $table->integer('number');
-            $table->foreignIdFor(Building::class);
+            $table->id()->index();
+            $table->integer('number')->index();
+            $table->foreignIdFor(Building::class)->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

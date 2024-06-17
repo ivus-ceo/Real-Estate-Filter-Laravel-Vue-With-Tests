@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use App\Models\Developer;
 use App\Models\District;
 use App\Models\Street;
@@ -22,6 +23,7 @@ class BuildingFactory extends Factory
         return [
             'name' => $this->faker->streetName,
             'developer_id' => $this->faker->numberBetween(Developer::min('id'), Developer::max('id')),
+            'street_id' => $this->faker->numberBetween(Street::min('id'), Street::max('id')),
             'published_at' => now(),
         ];
     }

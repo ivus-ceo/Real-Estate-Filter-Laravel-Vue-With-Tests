@@ -9,9 +9,9 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('lines', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignIdFor(Metro::class);
+            $table->id()->index();
+            $table->string('name')->index();
+            $table->foreignIdFor(Metro::class)->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

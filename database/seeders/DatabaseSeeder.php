@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use DB;
 use Illuminate\Database\Seeder;
 use App\Models\{Country, Region, User};
 use Illuminate\Support\Facades\File;
@@ -20,6 +21,8 @@ class DatabaseSeeder extends Seeder
             'password' => '1234567890'
         ]);
 
+        DB::disableQueryLog();
+
         // Locations seeders
         $this->call(CountrySeeder::class);
         $this->call(RegionSeeder::class);
@@ -33,5 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FloorSeeder::class);
         $this->call(FinishingSeeder::class);
         $this->call(RoomSeeder::class);
+
+        // Create selection based on countries
+        $this->call(SelectionSeeder::class);
     }
 }

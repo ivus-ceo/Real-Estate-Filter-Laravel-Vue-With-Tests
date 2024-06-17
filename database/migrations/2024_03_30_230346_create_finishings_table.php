@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('finishings', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->string('name')->index();
             $table->timestamps();
         });
